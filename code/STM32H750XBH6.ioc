@@ -1,6 +1,6 @@
 #MicroXplorer Configuration settings - do not modify
-CAD.formats=
-CAD.pinconfig=
+CAD.formats=[]
+CAD.pinconfig=Dual
 CAD.provider=
 CORTEX_M7.AccessPermission-Cortex_Memory_Protection_Unit_Region0_Settings=MPU_REGION_FULL_ACCESS
 CORTEX_M7.BaseAddress-Cortex_Memory_Protection_Unit_Region0_Settings=0xC0000000
@@ -500,7 +500,7 @@ ProjectManager.AskForMigrate=true
 ProjectManager.BackupPrevious=false
 ProjectManager.CompilerOptimize=6
 ProjectManager.ComputerToolchain=false
-ProjectManager.CoupleFile=false
+ProjectManager.CoupleFile=true
 ProjectManager.CustomerFirmwarePackage=
 ProjectManager.DefaultFWLocation=true
 ProjectManager.DeletePrevious=true
@@ -526,7 +526,7 @@ ProjectManager.ToolChainLocation=
 ProjectManager.UAScriptAfterPath=
 ProjectManager.UAScriptBeforePath=
 ProjectManager.UnderRoot=false
-ProjectManager.functionlistsort=1-SystemClock_Config-RCC-false-HAL-false,2-MX_GPIO_Init-GPIO-false-HAL-true,3-MX_USART1_UART_Init-USART1-false-HAL-true,4-MX_FMC_Init-FMC-false-HAL-true,5-MX_DMA2D_Init-DMA2D-false-HAL-true,6-MX_LTDC_Init-LTDC-false-HAL-true,7-MX_DCMI_Init-DCMI-false-HAL-true,8-MX_QUADSPI_Init-QUADSPI-false-HAL-true,9-MX_RTC_Init-RTC-false-HAL-true,10-MX_SDMMC1_SD_Init-SDMMC1-false-HAL-true,11-MX_SPI5_Init-SPI5-false-HAL-true,12-MX_USART2_UART_Init-USART2-false-HAL-true,0-MX_CORTEX_M7_Init-CORTEX_M7-false-HAL-true
+ProjectManager.functionlistsort=1-SystemClock_Config-RCC-false-HAL-false,2-MX_GPIO_Init-GPIO-false-HAL-true,3-MX_USART1_UART_Init-USART1-false-HAL-true,4-MX_FMC_Init-FMC-false-HAL-true,5-MX_DMA2D_Init-DMA2D-false-HAL-true,6-MX_LTDC_Init-LTDC-false-HAL-true,7-MX_DCMI_Init-DCMI-false-HAL-true,8-MX_QUADSPI_Init-QUADSPI-false-HAL-true,9-MX_RTC_Init-RTC-false-HAL-true,10-MX_SDMMC1_SD_Init-SDMMC1-false-HAL-true,11-MX_SPI5_Init-SPI5-false-HAL-true,0-MX_CORTEX_M7_Init-CORTEX_M7-false-HAL-true
 QUADSPI.ClockMode=QSPI_CLOCK_MODE_3
 QUADSPI.ClockPrescaler=1
 QUADSPI.FifoThreshold=32
