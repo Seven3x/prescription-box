@@ -8,7 +8,7 @@ Copyright (C) 2023 ARM Ltd and ARM Germany GmbH. All rights reserved.
 License Information: 73x 73x, 73x, LIC=----
  
 Tool Versions:
-Toolchain:       MDK-Lite  Version: 5.39.0.0
+Toolchain:       MDK-ARM Professional  Version: 5.39.0.0
 Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
 C Compiler:      Armcc.exe V5.06 update 7 (build 960)
 Assembler:       Armasm.exe V5.06 update 7 (build 960)
@@ -27,16 +27,14 @@ Project File Date:  06/12/2024
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'EXT_Flash_SPI'
-compiling main.c...
-../Core/Src/main.c(130): warning:  #223-D: function "printf" declared implicitly
-      printf("Hello World\n");
-../Core/Src/main.c(60): warning:  #177-D: function "MPU_Initialize"  was declared but never referenced
-  static void MPU_Initialize(void);
-../Core/Src/main.c: 2 warnings, 0 errors
+compiling freertos.c...
+../Core/Src/freertos.c(148): warning:  #177-D: variable "i"  was declared but never referenced
+  	char i;
+../Core/Src/freertos.c: 1 warning, 0 errors
 linking...
-Program Size: Code=21064 RO-data=752 RW-data=32 ZI-data=9040  
+Program Size: Code=40632 RO-data=944 RW-data=1228 ZI-data=41228  
 FromELF: creating hex file...
-"STM32H750XBH6\STM32H750XBH6.axf" - 0 Error(s), 2 Warning(s).
+"STM32H750XBH6\STM32H750XBH6.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
