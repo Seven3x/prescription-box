@@ -1,15 +1,19 @@
 #include "sdcard.h"
+#define FF_MAX_SS 4096
+char SDPath[4];	
+FATFS 	SD_FatFs; 		// 文件系统对象
+FRESULT 	MyFile_Res;    // 操作结果 
+/**************************************************************************************************/
 
-FRESULT MyFile_Res;			// 文件操作结果
 //	函数：FatFs_Check
 //	功能：进行FatFs文件系统的挂载
 //
 void FatFs_Check(void)	//判断FatFs是否挂载成功，若没有创建FatFs则格式化SD卡
 {
 	BYTE work[FF_MAX_SS]; 
-	printf("start\n\r");
-	// FATFS_LinkDriver(&SD_Driver, SDPath);		// 初始化驱动
-	MyFile_Res = f_mount(&SDFatFS,"0:",1);	//	挂载SD卡
+	
+	FATFS_LinkDriver(&SD_Driver, SDPath);		// 初始化驱动
+	MyFile_Res = f_mount(&SD_FatFs,"0:",1);	//	挂载SD卡
 	
 	if (MyFile_Res == FR_OK)	//判断是否挂载成功
 	{
@@ -120,4 +124,5 @@ uint8_t  FatFs_FileTest(void)	//文件创建和写入测试
 	f_close(&MyFile);	  //关闭文件	
 	return SUCCESS;
 }
+
 

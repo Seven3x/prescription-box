@@ -26,15 +26,19 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "usart.h"
-#include "sdcard.h"
+#include "sdmmc_sd.h"
 #include "stdio.h"
 #include "string.h"
+#include "ff.h"
+#include "sd_diskio.h"
+#include "sdcard.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 char test_buf[1024] = {"0000\r\n"};
 UINT br,bw;			//读写变量
+
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -140,44 +144,15 @@ void MX_FREERTOS_Init(void) {
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
-  unsigned char buffer[2048];
-  // osDelay(10000);
-  /* Infinite loop */
-	uint32_t time=0;
-	uint32_t time2=0;
-	char i;
-  osDelay(10);
-  printf("SDPath: %s\n\r", SDPath);
-  printf("size of FATFS: %d\n\r", sizeof(FATFS));
-  printf("size of dir: %d\n\r", sizeof(DIR));
-  retSD = f_mount(&SDFatFS,"0:",1);		
-  if (retSD == FR_OK)	//判断是否挂载成功
-	{
-		printf("\r\nSD文件系统挂载成功\r\n");
-	}
-	while(retSD)
-	{
-    printf("mount sd failed, error code:%d\n\r", retSD);
-    f_mkfs("0:",FM_FAT32,2048,buffer,2048);  
-		osDelay(500);
-    retSD = f_mount(&SDFatFS,"0:",1);
-	}
-  printf("mount sd success, retSD:%d\n\r", retSD);
-
+  // FatFs_Check();			//判断FatFs是否挂载成功，若没有创建FatFs则格式化SD卡
+  // FatFs_GetVolume();	// 计算设备容量
+  // FatFs_FileTest();		//文件创建和写入测试
   /* Infinite loop */
   for(;;)
   {
 	  
-	 
-	 
-	retSD = f_open(&SDFile, "time.txt", FA_CREATE_ALWAYS | FA_WRITE | FA_READ);
-	f_lseek(&SDFile,time2*5);
-	retSD = f_write(&SDFile,&test_buf,strlen(test_buf),&bw) ;
+    
 
-	retSD = f_close(&SDFile);
-
-	time2++;	
-	osDelay(1000);
 	}
   /* USER CODE END StartDefaultTask */
 }

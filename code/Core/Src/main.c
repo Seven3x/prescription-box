@@ -21,7 +21,6 @@
 #include "cmsis_os.h"
 #include "dcmi.h"
 #include "dma2d.h"
-#include "fatfs.h"
 #include "ltdc.h"
 #include "quadspi.h"
 #include "rtc.h"
@@ -34,8 +33,10 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "usart.h"
-#include "sdcard.h"
-/* USER CODE END Includes */
+#include "sdmmc_sd.h"
+#include "ff.h"
+#include "ff_gen_drv.h"
+#include "sd_diskio.h"/* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
@@ -115,10 +116,9 @@ int main(void)
   MX_DCMI_Init();
   // MX_QUADSPI_Init();
   MX_RTC_Init();
-  MX_SDMMC1_SD_Init();
+  // MX_SDMMC1_SD_Init();
   MX_SPI5_Init();
   MX_USART1_UART_Init();
-  MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
   /* USER CODE END 2 */
 

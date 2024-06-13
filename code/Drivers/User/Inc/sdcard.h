@@ -1,16 +1,12 @@
 #ifndef __SDCARD_H
 #define __SDCARD_H
 
-#include "main.h"
-// #include "sdcard.h"
+#include "sdmmc_sd.h"
 #include "ff.h"
-#include "usart.h"
-//#include "sdmmc_sd.h"
-#include "fatfs.h"
 #include "ff_gen_drv.h"
 #include "sd_diskio.h"
+#include "stdio.h"
 
-#define FF_MAX_SS 4096
 
 void FatFs_Check(void);				// 判断FatFs是否挂载成功，若没有创建FatFs则格式化SD卡
 void FatFs_GetVolume(void);		// 计算设备容量
