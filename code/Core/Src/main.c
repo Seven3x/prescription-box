@@ -22,9 +22,7 @@
 #include "dcmi.h"
 #include "dma2d.h"
 #include "ltdc.h"
-#include "quadspi.h"
 #include "rtc.h"
-#include "sdmmc.h"
 #include "spi.h"
 #include "usart.h"
 #include "gpio.h"
@@ -115,11 +113,10 @@ int main(void)
   MX_DMA2D_Init();
   MX_LTDC_Init();
   MX_DCMI_Init();
-  // MX_QUADSPI_Init();
   MX_RTC_Init();
-  // MX_SDMMC1_SD_Init();
   MX_SPI5_Init();
   MX_USART1_UART_Init();
+  MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   /* USER CODE END 2 */
 

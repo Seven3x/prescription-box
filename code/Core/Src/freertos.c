@@ -69,12 +69,17 @@ const osThreadAttr_t ledtoggle_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
-/* Definitions for print */
-osThreadId_t printHandle;
-const osThreadAttr_t print_attributes = {
-  .name = "print",
+/* Definitions for printmsgu2 */
+osThreadId_t printmsgu2Handle;
+const osThreadAttr_t printmsgu2_attributes = {
+  .name = "printmsgu2",
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow,
+};
+/* Definitions for usart2_rx_flag */
+osSemaphoreId_t usart2_rx_flagHandle;
+const osSemaphoreAttr_t usart2_rx_flag_attributes = {
+  .name = "usart2_rx_flag"
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -102,6 +107,10 @@ void MX_FREERTOS_Init(void) {
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
 
+  /* Create the semaphores(s) */
+  /* creation of usart2_rx_flag */
+  usart2_rx_flagHandle = osSemaphoreNew(1, 1, &usart2_rx_flag_attributes);
+
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
@@ -121,8 +130,8 @@ void MX_FREERTOS_Init(void) {
   /* creation of ledtoggle */
   ledtoggleHandle = osThreadNew(StartTask02, NULL, &ledtoggle_attributes);
 
-  /* creation of print */
-  printHandle = osThreadNew(StartTask03, NULL, &print_attributes);
+  /* creation of printmsgu2 */
+  printmsgu2Handle = osThreadNew(StartTask03, NULL, &printmsgu2_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
