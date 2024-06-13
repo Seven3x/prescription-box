@@ -62,17 +62,17 @@ const osThreadAttr_t defaultTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
-/* Definitions for printmsg */
-osThreadId_t printmsgHandle;
-const osThreadAttr_t printmsg_attributes = {
-  .name = "printmsg",
+/* Definitions for ledtoggle */
+osThreadId_t ledtoggleHandle;
+const osThreadAttr_t ledtoggle_attributes = {
+  .name = "ledtoggle",
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
-/* Definitions for led_toggle */
-osThreadId_t led_toggleHandle;
-const osThreadAttr_t led_toggle_attributes = {
-  .name = "led_toggle",
+/* Definitions for print */
+osThreadId_t printHandle;
+const osThreadAttr_t print_attributes = {
+  .name = "print",
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
@@ -118,11 +118,11 @@ void MX_FREERTOS_Init(void) {
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
-  /* creation of printmsg */
-  printmsgHandle = osThreadNew(StartTask02, NULL, &printmsg_attributes);
+  /* creation of ledtoggle */
+  ledtoggleHandle = osThreadNew(StartTask02, NULL, &ledtoggle_attributes);
 
-  /* creation of led_toggle */
-  led_toggleHandle = osThreadNew(StartTask03, NULL, &led_toggle_attributes);
+  /* creation of print */
+  printHandle = osThreadNew(StartTask03, NULL, &print_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -144,22 +144,20 @@ void MX_FREERTOS_Init(void) {
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
-  // FatFs_Check();			//判断FatFs是否挂载成功，若没有创建FatFs则格式化SD卡
-  // FatFs_GetVolume();	// 计算设备容量
+  FatFs_Check();			//判断FatFs是否挂载成功，若没有创建FatFs则格式化SD卡
+  FatFs_GetVolume();	// 计算设备容量
   // FatFs_FileTest();		//文件创建和写入测试
   /* Infinite loop */
   for(;;)
   {
-	  
-    
-
-	}
+    osDelay(1);
+  }
   /* USER CODE END StartDefaultTask */
 }
 
 /* USER CODE BEGIN Header_StartTask02 */
 /**
-* @brief Function implementing the printmsg thread.
+* @brief Function implementing the ledtoggle thread.
 * @param argument: Not used
 * @retval None
 */
@@ -179,7 +177,7 @@ void StartTask02(void *argument)
 
 /* USER CODE BEGIN Header_StartTask03 */
 /**
-* @brief Function implementing the led_toggle thread.
+* @brief Function implementing the print thread.
 * @param argument: Not used
 * @retval None
 */
