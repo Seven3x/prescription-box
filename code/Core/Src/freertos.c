@@ -148,7 +148,13 @@ void StartDefaultTask(void *argument)
 	char i;
   osDelay(10);
   printf("SDPath: %s\n\r", SDPath);
+  printf("size of FATFS: %d\n\r", sizeof(FATFS));
+  printf("size of dir: %d\n\r", sizeof(DIR));
   retSD = f_mount(&SDFatFS,"0:",1);		
+  if (retSD == FR_OK)	//判断是否挂载成功
+	{
+		printf("\r\nSD文件系统挂载成功\r\n");
+	}
 	while(retSD)
 	{
     printf("mount sd failed, error code:%d\n\r", retSD);
@@ -162,14 +168,7 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
 	  
-	  time = time2;
-	  test_buf[3] = time%10+'0';
-	  time /= 10;
-	  test_buf[2] = time%10+'0';
-	  time /= 10;
-	  test_buf[1] = time%10+'0';
-	  time /= 10;
-	  test_buf[0] = time%10+'0';
+	 
 	 
 	retSD = f_open(&SDFile, "time.txt", FA_CREATE_ALWAYS | FA_WRITE | FA_READ);
 	f_lseek(&SDFile,time2*5);
@@ -178,7 +177,7 @@ void StartDefaultTask(void *argument)
 	retSD = f_close(&SDFile);
 
 	time2++;	
-	osDelay(100);
+	osDelay(1000);
 	}
   /* USER CODE END StartDefaultTask */
 }

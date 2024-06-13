@@ -3,6 +3,8 @@
         "fatfs.h": "c",
         "sdcard.h": "c",
         "sd_diskio.h": "c",
-        "ff_gen_drv.h": "c"
+        "ff_gen_drv.h": "c",
+        "diskio.h": "c",
+        "ff.h": "c"
     }
 }

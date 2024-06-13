@@ -113,7 +113,7 @@ int main(void)
   MX_DMA2D_Init();
   MX_LTDC_Init();
   MX_DCMI_Init();
-  MX_QUADSPI_Init();
+  // MX_QUADSPI_Init();
   MX_RTC_Init();
   MX_SDMMC1_SD_Init();
   MX_SPI5_Init();

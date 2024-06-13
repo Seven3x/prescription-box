@@ -21,6 +21,7 @@
 #include "ff.h"			/* Declarations of FatFs API */
 #include "diskio.h"		/* Declarations of device I/O functions */
 
+#include "stdio.h"
 
 /*--------------------------------------------------------------------------
 
@@ -2968,8 +2969,10 @@ BYTE check_fs (	/* 0:FAT, 1:exFAT, 2:Valid BS but not FAT, 3:Not a BS, 4:Disk er
 )
 {
 	fs->wflag = 0; fs->winsect = 0xFFFFFFFF;		/* Invaidate window */
+	printf("check_fs: try move_window\n\r");
 	if (move_window(fs, sect) != FR_OK) return 4;	/* Load boot record */
 
+	printf("check_fs: try ld_word\n\r");
 	if (ld_word(fs->win + BS_55AA) != 0xAA55) return 3;	/* Check boot record signature (always placed here even if the sector size is >512) */
 
 	if (fs->win[BS_JmpBoot] == 0xE9 || (fs->win[BS_JmpBoot] == 0xEB && fs->win[BS_JmpBoot + 2] == 0x90)) {
@@ -3047,7 +3050,9 @@ FRESULT find_volume (	/* FR_OK(0): successful, !=0: any error occurred */
 
 	/* Find an FAT partition on the drive. Supports only generic partitioning rules, FDISK and SFD. */
 	bsect = 0;
+	printf("try check fs\n\r");
 	fmt = check_fs(fs, bsect);			/* Load sector 0 and check if it is an FAT-VBR as SFD */
+	printf("done check fs\n\r");
 	if (fmt == 2 || (fmt < 2 && LD2PT(vol) != 0)) {	/* Not an FAT-VBR or forced partition number */
 		for (i = 0; i < 4; i++) {		/* Get partition offset */
 			pt = fs->win + (MBR_Table + i * SZ_PTE);
@@ -3285,17 +3290,22 @@ FRESULT f_mount (
 	}
 
 	if (fs) {
+		printf("enter if fs \r\n");
 		fs->fs_type = 0;				/* Clear new fs object */
 #if _FS_REENTRANT						/* Create sync object for the new volume */
 		if (!ff_cre_syncobj((BYTE)vol, &fs->sobj)) return FR_INT_ERR;
+		printf("done ff_cre_syncobj\n\r");
 #endif
 	}
 	FatFs[vol] = fs;					/* Register new fs object */
 
 	if (!fs || opt != 1) return FR_OK;	/* Do not mount now, it will be mounted later */
 
+	printf("try find volum\n\r");
 	res = find_volume(&path, &fs, 0);	/* Force mounted the volume */
+	printf("done find volume\n\r");
 	LEAVE_FF(fs, res);
+
 }
 
 
