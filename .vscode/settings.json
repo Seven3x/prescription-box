@@ -5,6 +5,7 @@
         "sd_diskio.h": "c",
         "ff_gen_drv.h": "c",
         "diskio.h": "c",
-        "ff.h": "c"
+        "ff.h": "c",
+        "usart.h": "c"
     }
 }

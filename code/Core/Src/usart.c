@@ -22,6 +22,11 @@
 
 /* USER CODE BEGIN 0 */
 #include "stdio.h"
+
+uint8_t RxBuffer[MAX_REC_LENGTH] = {0};		//串口数据存储BUFF		长度2048
+uint16_t RxCounter = 0;						//串口长度计数
+uint8_t RxFlag = 0;							//串口接收完成标志符
+uint8_t RxTemp[REC_LENGTH] = {0};			//串口数据接收暂存BUFF	长度1
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;
@@ -269,6 +274,23 @@ int fgetc(FILE *f)
 	HAL_UART_Receive(&huart1, (uint8_t *)&ret, 1, 100);
  
 	return ret;
+}
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)//串口3接收完成回调函数
+{
+	if(huart->Instance == USART2)
+	{
+    if (RxCounter < REC_LENGTH)
+		{
+      RxBuffer[RxCounter] = RxTemp[0];							//缓存数据放入接收数组
+      RxCounter++;												//计数器加1
+    }
+    else {
+      RxCounter = 0;
+    }
+    HAL_UART_Transmit(&huart1, (uint8_t *)RxTemp, REC_LENGTH, 100);
+    HAL_UART_Receive_IT(&huart2,(uint8_t *)RxTemp, REC_LENGTH);	//重新使能中断
+	}
 }
 
 /* USER CODE END 1 */

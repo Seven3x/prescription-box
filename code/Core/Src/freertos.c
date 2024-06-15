@@ -155,6 +155,10 @@ void StartDefaultTask(void *argument)
   /* USER CODE BEGIN StartDefaultTask */
   FatFs_Check();			//判断FatFs是否挂载成功，若没有创建FatFs则格式化SD卡
   FatFs_GetVolume();	// 计算设备容量
+  
+
+  HAL_UART_Receive_IT(&huart2,(uint8_t *)RxTemp, REC_LENGTH);	//重新使能中断
+
   // FatFs_FileTest();		//文件创建和写入测试
   /* Infinite loop */
   for(;;)
@@ -174,11 +178,23 @@ void StartDefaultTask(void *argument)
 void StartTask02(void *argument)
 {
   /* USER CODE BEGIN StartTask02 */
+  uint8_t msg[] = "gpgga 1\r\n";
+
+  osDelay(3000);
+  printf("try gpgga com1 1\n\r");
+  // HAL_UART_Transmit(&huart2,(uint8_t *)"unlogall\r\n", 11, 0xFFFF);
+  // HAL_UART_Transmit(&huart2,(uint8_t *)"mode base time 60 1.5 2.5\r\n", 11, 0xFFFF);
+  // HAL_UART_Transmit(&huart2,(uint8_t *)"config 115200\r\n", 21, 0xFFFF);
+  HAL_UART_Transmit(&huart2,msg, sizeof(msg), 0xFFFF);
+  HAL_UART_Transmit(&huart2,msg, sizeof(msg), 0xFFFF);
+  HAL_UART_Transmit(&huart2,msg, sizeof(msg), 0xFFFF);
+  HAL_UART_Transmit(&huart2,msg, sizeof(msg), 0xFFFF);
   /* Infinite loop */
+
   for(;;)
   {
     // HAL_Delay(1000);
-    printf("Hello World\n");
+    
     osDelay(500);
   }
   /* USER CODE END StartTask02 */
