@@ -6,6 +6,9 @@
         "ff_gen_drv.h": "c",
         "diskio.h": "c",
         "ff.h": "c",
-        "usart.h": "c"
+        "usart.h": "c",
+        "freertos.h": "c",
+        "freertos_os2.h": "c",
+        "gps.h": "c"
     }
 }

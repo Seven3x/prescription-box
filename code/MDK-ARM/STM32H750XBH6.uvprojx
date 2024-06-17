@@ -1378,6 +1378,11 @@
               <FileType>1</FileType>
               <FilePath>..\Drivers\User\Src\sdcard.c</FilePath>
             </File>
+            <File>
+              <FileName>gps.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\User\Src\gps.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2844,6 +2849,11 @@
               <FileName>sdcard.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Drivers\User\Src\sdcard.c</FilePath>
+            </File>
+            <File>
+              <FileName>gps.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\User\Src\gps.c</FilePath>
             </File>
           </Files>
         </Group>

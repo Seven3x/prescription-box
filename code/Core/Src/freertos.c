@@ -25,6 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "gps.h"
 #include "usart.h"
 #include "sdmmc_sd.h"
 #include "stdio.h"
@@ -35,6 +36,7 @@
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
+typedef StaticQueue_t osStaticMessageQDef_t;
 /* USER CODE BEGIN PTD */
 char test_buf[1024] = {"0000\r\n"};
 UINT br,bw;			//读写变量
@@ -76,10 +78,16 @@ const osThreadAttr_t printmsgu2_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
-/* Definitions for usart2_rx_flag */
-osSemaphoreId_t usart2_rx_flagHandle;
-const osSemaphoreAttr_t usart2_rx_flag_attributes = {
-  .name = "usart2_rx_flag"
+/* Definitions for gpshuart_flagq */
+osMessageQueueId_t gpshuart_flagqHandle;
+uint8_t gpshuart_msgqBuffer[ 8 * sizeof( uint8_t ) ];
+osStaticMessageQDef_t gpshuart_msgqControlBlock;
+const osMessageQueueAttr_t gpshuart_flagq_attributes = {
+  .name = "gpshuart_flagq",
+  .cb_mem = &gpshuart_msgqControlBlock,
+  .cb_size = sizeof(gpshuart_msgqControlBlock),
+  .mq_mem = &gpshuart_msgqBuffer,
+  .mq_size = sizeof(gpshuart_msgqBuffer)
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -107,10 +115,6 @@ void MX_FREERTOS_Init(void) {
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
 
-  /* Create the semaphores(s) */
-  /* creation of usart2_rx_flag */
-  usart2_rx_flagHandle = osSemaphoreNew(1, 1, &usart2_rx_flag_attributes);
-
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
@@ -118,6 +122,10 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
+
+  /* Create the queue(s) */
+  /* creation of gpshuart_flagq */
+  gpshuart_flagqHandle = osMessageQueueNew (8, sizeof(uint8_t), &gpshuart_flagq_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
@@ -178,24 +186,16 @@ void StartDefaultTask(void *argument)
 void StartTask02(void *argument)
 {
   /* USER CODE BEGIN StartTask02 */
-  uint8_t msg[] = "gpgga 1\r\n";
 
-  osDelay(3000);
-  printf("try gpgga com1 1\n\r");
-  // HAL_UART_Transmit(&huart2,(uint8_t *)"unlogall\r\n", 11, 0xFFFF);
-  // HAL_UART_Transmit(&huart2,(uint8_t *)"mode base time 60 1.5 2.5\r\n", 11, 0xFFFF);
-  // HAL_UART_Transmit(&huart2,(uint8_t *)"config 115200\r\n", 21, 0xFFFF);
-  HAL_UART_Transmit(&huart2,msg, sizeof(msg), 0xFFFF);
-  HAL_UART_Transmit(&huart2,msg, sizeof(msg), 0xFFFF);
-  HAL_UART_Transmit(&huart2,msg, sizeof(msg), 0xFFFF);
-  HAL_UART_Transmit(&huart2,msg, sizeof(msg), 0xFFFF);
   /* Infinite loop */
 
   for(;;)
   {
     // HAL_Delay(1000);
-    
+      HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+
     osDelay(500);
+    // osDelay(500);
   }
   /* USER CODE END StartTask02 */
 }
@@ -210,12 +210,28 @@ void StartTask02(void *argument)
 void StartTask03(void *argument)
 {
   /* USER CODE BEGIN StartTask03 */
+  uint8_t msg[] = "gpgga 2\r\n";
+  static uint8_t pgpsh_flag;
+  static GPS_msgTypeDef GPSH_msgStructure;
+
+  osDelay(3000);
+  printf("try %s\n\r", msg);
+  // HAL_UART_Transmit(&huart2,(uint8_t *)"unlogall\r\n", 11, 0xFFFF);
+  // HAL_UART_Transmit(&huart2,(uint8_t *)"mode base time 60 1.5 2.5\r\n", 11, 0xFFFF);
+  // HAL_UART_Transmit(&huart2,(uint8_t *)"config 115200\r\n", 21, 0xFFFF);
+  HAL_UART_Transmit(&huart2,msg, sizeof(msg), 0xFFFF);
+  HAL_UART_Transmit(&huart2,msg, sizeof(msg), 0xFFFF);
+  HAL_UART_Transmit(&huart2,msg, sizeof(msg), 0xFFFF);
+  HAL_UART_Transmit(&huart2,msg, sizeof(msg), 0xFFFF);
   /* Infinite loop */
   for(;;)
   {
-    HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-
-    osDelay(500);
+    if (osOK == osMessageQueueGet(gpshuart_flagqHandle, &pgpsh_flag, 0U, 0)) {
+      // printf("msg:%s\r\n", RxBuffer);
+      GPSH_msgStructure = read_msg(RxBuffer);
+      printmsg(GPSH_msgStructure);
+    }
+    // osDelay(500);
   }
   /* USER CODE END StartTask03 */
 }

@@ -51,6 +51,7 @@
 "stm32h750xbh6\system_stm32h7xx.o"
 "stm32h750xbh6\sdmmc_sd.o"
 "stm32h750xbh6\sdcard.o"
+"stm32h750xbh6\gps.o"
 "stm32h750xbh6\diskio.o"
 "stm32h750xbh6\ff.o"
 "stm32h750xbh6\ff_gen_drv.o"

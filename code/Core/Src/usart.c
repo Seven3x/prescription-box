@@ -22,10 +22,15 @@
 
 /* USER CODE BEGIN 0 */
 #include "stdio.h"
+#include "FreeRTOS.h"
+#include "freertos_os2.h"
+#include "cmsis_os2.h"
 
+
+extern osMessageQueueId_t gpshuart_flagqHandle;
 uint8_t RxBuffer[MAX_REC_LENGTH] = {0};		//串口数据存储BUFF		长度2048
-uint16_t RxCounter = 0;						//串口长度计数
-uint8_t RxFlag = 0;							//串口接收完成标志符
+uint16_t RxCounter = 0;						    //串口长度计数
+uint8_t RxFlag = 0;							      //串口接收完成标志符
 uint8_t RxTemp[REC_LENGTH] = {0};			//串口数据接收暂存BUFF	长度1
 /* USER CODE END 0 */
 
@@ -278,9 +283,23 @@ int fgetc(FILE *f)
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)//串口3接收完成回调函数
 {
+  static uint8_t complete_flag = 1;
+  static uint8_t RxFlag = 0;
+
 	if(huart->Instance == USART2)
 	{
-    if (RxCounter < REC_LENGTH)
+    // HAL_UART_Transmit(&huart1, (uint8_t *)RxTemp, REC_LENGTH, 100);
+    if (RxTemp[0] == '$') { //如果接收到数据头
+      // printf("head received \r\n");
+      if (complete_flag == 0) { //如果是首次数据头
+        RxCounter = 0; //计数器清零
+        complete_flag = 1;
+      } else { //如果已经接收到过一次数据头且数据没结束
+        complete_flag = 0; //重新开始接收
+      }
+    } 
+
+    if (complete_flag == 1)
 		{
       RxBuffer[RxCounter] = RxTemp[0];							//缓存数据放入接收数组
       RxCounter++;												//计数器加1
@@ -288,7 +307,16 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)//串口3接收完成回�
     else {
       RxCounter = 0;
     }
-    HAL_UART_Transmit(&huart1, (uint8_t *)RxTemp, REC_LENGTH, 100);
+
+    if (RxTemp[0] == '*' && complete_flag == 1) { //如果接收到数据尾
+      // printf("end received \r\n");
+      complete_flag = 0; //重新开始接收
+      RxBuffer[RxCounter] = '\0'; //添加字符串结束符
+      RxCounter = 0; //计数器清零
+      osMessageQueuePut(gpshuart_flagqHandle, &RxFlag, 0U, 0U); //将接收到的数据发送到队列
+
+    }
+
     HAL_UART_Receive_IT(&huart2,(uint8_t *)RxTemp, REC_LENGTH);	//重新使能中断
 	}
 }
