@@ -1,9 +1,9 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file    usart.h
-  * @brief   This file contains all the function prototypes for
-  *          the usart.c file
+  * File Name          : FMC.h
+  * Description        : This file provides code for the configuration
+  *                      of the FMC peripheral.
   ******************************************************************************
   * @attention
   *
@@ -18,36 +18,28 @@
   */
 /* USER CODE END Header */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __USART_H__
-#define __USART_H__
-
+#ifndef __FMC_H
+#define __FMC_H
 #ifdef __cplusplus
-extern "C" {
+ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
-#include "stdio.h"
-#define MAX_REC_LENGTH 2048
-#define REC_LENGTH 1
-extern uint8_t RxBuffer[MAX_REC_LENGTH];		//串口数据存储BUFF		长度2048
-extern uint16_t RxCounter;						//串口长度计数
-extern uint8_t RxFlag;							//串口接收完成标志符
-extern uint8_t RxTemp[REC_LENGTH];			//串口数据接收暂存BUFF	长度1
+
 /* USER CODE END Includes */
 
-extern UART_HandleTypeDef huart1;
-
-extern UART_HandleTypeDef huart2;
+extern SDRAM_HandleTypeDef hsdram1;
 
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
 
-void MX_USART1_UART_Init(void);
-void MX_USART2_UART_Init(void);
+void MX_FMC_Init(void);
+void HAL_SDRAM_MspInit(SDRAM_HandleTypeDef* hsdram);
+void HAL_SDRAM_MspDeInit(SDRAM_HandleTypeDef* hsdram);
 
 /* USER CODE BEGIN Prototypes */
 
@@ -56,6 +48,12 @@ void MX_USART2_UART_Init(void);
 #ifdef __cplusplus
 }
 #endif
+#endif /*__FMC_H */
 
-#endif /* __USART_H__ */
+/**
+  * @}
+  */
 
+/**
+  * @}
+  */

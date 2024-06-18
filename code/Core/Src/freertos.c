@@ -41,7 +41,8 @@
 #include "lvgl.h"
 #include "lv_port_disp_template.h"
 #include "lv_port_indev_template.h"
-#include "lv_demo_benchmark.h"
+#include "lv_demo_widgets.h"
+#include "gui.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -183,13 +184,11 @@ void StartDefaultTask(void *argument)
   /* USER CODE BEGIN StartDefaultTask */
   FatFs_Check();			//判断FatFs是否挂载成功，若没有创建FatFs则格式化SD卡
   FatFs_GetVolume();	// 计算设备容量
+  osDelay(1000);
   
-
-  
-  
-  printf("main task*: lvgl benchmark\r\n");
-	lv_demo_benchmark();   // 运行官方例程 lv_demo_benchmark ，进行基准性能测试
-
+  printf("main task*: run my gui\r\n");
+	// lv_demo_benchmark();   // 运行官方例程 lv_demo_benchmark ，进行基准性能测试
+  my_gui();
   printf("main task*: uart2 start receive\r\n");
   // 开始gps数据收发
   HAL_UART_Receive_IT(&huart2,(uint8_t *)RxTemp, REC_LENGTH);	//重新使能中断
@@ -199,8 +198,14 @@ void StartDefaultTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1000);
-    printf("main task*: osDelay(1000)\r\n");
+    // osDelay(1);
+    // printf("main task*: lv_task_handler\r\n");
+    lv_task_handler();
+    // printf("main task*: Touch_Scan\r\n");
+    Touch_Scan();
+    // printf("main task*: vTaskDelay 1000\r\n");
+    vTaskDelay(pdMS_TO_TICKS(100));
+    // printf("main task*: osDelay(1000)\r\n");
     // HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
   }
   /* USER CODE END StartDefaultTask */
@@ -224,6 +229,7 @@ void StartTask02(void *argument)
     // HAL_Delay(1000);
     HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 
+    printf("led task*: TogglePin\r\n");
     osDelay(500);
     // osDelay(500);
   }
@@ -276,16 +282,28 @@ void StartTask03(void *argument)
 void lvgl_task_handler(void *argument)
 {
   /* USER CODE BEGIN lvgl_task_handler */
+  TickType_t xLastWakeTime;
+	const TickType_t xPeriod = pdMS_TO_TICKS( 200);
+	
+
   osDelay(2000);
+  // printf("lvgl task*: lvgl benchmark\r\n");
+	// lv_demo_benchmark();   // 运行官方例程 lv_demo_benchmark ，进行基准性能测试
+	// 使用当前时间初始化变量xLastWakeTime ,注意这和vTaskDelay()函数不同 
+	// xLastWakeTime = xTaskGetTickCount();  
+  osDelay(500);
+
   /* Infinite loop */
   for(;;)
   {
-    printf("lvgl task*: lv_task_handler\r\n");
-    lv_task_handler();
-    printf("lvgl task*: Touch_Scan\r\n");
-    Touch_Scan();
-    printf("lvgl task*: vTaskDelay 1000\r\n");
-    vTaskDelay(pdMS_TO_TICKS(1000));
+  osDelay(100);
+    // vTaskDelayUntil( &xLastWakeTime,xPeriod );
+    // printf("lvgl task*: lv_task_handler\r\n");
+    // lv_task_handler();
+    // printf("lvgl task*: Touch_Scan\r\n");
+    // Touch_Scan();
+    // printf("lvgl task*: vTaskDelay 1000\r\n");
+    // vTaskDelay(pdMS_TO_TICKS(20));
   }
   /* USER CODE END lvgl_task_handler */
 }

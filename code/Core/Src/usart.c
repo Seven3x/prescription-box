@@ -28,10 +28,10 @@
 
 
 extern osMessageQueueId_t gpshuart_flagqHandle;
-uint8_t RxBuffer[MAX_REC_LENGTH] = {0};		//ä¸²å£æ•°æ®å­˜å‚¨BUFF		é•¿åº¦2048
-uint16_t RxCounter = 0;						    //ä¸²å£é•¿åº¦è®¡æ•°
-uint8_t RxFlag = 0;							      //ä¸²å£æ¥æ”¶å®Œæˆæ ‡å¿—ç¬¦
-uint8_t RxTemp[REC_LENGTH] = {0};			//ä¸²å£æ•°æ®æ¥æ”¶æš‚å­˜BUFF	é•¿åº¦1
+uint8_t RxBuffer[MAX_REC_LENGTH] = {0};		//´®¿ÚÊı¾İ´æ´¢BUFF		³¤¶È2048
+uint16_t RxCounter = 0;						    //´®¿Ú³¤¶È¼ÆÊı
+uint8_t RxFlag = 0;							      //´®¿Ú½ÓÊÕÍê³É±êÖ¾·û
+uint8_t RxTemp[REC_LENGTH] = {0};			//´®¿ÚÊı¾İ½ÓÊÕÔİ´æBUFF	³¤¶È1
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;
@@ -250,10 +250,10 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 /* USER CODE BEGIN 1 */
 /*
 *********************************************************************************************************
-*	å‡½ æ•° å: fputc
-*	åŠŸèƒ½è¯´æ˜: é‡å®šä¹‰putcå‡½æ•°ï¼Œè¿™æ ·å¯ä»¥ä½¿ç”¨printfå‡½æ•°ä»ä¸²å£1æ‰“å°è¾“å‡º
-*	å½¢    å‚: æ— 
-*	è¿” å› å€¼: æ— 
+*	º¯ Êı Ãû: fputc
+*	¹¦ÄÜËµÃ÷: ÖØ¶¨Òåputcº¯Êı£¬ÕâÑù¿ÉÒÔÊ¹ÓÃprintfº¯Êı´Ó´®¿Ú1´òÓ¡Êä³ö
+*	ĞÎ    ²Î: ÎŞ
+*	·µ »Ø Öµ: ÎŞ
 *********************************************************************************************************
 */
 int fputc(int ch, FILE *f)
@@ -266,10 +266,10 @@ int fputc(int ch, FILE *f)
 
 /*
 *********************************************************************************************************
-*	å‡½ æ•° å: fgetc
-*	åŠŸèƒ½è¯´æ˜: é‡å®šä¹‰getcå‡½æ•°ï¼Œè¿™æ ·å¯ä»¥ä½¿ç”¨scanffå‡½æ•°ä»ä¸²å£1è¾“å…¥æ•°æ®
-*	å½¢    å‚: æ— 
-*	è¿” å› å€¼: æ— 
+*	º¯ Êı Ãû: fgetc
+*	¹¦ÄÜËµÃ÷: ÖØ¶¨Òågetcº¯Êı£¬ÕâÑù¿ÉÒÔÊ¹ÓÃscanffº¯Êı´Ó´®¿Ú1ÊäÈëÊı¾İ
+*	ĞÎ    ²Î: ÎŞ
+*	·µ »Ø Öµ: ÎŞ
 *********************************************************************************************************
 */
 int fgetc(FILE *f)
@@ -281,7 +281,7 @@ int fgetc(FILE *f)
 	return ret;
 }
 
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)//ä¸²å£3æ¥æ”¶å®Œæˆå›è°ƒå‡½æ•°
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)//´®¿Ú3½ÓÊÕÍê³É»Øµ÷º¯Êı
 {
   static uint8_t complete_flag = 1;
   static uint8_t RxFlag = 0;
@@ -289,35 +289,35 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)//ä¸²å£3æ¥æ”¶å®Œæˆå›è
 	if(huart->Instance == USART2)
 	{
     // HAL_UART_Transmit(&huart1, (uint8_t *)RxTemp, REC_LENGTH, 100);
-    if (RxTemp[0] == '$') { //å¦‚æœæ¥æ”¶åˆ°æ•°æ®å¤´
+    if (RxTemp[0] == '$') { //Èç¹û½ÓÊÕµ½Êı¾İÍ·
       // printf("head received \r\n");
-      if (complete_flag == 0) { //å¦‚æœæ˜¯é¦–æ¬¡æ•°æ®å¤´
-        RxCounter = 0; //è®¡æ•°å™¨æ¸…é›¶
+      if (complete_flag == 0) { //Èç¹ûÊÇÊ×´ÎÊı¾İÍ·
+        RxCounter = 0; //¼ÆÊıÆ÷ÇåÁã
         complete_flag = 1;
-      } else { //å¦‚æœå·²ç»æ¥æ”¶åˆ°è¿‡ä¸€æ¬¡æ•°æ®å¤´ä¸”æ•°æ®æ²¡ç»“æŸ
-        complete_flag = 0; //é‡æ–°å¼€å§‹æ¥æ”¶
+      } else { //Èç¹ûÒÑ¾­½ÓÊÕµ½¹ıÒ»´ÎÊı¾İÍ·ÇÒÊı¾İÃ»½áÊø
+        complete_flag = 0; //ÖØĞÂ¿ªÊ¼½ÓÊÕ
       }
     } 
 
     if (complete_flag == 1)
 		{
-      RxBuffer[RxCounter] = RxTemp[0];							//ç¼“å­˜æ•°æ®æ”¾å…¥æ¥æ”¶æ•°ç»„
-      RxCounter++;												//è®¡æ•°å™¨åŠ 1
+      RxBuffer[RxCounter] = RxTemp[0];							//»º´æÊı¾İ·ÅÈë½ÓÊÕÊı×é
+      RxCounter++;												//¼ÆÊıÆ÷¼Ó1
     }
     else {
       RxCounter = 0;
     }
 
-    if (RxTemp[0] == '*' && complete_flag == 1) { //å¦‚æœæ¥æ”¶åˆ°æ•°æ®å°¾
+    if (RxTemp[0] == '*' && complete_flag == 1) { //Èç¹û½ÓÊÕµ½Êı¾İÎ²
       // printf("end received \r\n");
-      complete_flag = 0; //é‡æ–°å¼€å§‹æ¥æ”¶
-      RxBuffer[RxCounter] = '\0'; //æ·»åŠ å­—ç¬¦ä¸²ç»“æŸç¬¦
-      RxCounter = 0; //è®¡æ•°å™¨æ¸…é›¶
-      osMessageQueuePut(gpshuart_flagqHandle, &RxFlag, 0U, 0U); //å°†æ¥æ”¶åˆ°çš„æ•°æ®å‘é€åˆ°é˜Ÿåˆ—
+      complete_flag = 0; //ÖØĞÂ¿ªÊ¼½ÓÊÕ
+      RxBuffer[RxCounter] = '\0'; //Ìí¼Ó×Ö·û´®½áÊø·û
+      RxCounter = 0; //¼ÆÊıÆ÷ÇåÁã
+      osMessageQueuePut(gpshuart_flagqHandle, &RxFlag, 0U, 0U); //½«½ÓÊÕµ½µÄÊı¾İ·¢ËÍµ½¶ÓÁĞ
 
     }
 
-    HAL_UART_Receive_IT(&huart2,(uint8_t *)RxTemp, REC_LENGTH);	//é‡æ–°ä½¿èƒ½ä¸­æ–­
+    HAL_UART_Receive_IT(&huart2,(uint8_t *)RxTemp, REC_LENGTH);	//ÖØĞÂÊ¹ÄÜÖĞ¶Ï
 	}
 }
 

@@ -30,13 +30,17 @@ Build target 'EXT_Flash_SPI'
 compiling freertos.c...
 ..\LVGL\src/extra/others/ime/lv_ime_pinyin.h(144): warning:  #1-D: last line of file ends without a newline
   #endif /*LV_USE_IME_PINYIN*/
-../Core/Src/freertos.c(261): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
+../Core/Src/freertos.c(267): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
         GPSH_msgStructure = read_msg(RxBuffer);
-../Core/Src/freertos.c: 2 warnings, 0 errors
+../Core/Src/freertos.c(285): warning:  #177-D: variable "xLastWakeTime"  was declared but never referenced
+    TickType_t xLastWakeTime;
+../Core/Src/freertos.c(286): warning:  #177-D: variable "xPeriod"  was declared but never referenced
+  	const TickType_t xPeriod = pdMS_TO_TICKS( 200);
+../Core/Src/freertos.c: 4 warnings, 0 errors
 linking...
-Program Size: Code=210928 RO-data=105796 RW-data=2716 ZI-data=40908  
+Program Size: Code=208296 RO-data=289964 RW-data=860 ZI-data=76892  
 FromELF: creating hex file...
-"STM32H750XBH6\STM32H750XBH6.axf" - 0 Error(s), 2 Warning(s).
+"STM32H750XBH6\STM32H750XBH6.axf" - 0 Error(s), 4 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -50,7 +54,7 @@ Package Vendor: Keil
   C:/Users/Seven3x/AppData/Local/Arm/Packs/Keil/STM32H7xx_DFP/3.1.1/Drivers/CMSIS/Device/ST/STM32H7xx/Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:11
+Build Time Elapsed:  00:00:10
 </pre>
 </body>
 </html>

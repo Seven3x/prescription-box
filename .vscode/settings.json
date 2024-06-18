@@ -11,7 +11,8 @@
         "freertos_os2.h": "c",
         "gps.h": "c",
         "lv_port_disp_template.h": "c",
-        "sdram.h": "c"
+        "sdram.h": "c",
+        "lv_demo_widgets.h": "c"
     },
     "files.encoding": "gb2312"
 }

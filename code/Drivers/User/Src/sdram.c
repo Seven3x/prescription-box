@@ -22,7 +22,7 @@
 
 #include "sdram.h"   
 
-SDRAM_HandleTypeDef hsdram1;			// SDRAM_HandleTypeDef 结构体变量
+extern SDRAM_HandleTypeDef hsdram1;			// SDRAM_HandleTypeDef 结构体变量
 FMC_SDRAM_CommandTypeDef command;	// 控制指令
 
 
@@ -124,7 +124,7 @@ static void HAL_FMC_MspInit(void)
 *	说    明:	无		
 *************************************************************************************************/
 
-void HAL_SDRAM_MspInit(SDRAM_HandleTypeDef* hsdram)
+void HAL_SDRAM_MspInit1(SDRAM_HandleTypeDef* hsdram)
 {
 	HAL_FMC_MspInit();
 }
@@ -193,7 +193,7 @@ void SDRAM_Initialization_Sequence(SDRAM_HandleTypeDef *hsdram, FMC_SDRAM_Comman
 *	说    明: 初始化FMC和SDRAM配置
 *******************************************************************************************************/
 
-void MX_FMC_Init(void)
+void MX_FMC_Init1(void)
 {
 	FMC_SDRAM_TimingTypeDef SdramTiming = {0};
 

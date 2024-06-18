@@ -25,6 +25,7 @@
 #include "spi.h"
 #include "usart.h"
 #include "gpio.h"
+#include "fmc.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -116,6 +117,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_FMC_Init();
   MX_DMA2D_Init();
   MX_DCMI_Init();
   MX_RTC_Init();
@@ -124,7 +126,7 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   printf("main*: init fmc\r\n");
-  MX_FMC_Init();
+  // MX_FMC_Init();
   printf("main*: init ltdc\r\n");
   MX_LTDC_Init1();
   printf("main*: init done\r\n");
@@ -134,10 +136,15 @@ int main(void)
 
   printf("main*: lvgl init\r\n");
 	lv_init();					//	LVGL初始化
+
   printf("main*: lvgl disp init\r\n");
 	lv_port_disp_init();		//	LVGL显示接口初始化
+
   printf("main*: lvgl port indev init\r\n");
 	lv_port_indev_init();	// LVGL触摸接口初始化		
+  
+  printf("main*: all inited\r\n");
+
   /* USER CODE END 2 */
 
   /* Init scheduler */

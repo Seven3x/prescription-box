@@ -24,6 +24,7 @@
 
 /*--------------------------------------- 函数声明 -------------------------------------*/
 
-void	MX_FMC_Init(void);			// SDRAM初始化
+void	MX_FMC_Init1(void);			// SDRAM初始化
+void SDRAM_Initialization_Sequence(SDRAM_HandleTypeDef *hsdram, FMC_SDRAM_CommandTypeDef *Command);
 
 #endif 

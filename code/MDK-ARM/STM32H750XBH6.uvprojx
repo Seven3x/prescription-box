@@ -624,6 +624,62 @@
               </FileOption>
             </File>
             <File>
+              <FileName>fmc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Core/Src/fmc.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>1</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <uGnu>2</uGnu>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>0</v6LangP>
+                    <vShortEn>2</vShortEn>
+                    <vShortWch>2</vShortWch>
+                    <v6Lto>2</v6Lto>
+                    <v6WtE>2</v6WtE>
+                    <v6Rtti>2</v6Rtti>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
+            </File>
+            <File>
               <FileName>ltdc.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/ltdc.c</FilePath>
@@ -957,6 +1013,16 @@
               <FileName>touch_iic.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Drivers\User\Src\touch_iic.c</FilePath>
+            </File>
+            <File>
+              <FileName>gui.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\User\Src\gui.c</FilePath>
+            </File>
+            <File>
+              <FileName>img1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\User\Src\img1.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2727,11 +2793,6 @@
               <FilePath>..\LVGL\src\font\lv_font_montserrat_48.c</FilePath>
             </File>
             <File>
-              <FileName>lv_font_simsun_16_cjk.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LVGL\src\font\lv_font_simsun_16_cjk.c</FilePath>
-            </File>
-            <File>
               <FileName>lv_font_unscii_8.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LVGL\src\font\lv_font_unscii_8.c</FilePath>
@@ -2946,6 +3007,21 @@
               <FileType>1</FileType>
               <FilePath>..\LVGL\src\widgets\lv_textarea.c</FilePath>
             </File>
+            <File>
+              <FileName>lv_font_siyuan_micro1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\LVGL\src\font\lv_font_siyuan_micro1.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_siyuan_micro.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\LVGL\src\font\lv_font_siyuan_micro.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_siyuan_small.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\LVGL\src\font\lv_font_siyuan_small.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3000,6 +3076,26 @@
               <FileName>lv_font_bechmark_montserrat_28_compr_az.c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LVGL\demos\benchmark\assets\lv_font_bechmark_montserrat_28_compr_az.c.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_demo_widgets.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\LVGL\demos\widgets\lv_demo_widgets.c</FilePath>
+            </File>
+            <File>
+              <FileName>img_clothes.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\LVGL\demos\widgets\assets\img_clothes.c</FilePath>
+            </File>
+            <File>
+              <FileName>img_demo_widgets_avatar.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\LVGL\demos\widgets\assets\img_demo_widgets_avatar.c</FilePath>
+            </File>
+            <File>
+              <FileName>img_lvgl_logo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\LVGL\demos\widgets\assets\img_lvgl_logo.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3229,7 +3325,7 @@
             <Ra2Chk>0</Ra2Chk>
             <Ra3Chk>0</Ra3Chk>
             <Im1Chk>1</Im1Chk>
-            <Im2Chk>1</Im2Chk>
+            <Im2Chk>0</Im2Chk>
             <OnChipMemories>
               <Ocm1>
                 <Type>0</Type>
@@ -3319,7 +3415,7 @@
               <OCR_RVCT9>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x20000</Size>
+                <Size>0x100000</Size>
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
@@ -3357,7 +3453,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32H750xx,EXT_Flash_SPI,NDEBUG</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;..\Drivers\User\Inc;..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2;..\Middlewares\Third_Party\FreeRTOS\Source\include;..\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F;..\FatFs;..\LVGL;..\LVGL\src;..\LVGL\src\core;..\LVGL\src\draw;..\LVGL\src\draw\arm2d;..\LVGL\src\draw\nxp\pxp;..\LVGL\src\draw\nxp\vglite;..\LVGL\src\draw\nxp;..\LVGL\src\draw\sdl;..\LVGL\src\draw\stm32_dma2d;..\LVGL\src\draw\sw;..\LVGL\src\draw\swm341_dma2d;..\LVGL\src\extra;..\LVGL\src\extra\layouts\flex;..\LVGL\src\extra\layouts\grid;..\LVGL\src\extra\layouts;..\LVGL\src\extra\libs;..\LVGL\src\extra\libs\bmp;..\LVGL\src\extra\libs\ffmpeg;..\LVGL\src\extra\libs\freetype;..\LVGL\src\extra\libs\fsdrv;..\LVGL\src\extra\libs\gif;..\LVGL\src\extra\libs\png;..\LVGL\src\extra\libs\qrcode;..\LVGL\src\extra\libs\rlottie;..\LVGL\src\extra\libs\sjpg;..\LVGL\src\extra\others;..\LVGL\src\extra\others\fragment;..\LVGL\src\extra\others\gridnav;..\LVGL\src\extra\others\ime;..\LVGL\src\extra\others\imgfont;..\LVGL\src\extra\others\monkey;..\LVGL\src\extra\others\msg;..\LVGL\src\extra\others\snapshot;..\LVGL\src\extra\themes;..\LVGL\src\extra\themes\basic;..\LVGL\src\extra\themes\default;..\LVGL\src\extra\themes\mono;..\LVGL\src\extra\widgets;..\LVGL\src\extra\widgets\animimg;..\LVGL\src\extra\widgets\calendar;..\LVGL\src\extra\widgets\chart;..\LVGL\src\extra\widgets\colorwheel;..\LVGL\src\extra\widgets\imgbtn;..\LVGL\src\extra\widgets\keyboard;..\LVGL\src\extra\widgets\led;..\LVGL\src\extra\widgets\list;..\LVGL\src\extra\widgets\menu;..\LVGL\src\extra\widgets\meter;..\LVGL\src\extra\widgets\msgbox;..\LVGL\src\extra\widgets\span;..\LVGL\src\extra\widgets\spinbox;..\LVGL\src\extra\widgets\spinner;..\LVGL\src\extra\widgets\tabview;..\LVGL\src\extra\widgets\tileview;..\LVGL\src\extra\widgets\win;..\LVGL\src\font;..\LVGL\src\hal;..\LVGL\src\misc;..\LVGL\src\widgets;..\LVGL\examples\porting;..\LVGL\demos;..\LVGL\demos\benchmark</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;..\Drivers\User\Inc;..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2;..\Middlewares\Third_Party\FreeRTOS\Source\include;..\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F;..\FatFs;..\LVGL;..\LVGL\src;..\LVGL\src\core;..\LVGL\src\draw;..\LVGL\src\draw\arm2d;..\LVGL\src\draw\nxp\pxp;..\LVGL\src\draw\nxp\vglite;..\LVGL\src\draw\nxp;..\LVGL\src\draw\sdl;..\LVGL\src\draw\stm32_dma2d;..\LVGL\src\draw\sw;..\LVGL\src\draw\swm341_dma2d;..\LVGL\src\extra;..\LVGL\src\extra\layouts\flex;..\LVGL\src\extra\layouts\grid;..\LVGL\src\extra\layouts;..\LVGL\src\extra\libs;..\LVGL\src\extra\libs\bmp;..\LVGL\src\extra\libs\ffmpeg;..\LVGL\src\extra\libs\freetype;..\LVGL\src\extra\libs\fsdrv;..\LVGL\src\extra\libs\gif;..\LVGL\src\extra\libs\png;..\LVGL\src\extra\libs\qrcode;..\LVGL\src\extra\libs\rlottie;..\LVGL\src\extra\libs\sjpg;..\LVGL\src\extra\others;..\LVGL\src\extra\others\fragment;..\LVGL\src\extra\others\gridnav;..\LVGL\src\extra\others\ime;..\LVGL\src\extra\others\imgfont;..\LVGL\src\extra\others\monkey;..\LVGL\src\extra\others\msg;..\LVGL\src\extra\others\snapshot;..\LVGL\src\extra\themes;..\LVGL\src\extra\themes\basic;..\LVGL\src\extra\themes\default;..\LVGL\src\extra\themes\mono;..\LVGL\src\extra\widgets;..\LVGL\src\extra\widgets\animimg;..\LVGL\src\extra\widgets\calendar;..\LVGL\src\extra\widgets\chart;..\LVGL\src\extra\widgets\colorwheel;..\LVGL\src\extra\widgets\imgbtn;..\LVGL\src\extra\widgets\keyboard;..\LVGL\src\extra\widgets\led;..\LVGL\src\extra\widgets\list;..\LVGL\src\extra\widgets\menu;..\LVGL\src\extra\widgets\meter;..\LVGL\src\extra\widgets\msgbox;..\LVGL\src\extra\widgets\span;..\LVGL\src\extra\widgets\spinbox;..\LVGL\src\extra\widgets\spinner;..\LVGL\src\extra\widgets\tabview;..\LVGL\src\extra\widgets\tileview;..\LVGL\src\extra\widgets\win;..\LVGL\src\font;..\LVGL\src\hal;..\LVGL\src\misc;..\LVGL\src\widgets;..\LVGL\examples\porting;..\LVGL\demos;..\LVGL\demos\benchmark;..\LVGL\demos\widgets</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -3435,6 +3531,11 @@
               <FileName>dma2d.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/dma2d.c</FilePath>
+            </File>
+            <File>
+              <FileName>fmc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Core/Src/fmc.c</FilePath>
             </File>
             <File>
               <FileName>ltdc.c</FileName>
@@ -3515,6 +3616,16 @@
               <FileName>touch_iic.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Drivers\User\Src\touch_iic.c</FilePath>
+            </File>
+            <File>
+              <FileName>gui.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\User\Src\gui.c</FilePath>
+            </File>
+            <File>
+              <FileName>img1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\User\Src\img1.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4640,11 +4751,6 @@
               <FilePath>..\LVGL\src\font\lv_font_montserrat_48.c</FilePath>
             </File>
             <File>
-              <FileName>lv_font_simsun_16_cjk.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\LVGL\src\font\lv_font_simsun_16_cjk.c</FilePath>
-            </File>
-            <File>
               <FileName>lv_font_unscii_8.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LVGL\src\font\lv_font_unscii_8.c</FilePath>
@@ -4859,6 +4965,21 @@
               <FileType>1</FileType>
               <FilePath>..\LVGL\src\widgets\lv_textarea.c</FilePath>
             </File>
+            <File>
+              <FileName>lv_font_siyuan_micro1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\LVGL\src\font\lv_font_siyuan_micro1.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_siyuan_micro.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\LVGL\src\font\lv_font_siyuan_micro.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_font_siyuan_small.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\LVGL\src\font\lv_font_siyuan_small.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4913,6 +5034,26 @@
               <FileName>lv_font_bechmark_montserrat_28_compr_az.c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\LVGL\demos\benchmark\assets\lv_font_bechmark_montserrat_28_compr_az.c.c</FilePath>
+            </File>
+            <File>
+              <FileName>lv_demo_widgets.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\LVGL\demos\widgets\lv_demo_widgets.c</FilePath>
+            </File>
+            <File>
+              <FileName>img_clothes.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\LVGL\demos\widgets\assets\img_clothes.c</FilePath>
+            </File>
+            <File>
+              <FileName>img_demo_widgets_avatar.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\LVGL\demos\widgets\assets\img_demo_widgets_avatar.c</FilePath>
+            </File>
+            <File>
+              <FileName>img_lvgl_logo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\LVGL\demos\widgets\assets\img_lvgl_logo.c</FilePath>
             </File>
           </Files>
         </Group>

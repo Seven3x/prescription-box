@@ -706,7 +706,7 @@ static void benchmark_init(void)
 void lv_demo_benchmark(void)
 {
     benchmark_init();
-
+    printf("lv_demo*: benchmark init done\r\n");
     /*Manually start scenes*/
     scene_next_task_cb(NULL);
 }
