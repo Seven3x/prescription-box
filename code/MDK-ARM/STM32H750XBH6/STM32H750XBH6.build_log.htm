@@ -3,7 +3,7 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: ÂµVision V5.39.0.0
+IDE-Version: ¦ÌVision V5.39.0.0
 Copyright (C) 2023 ARM Ltd and ARM Germany GmbH. All rights reserved.
 License Information: 73x 73x, 73x, LIC=9N0AE-5L62V-68BFC-7BAX3-T95MM-7TG9J
  
@@ -22,25 +22,21 @@ Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
 C:\Doc\Projects\prescription-box\code\MDK-ARM\STM32H750XBH6.uvprojx
-Project File Date:  06/17/2024
+Project File Date:  06/18/2024
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'EXT_Flash_SPI'
-compiling gps.c...
-..\Drivers\User\Src\gps.c(59): warning:  #181-D: argument is incompatible with corresponding format string conversion
-      printf("lat:%llf\r\n", msg.latd);
-..\Drivers\User\Src\gps.c(61): warning:  #181-D: argument is incompatible with corresponding format string conversion
-      printf("lon:%llf\r\n", msg.lond);
-..\Drivers\User\Src\gps.c: 2 warnings, 0 errors
 compiling freertos.c...
-../Core/Src/freertos.c(231): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
+..\LVGL\src/extra/others/ime/lv_ime_pinyin.h(144): warning:  #1-D: last line of file ends without a newline
+  #endif /*LV_USE_IME_PINYIN*/
+../Core/Src/freertos.c(261): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
         GPSH_msgStructure = read_msg(RxBuffer);
-../Core/Src/freertos.c: 1 warning, 0 errors
+../Core/Src/freertos.c: 2 warnings, 0 errors
 linking...
-Program Size: Code=46844 RO-data=1176 RW-data=224 ZI-data=39376  
+Program Size: Code=210928 RO-data=105796 RW-data=2716 ZI-data=40908  
 FromELF: creating hex file...
-"STM32H750XBH6\STM32H750XBH6.axf" - 0 Error(s), 3 Warning(s).
+"STM32H750XBH6\STM32H750XBH6.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -54,7 +50,7 @@ Package Vendor: Keil
   C:/Users/Seven3x/AppData/Local/Arm/Packs/Keil/STM32H7xx_DFP/3.1.1/Drivers/CMSIS/Device/ST/STM32H7xx/Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:10
+Build Time Elapsed:  00:00:11
 </pre>
 </body>
 </html>

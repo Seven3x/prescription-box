@@ -9,6 +9,9 @@
         "usart.h": "c",
         "freertos.h": "c",
         "freertos_os2.h": "c",
-        "gps.h": "c"
-    }
+        "gps.h": "c",
+        "lv_port_disp_template.h": "c",
+        "sdram.h": "c"
+    },
+    "files.encoding": "gb2312"
 }

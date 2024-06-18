@@ -21,7 +21,7 @@
 #include "ltdc.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "lcd_rgb.h"
 /* USER CODE END 0 */
 
 LTDC_HandleTypeDef hltdc;
@@ -31,6 +31,7 @@ void MX_LTDC_Init(void)
 {
 
   /* USER CODE BEGIN LTDC_Init 0 */
+	// __HAL_RCC_DMA2D_CLK_ENABLE();					// 使能DMA2D时钟
 
   /* USER CODE END LTDC_Init 0 */
 
@@ -79,12 +80,78 @@ void MX_LTDC_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN LTDC_Init 2 */
+#if ( ( ColorMode_0 == LTDC_PIXEL_FORMAT_RGB888 )||( ColorMode_0 == LTDC_PIXEL_FORMAT_ARGB8888 ) ) // 判断是否使用24位或者32位色
 
+// 因为750每个通道的低位都是采用伪随机抖动输出，如果不开启颜色抖动，则无法正常显示24位或者32位色
+
+	HAL_LTDC_EnableDither(&hltdc); // 开启颜色抖动
+	
+#endif
+
+
+/*---------------------------------- layer1 显示配置 --------------------------------*/
+
+#if ( LCD_NUM_LAYERS == 2 )	//如果定义了双层
+  
+	LTDC_LayerCfgTypeDef pLayerCfg1 = {0};
+  
+	pLayerCfg1.WindowX0 				= 0;							// 水平起点
+	pLayerCfg1.WindowX1 				= LCD_Width;				// 水平终点
+	pLayerCfg1.WindowY0 				= 0;							// 垂直起点
+	pLayerCfg1.WindowY1 				= LCD_Height;				// 垂直终点
+	pLayerCfg1.ImageWidth 			= LCD_Width;         	// 显示区域宽度
+	pLayerCfg1.ImageHeight 			= LCD_Height;        	// 显示区域高度		
+	pLayerCfg1.PixelFormat 			= ColorMode_1;				// 颜色格式，layer1 应配置为带有透明色的格式，例如ARGB8888或ARGB1555
+
+// 配置 layer1 的恒定透明度，最终写入 LTDC_LxCACR 寄存器 
+//	需要注意的是，这个参数是直接配置整个 layer1 的透明度，这里设置为255即不透明 
+	pLayerCfg1.Alpha 					= 255;			// 取值范围0~255，255表示不透明，0表示完全透明
+	
+// 设置 layer1 的层混合系数，最终写入 LTDC_LxBFCR 寄存器 
+// 该参数用于设置 layer1 和 (layer0+背景）之间的颜色混合系数，计算公式为 ：
+// 混合后的颜色 =  BF1 * layer1的颜色 + BF2 * (layer0+背景混合后的颜色）
+// 如果 layer1 使用了透明色，则必须配置成 LTDC_BLENDING_FACTOR1_PAxCA 和 LTDC_BLENDING_FACTOR2_PAxCA，否则ARGB中的A通道不起作用
+//	更多的介绍可以查阅 参考手册关于 LTDC_LxBFCR 寄存器的介绍
+	pLayerCfg1.BlendingFactor1 	= LTDC_BLENDING_FACTOR1_PAxCA;			// 混合系数1
+	pLayerCfg1.BlendingFactor2 	= LTDC_BLENDING_FACTOR2_PAxCA;      	// 混合系数2
+	
+	pLayerCfg1.FBStartAdress 		= LCD_MemoryAdd + LCD_MemoryAdd_OFFSET; // 显存地址
+	
+
+// 配置layer1 的初始默认颜色，包括A,R,G,B 的值 ，最终写入 LTDC_LxDCCR 寄存器 
+	pLayerCfg1.Alpha0 				= 0;				// 初始颜色，A
+	pLayerCfg1.Backcolor.Red 		= 0;				//	初始颜色，R
+	pLayerCfg1.Backcolor.Green 	= 0;           //	初始颜色，G
+	pLayerCfg1.Backcolor.Blue 		= 0;           //	初始颜色，B 
+	
+	HAL_LTDC_ConfigLayer(&hltdc, &pLayerCfg1, 1);	// 初始化 layer1 的配置
+
+	#if ( ( ColorMode_1 == LTDC_PIXEL_FORMAT_RGB888 )||( ColorMode_1 == LTDC_PIXEL_FORMAT_ARGB8888 ) ) // 判断是否使用24位或者32位色
+
+	// 因为750每个通道的低位都是采用伪随机抖动输出，如果不开启颜色抖动，则无法正常显示24位或者32位色
+	
+		HAL_LTDC_EnableDither(&hltdc); // 开启颜色抖动
+		
+	#endif
+
+#endif
+
+	HAL_LTDC_ProgramLineEvent(&hltdc, 0 );			// 设置行中断，第0行
+	HAL_NVIC_SetPriority(LTDC_IRQn, 0xE, 0);		// 设置优先级
+	HAL_NVIC_EnableIRQ(LTDC_IRQn);					// 使能中断
+
+// LTDC在初始化之后，上电的瞬间会有一个短暂的白屏，
+//	即使一开始就将背光引脚拉低并且屏幕背光引脚用电阻下拉还是会有这个现象，
+//	如果需要消除这个现象，可以在初始化完毕之后，进行一个短暂的延时再打开背光
+//
+//	HAL_Delay(200);	// 延时200ms
+
+	LCD_Backlight_ON;							// 开启背光	
   /* USER CODE END LTDC_Init 2 */
 
 }
 
-void HAL_LTDC_MspInit(LTDC_HandleTypeDef* ltdcHandle)
+void HAL_LTDC_MspInit1(LTDC_HandleTypeDef* ltdcHandle)
 {
 
   GPIO_InitTypeDef GPIO_InitStruct = {0};

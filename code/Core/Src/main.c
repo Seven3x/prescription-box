@@ -21,12 +21,10 @@
 #include "cmsis_os.h"
 #include "dcmi.h"
 #include "dma2d.h"
-#include "ltdc.h"
 #include "rtc.h"
 #include "spi.h"
 #include "usart.h"
 #include "gpio.h"
-#include "fmc.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -35,6 +33,14 @@
 #include "ff.h"
 #include "ff_gen_drv.h"
 #include "sd_diskio.h"
+#include "sdram.h"  
+#include "lcd_rgb.h"
+#include "lcd_pwm.h"
+#include "touch_800x480.h"
+#include "lvgl.h"
+#include "lv_port_disp_template.h"
+#include "lv_port_indev_template.h"
+#include "lv_demo_benchmark.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -104,20 +110,34 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
+  // MX_FMC_Init();
 
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_FMC_Init();
   MX_DMA2D_Init();
-  MX_LTDC_Init();
   MX_DCMI_Init();
   MX_RTC_Init();
   MX_SPI5_Init();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+  printf("main*: init fmc\r\n");
+  MX_FMC_Init();
+  printf("main*: init ltdc\r\n");
+  MX_LTDC_Init1();
+  printf("main*: init done\r\n");
+  // lvgl初始化
+  printf("main*: lvgl touch init\r\n");
+	Touch_Init();				// 触摸屏初始化		
+
+  printf("main*: lvgl init\r\n");
+	lv_init();					//	LVGL初始化
+  printf("main*: lvgl disp init\r\n");
+	lv_port_disp_init();		//	LVGL显示接口初始化
+  printf("main*: lvgl port indev init\r\n");
+	lv_port_indev_init();	// LVGL触摸接口初始化		
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -272,6 +292,7 @@ void Error_Handler(void)
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
+  printf("error!\r\n");
   while (1)
   {
   }

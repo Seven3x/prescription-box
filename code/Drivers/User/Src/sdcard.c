@@ -1,127 +1,127 @@
 #include "sdcard.h"
 #define FF_MAX_SS 4096
 char SDPath[4];	
-FATFS 	SD_FatFs; 		// æ–‡ä»¶ç³»ç»Ÿå¯¹è±¡
-FRESULT 	MyFile_Res;    // æ“ä½œç»“æœ 
+FATFS 	SD_FatFs; 		// ÎÄ¼şÏµÍ³¶ÔÏó
+FRESULT 	MyFile_Res;    // ²Ù×÷½á¹û 
 /**************************************************************************************************/
 
-//	å‡½æ•°ï¼šFatFs_Check
-//	åŠŸèƒ½ï¼šè¿›è¡ŒFatFsæ–‡ä»¶ç³»ç»Ÿçš„æŒ‚è½½
+//	º¯Êı£ºFatFs_Check
+//	¹¦ÄÜ£º½øĞĞFatFsÎÄ¼şÏµÍ³µÄ¹ÒÔØ
 //
-void FatFs_Check(void)	//åˆ¤æ–­FatFsæ˜¯å¦æŒ‚è½½æˆåŠŸï¼Œè‹¥æ²¡æœ‰åˆ›å»ºFatFsåˆ™æ ¼å¼åŒ–SDå¡
+void FatFs_Check(void)	//ÅĞ¶ÏFatFsÊÇ·ñ¹ÒÔØ³É¹¦£¬ÈôÃ»ÓĞ´´½¨FatFsÔò¸ñÊ½»¯SD¿¨
 {
 	BYTE work[FF_MAX_SS]; 
 	
-	FATFS_LinkDriver(&SD_Driver, SDPath);		// åˆå§‹åŒ–é©±åŠ¨
-	MyFile_Res = f_mount(&SD_FatFs,"0:",1);	//	æŒ‚è½½SDå¡
+	FATFS_LinkDriver(&SD_Driver, SDPath);		// ³õÊ¼»¯Çı¶¯
+	MyFile_Res = f_mount(&SD_FatFs,"0:",1);	//	¹ÒÔØSD¿¨
 	
-	if (MyFile_Res == FR_OK)	//åˆ¤æ–­æ˜¯å¦æŒ‚è½½æˆåŠŸ
+	if (MyFile_Res == FR_OK)	//ÅĞ¶ÏÊÇ·ñ¹ÒÔØ³É¹¦
 	{
-		printf("\r\nSDæ–‡ä»¶ç³»ç»ŸæŒ‚è½½æˆåŠŸ\r\n");
+		printf("\r\nSDÎÄ¼şÏµÍ³¹ÒÔØ³É¹¦\r\n");
 	}
 	else		
 	{
-		printf("SDå¡è¿˜æœªåˆ›å»ºæ–‡ä»¶ç³»ç»Ÿï¼Œå³å°†æ ¼å¼åŒ–\r\n");
+		printf("SD¿¨»¹Î´´´½¨ÎÄ¼şÏµÍ³£¬¼´½«¸ñÊ½»¯\r\n");
 		
-		MyFile_Res = f_mkfs("0:",FM_FAT32,0,work,sizeof work);		//æ ¼å¼åŒ–SDå¡ï¼ŒFAT32ï¼Œç°‡é»˜è®¤å¤§å°16K
+		MyFile_Res = f_mkfs("0:",FM_FAT32,0,work,sizeof work);		//¸ñÊ½»¯SD¿¨£¬FAT32£¬´ØÄ¬ÈÏ´óĞ¡16K
 		
-		if (MyFile_Res == FR_OK)		//åˆ¤æ–­æ˜¯å¦æ ¼å¼åŒ–æˆåŠŸ
-			printf("SDå¡æ ¼å¼åŒ–æˆåŠŸï¼\r\n");
+		if (MyFile_Res == FR_OK)		//ÅĞ¶ÏÊÇ·ñ¸ñÊ½»¯³É¹¦
+			printf("SD¿¨¸ñÊ½»¯³É¹¦£¡\r\n");
 		else
-			printf("æ ¼å¼åŒ–å¤±è´¥ï¼Œè¯·æ£€æŸ¥æˆ–æ›´æ¢SDå¡ï¼\r\n");
+			printf("¸ñÊ½»¯Ê§°Ü£¬Çë¼ì²é»ò¸ü»»SD¿¨£¡\r\n");
 	}
 }
-//	å‡½æ•°ï¼šFatFs_GetVolume
-//	åŠŸèƒ½ï¼šè®¡ç®—è®¾å¤‡çš„å®¹é‡ï¼ŒåŒ…æ‹¬æ€»å®¹é‡å’Œå‰©ä½™å®¹é‡
+//	º¯Êı£ºFatFs_GetVolume
+//	¹¦ÄÜ£º¼ÆËãÉè±¸µÄÈİÁ¿£¬°üÀ¨×ÜÈİÁ¿ºÍÊ£ÓàÈİÁ¿
 //
-void FatFs_GetVolume(void)	// è®¡ç®—è®¾å¤‡å®¹é‡
+void FatFs_GetVolume(void)	// ¼ÆËãÉè±¸ÈİÁ¿
 {
-	FATFS *fs;		//å®šä¹‰ç»“æ„ä½“æŒ‡é’ˆ
-	uint32_t SD_CardCapacity = 0;		//SDå¡çš„æ€»å®¹é‡
-	uint32_t SD_FreeCapacity = 0;		//SDå¡ç©ºé—²å®¹é‡
-	DWORD fre_clust, fre_sect, tot_sect; 	//ç©ºé—²ç°‡ï¼Œç©ºé—²æ‰‡åŒºæ•°ï¼Œæ€»æ‰‡åŒºæ•°
+	FATFS *fs;		//¶¨Òå½á¹¹ÌåÖ¸Õë
+	uint32_t SD_CardCapacity = 0;		//SD¿¨µÄ×ÜÈİÁ¿
+	uint32_t SD_FreeCapacity = 0;		//SD¿¨¿ÕÏĞÈİÁ¿
+	DWORD fre_clust, fre_sect, tot_sect; 	//¿ÕÏĞ´Ø£¬¿ÕÏĞÉÈÇøÊı£¬×ÜÉÈÇøÊı
 
-	f_getfree("0:",&fre_clust,&fs);			//è·å–SDå¡å‰©ä½™çš„ç°‡
+	f_getfree("0:",&fre_clust,&fs);			//»ñÈ¡SD¿¨Ê£ÓàµÄ´Ø
 
-	tot_sect = (fs->n_fatent-2) * fs->csize;	//æ€»æ‰‡åŒºæ•°é‡ = æ€»çš„ç°‡ * æ¯ä¸ªç°‡åŒ…å«çš„æ‰‡åŒºæ•°
-	fre_sect = fre_clust * fs->csize;			//è®¡ç®—å‰©ä½™çš„å¯ç”¨æ‰‡åŒºæ•°	   
+	tot_sect = (fs->n_fatent-2) * fs->csize;	//×ÜÉÈÇøÊıÁ¿ = ×ÜµÄ´Ø * Ã¿¸ö´Ø°üº¬µÄÉÈÇøÊı
+	fre_sect = fre_clust * fs->csize;			//¼ÆËãÊ£ÓàµÄ¿ÉÓÃÉÈÇøÊı	   
 
-	SD_CardCapacity = tot_sect / 2048 ;	// SDå¡æ€»å®¹é‡ = æ€»æ‰‡åŒºæ•° * 512( æ¯æ‰‡åŒºçš„å­—èŠ‚æ•° ) / 1048576(æ¢ç®—æˆMB)
-	SD_FreeCapacity = fre_sect / 2048 ;	//è®¡ç®—å‰©ä½™çš„å®¹é‡ï¼Œå•ä½ä¸ºM
-	printf("-------------------è·å–è®¾å¤‡å®¹é‡ä¿¡æ¯-----------------\r\n");		
-	printf("SDå®¹é‡ï¼š%dMB\r\n",SD_CardCapacity);	
-	printf("SDå‰©ä½™ï¼š%dMB\r\n",SD_FreeCapacity);
+	SD_CardCapacity = tot_sect / 2048 ;	// SD¿¨×ÜÈİÁ¿ = ×ÜÉÈÇøÊı * 512( Ã¿ÉÈÇøµÄ×Ö½ÚÊı ) / 1048576(»»Ëã³ÉMB)
+	SD_FreeCapacity = fre_sect / 2048 ;	//¼ÆËãÊ£ÓàµÄÈİÁ¿£¬µ¥Î»ÎªM
+	printf("-------------------»ñÈ¡Éè±¸ÈİÁ¿ĞÅÏ¢-----------------\r\n");		
+	printf("SDÈİÁ¿£º%dMB\r\n",SD_CardCapacity);	
+	printf("SDÊ£Óà£º%dMB\r\n",SD_FreeCapacity);
 }
 
-//	å‡½æ•°ï¼šFatFs_FileTest
-//	åŠŸèƒ½ï¼šè¿›è¡Œæ–‡ä»¶å†™å…¥å’Œè¯»å–æµ‹è¯•
+//	º¯Êı£ºFatFs_FileTest
+//	¹¦ÄÜ£º½øĞĞÎÄ¼şĞ´ÈëºÍ¶ÁÈ¡²âÊÔ
 //
-uint8_t  FatFs_FileTest(void)	//æ–‡ä»¶åˆ›å»ºå’Œå†™å…¥æµ‹è¯•
+uint8_t  FatFs_FileTest(void)	//ÎÄ¼ş´´½¨ºÍĞ´Èë²âÊÔ
 {
 	uint8_t i = 0;
 	uint16_t BufferSize = 0;	
-	FIL	MyFile;			// æ–‡ä»¶å¯¹è±¡
-	UINT 	MyFile_Num;		//	æ•°æ®é•¿åº¦
-	BYTE 	MyFile_WriteBuffer[] = "STM32H750 SDå¡ æ–‡ä»¶ç³»ç»Ÿæµ‹è¯•";	//è¦å†™å…¥çš„æ•°æ®
-	BYTE 	MyFile_ReadBuffer[1024];	//è¦è¯»å‡ºçš„æ•°æ®
+	FIL	MyFile;			// ÎÄ¼ş¶ÔÏó
+	UINT 	MyFile_Num;		//	Êı¾İ³¤¶È
+	BYTE 	MyFile_WriteBuffer[] = "STM32H750 SD¿¨ ÎÄ¼şÏµÍ³²âÊÔ";	//ÒªĞ´ÈëµÄÊı¾İ
+	BYTE 	MyFile_ReadBuffer[1024];	//Òª¶Á³öµÄÊı¾İ
 	
-	printf("-------------FatFs æ–‡ä»¶åˆ›å»ºå’Œå†™å…¥æµ‹è¯•---------------\r\n");
+	printf("-------------FatFs ÎÄ¼ş´´½¨ºÍĞ´Èë²âÊÔ---------------\r\n");
 	
-	MyFile_Res = f_open(&MyFile,"0:FatFs Test.txt",FA_CREATE_ALWAYS | FA_WRITE);	//æ‰“å¼€æ–‡ä»¶ï¼Œè‹¥ä¸å­˜åœ¨åˆ™åˆ›å»ºè¯¥æ–‡ä»¶
+	MyFile_Res = f_open(&MyFile,"0:FatFs Test.txt",FA_CREATE_ALWAYS | FA_WRITE);	//´ò¿ªÎÄ¼ş£¬Èô²»´æÔÚÔò´´½¨¸ÃÎÄ¼ş
 	if(MyFile_Res == FR_OK)
 	{
-		printf("æ–‡ä»¶æ‰“å¼€/åˆ›å»ºæˆåŠŸï¼Œå‡†å¤‡å†™å…¥æ•°æ®...\r\n");
+		printf("ÎÄ¼ş´ò¿ª/´´½¨³É¹¦£¬×¼±¸Ğ´ÈëÊı¾İ...\r\n");
 		
-		MyFile_Res = f_write(&MyFile,MyFile_WriteBuffer,sizeof(MyFile_WriteBuffer),&MyFile_Num);	//å‘æ–‡ä»¶å†™å…¥æ•°æ®
+		MyFile_Res = f_write(&MyFile,MyFile_WriteBuffer,sizeof(MyFile_WriteBuffer),&MyFile_Num);	//ÏòÎÄ¼şĞ´ÈëÊı¾İ
 		if (MyFile_Res == FR_OK)	
 		{
-			printf("å†™å…¥æˆåŠŸï¼Œå†™å…¥å†…å®¹ä¸ºï¼š\r\n");
+			printf("Ğ´Èë³É¹¦£¬Ğ´ÈëÄÚÈİÎª£º\r\n");
 			printf("%s\r\n",MyFile_WriteBuffer);
 		}
 		else
 		{
-			printf("æ–‡ä»¶å†™å…¥å¤±è´¥ï¼Œè¯·æ£€æŸ¥SDå¡æˆ–é‡æ–°æ ¼å¼åŒ–!\r\n");
-			f_close(&MyFile);	  //å…³é—­w`æ–‡ä»¶	
+			printf("ÎÄ¼şĞ´ÈëÊ§°Ü£¬Çë¼ì²éSD¿¨»òÖØĞÂ¸ñÊ½»¯!\r\n");
+			f_close(&MyFile);	  //¹Ø±Õw`ÎÄ¼ş	
 			return ERROR;			
 		}
-		f_close(&MyFile);	  //å…³é—­æ–‡ä»¶			
+		f_close(&MyFile);	  //¹Ø±ÕÎÄ¼ş			
 	}
 	else
 	{
-		printf("æ— æ³•æ‰“å¼€/åˆ›å»ºæ–‡ä»¶ï¼Œè¯·æ£€æŸ¥SDå¡æˆ–é‡æ–°æ ¼å¼åŒ–!\r\n");
-		f_close(&MyFile);	  //å…³é—­æ–‡ä»¶	
+		printf("ÎŞ·¨´ò¿ª/´´½¨ÎÄ¼ş£¬Çë¼ì²éSD¿¨»òÖØĞÂ¸ñÊ½»¯!\r\n");
+		f_close(&MyFile);	  //¹Ø±ÕÎÄ¼ş	
 		return ERROR;		
 	}
 	
-	printf("-------------FatFs æ–‡ä»¶è¯»å–æµ‹è¯•---------------\r\n");	
+	printf("-------------FatFs ÎÄ¼ş¶ÁÈ¡²âÊÔ---------------\r\n");	
 	
-	BufferSize = sizeof(MyFile_WriteBuffer)/sizeof(BYTE);									// è®¡ç®—å†™å…¥çš„æ•°æ®é•¿åº¦
-	MyFile_Res = f_open(&MyFile,"0:FatFs Test.txt",FA_OPEN_EXISTING | FA_READ);	//æ‰“å¼€æ–‡ä»¶ï¼Œè‹¥ä¸å­˜åœ¨åˆ™åˆ›å»ºè¯¥æ–‡ä»¶
-	MyFile_Res = f_read(&MyFile,MyFile_ReadBuffer,BufferSize,&MyFile_Num);			// è¯»å–æ–‡ä»¶
+	BufferSize = sizeof(MyFile_WriteBuffer)/sizeof(BYTE);									// ¼ÆËãĞ´ÈëµÄÊı¾İ³¤¶È
+	MyFile_Res = f_open(&MyFile,"0:FatFs Test.txt",FA_OPEN_EXISTING | FA_READ);	//´ò¿ªÎÄ¼ş£¬Èô²»´æÔÚÔò´´½¨¸ÃÎÄ¼ş
+	MyFile_Res = f_read(&MyFile,MyFile_ReadBuffer,BufferSize,&MyFile_Num);			// ¶ÁÈ¡ÎÄ¼ş
 	if(MyFile_Res == FR_OK)
 	{
-		printf("æ–‡ä»¶è¯»å–æˆåŠŸï¼Œæ­£åœ¨æ ¡éªŒæ•°æ®...\r\n");
+		printf("ÎÄ¼ş¶ÁÈ¡³É¹¦£¬ÕıÔÚĞ£ÑéÊı¾İ...\r\n");
 		
 		for(i=0;i<BufferSize;i++)
 		{
-			if(MyFile_WriteBuffer[i] != MyFile_ReadBuffer[i])		// æ ¡éªŒæ•°æ®
+			if(MyFile_WriteBuffer[i] != MyFile_ReadBuffer[i])		// Ğ£ÑéÊı¾İ
 			{
-				printf("æ ¡éªŒå¤±è´¥ï¼Œè¯·æ£€æŸ¥SDå¡æˆ–é‡æ–°æ ¼å¼åŒ–!\r\n");
-				f_close(&MyFile);	  //å…³é—­æ–‡ä»¶	
+				printf("Ğ£ÑéÊ§°Ü£¬Çë¼ì²éSD¿¨»òÖØĞÂ¸ñÊ½»¯!\r\n");
+				f_close(&MyFile);	  //¹Ø±ÕÎÄ¼ş	
 				return ERROR;
 			}
 		}
-		printf("æ ¡éªŒæˆåŠŸï¼Œè¯»å‡ºçš„æ•°æ®ä¸ºï¼š\r\n");
+		printf("Ğ£Ñé³É¹¦£¬¶Á³öµÄÊı¾İÎª£º\r\n");
 		printf("%s\r\n",MyFile_ReadBuffer);
 	}	
 	else
 	{
-		printf("æ— æ³•è¯»å–æ–‡ä»¶ï¼Œè¯·æ£€æŸ¥SDå¡æˆ–é‡æ–°æ ¼å¼åŒ–!\r\n");
-		f_close(&MyFile);	  //å…³é—­æ–‡ä»¶	
+		printf("ÎŞ·¨¶ÁÈ¡ÎÄ¼ş£¬Çë¼ì²éSD¿¨»òÖØĞÂ¸ñÊ½»¯!\r\n");
+		f_close(&MyFile);	  //¹Ø±ÕÎÄ¼ş	
 		return ERROR;		
 	}	
 	
-	f_close(&MyFile);	  //å…³é—­æ–‡ä»¶	
+	f_close(&MyFile);	  //¹Ø±ÕÎÄ¼ş	
 	return SUCCESS;
 }
 

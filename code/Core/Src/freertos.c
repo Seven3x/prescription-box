@@ -33,13 +33,22 @@
 #include "ff.h"
 #include "sd_diskio.h"
 #include "sdcard.h"
+
+#include "sdram.h"  
+#include "lcd_rgb.h"
+#include "lcd_pwm.h"
+#include "touch_800x480.h"
+#include "lvgl.h"
+#include "lv_port_disp_template.h"
+#include "lv_port_indev_template.h"
+#include "lv_demo_benchmark.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 typedef StaticQueue_t osStaticMessageQDef_t;
 /* USER CODE BEGIN PTD */
 char test_buf[1024] = {"0000\r\n"};
-UINT br,bw;			//è¯»å†™å˜é‡
+UINT br,bw;			//¶ÁĞ´±äÁ¿
 
 /* USER CODE END PTD */
 
@@ -78,6 +87,13 @@ const osThreadAttr_t printmsgu2_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
+/* Definitions for lvgl_task */
+osThreadId_t lvgl_taskHandle;
+const osThreadAttr_t lvgl_task_attributes = {
+  .name = "lvgl_task",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityHigh,
+};
 /* Definitions for gpshuart_flagq */
 osMessageQueueId_t gpshuart_flagqHandle;
 uint8_t gpshuart_msgqBuffer[ 8 * sizeof( uint8_t ) ];
@@ -98,6 +114,7 @@ const osMessageQueueAttr_t gpshuart_flagq_attributes = {
 void StartDefaultTask(void *argument);
 void StartTask02(void *argument);
 void StartTask03(void *argument);
+void lvgl_task_handler(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -141,6 +158,9 @@ void MX_FREERTOS_Init(void) {
   /* creation of printmsgu2 */
   printmsgu2Handle = osThreadNew(StartTask03, NULL, &printmsgu2_attributes);
 
+  /* creation of lvgl_task */
+  lvgl_taskHandle = osThreadNew(lvgl_task_handler, NULL, &lvgl_task_attributes);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -161,17 +181,27 @@ void MX_FREERTOS_Init(void) {
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
-  FatFs_Check();			//åˆ¤æ–­FatFsæ˜¯å¦æŒ‚è½½æˆåŠŸï¼Œè‹¥æ²¡æœ‰åˆ›å»ºFatFsåˆ™æ ¼å¼åŒ–SDå¡
-  FatFs_GetVolume();	// è®¡ç®—è®¾å¤‡å®¹é‡
+  FatFs_Check();			//ÅĞ¶ÏFatFsÊÇ·ñ¹ÒÔØ³É¹¦£¬ÈôÃ»ÓĞ´´½¨FatFsÔò¸ñÊ½»¯SD¿¨
+  FatFs_GetVolume();	// ¼ÆËãÉè±¸ÈİÁ¿
   
 
-  HAL_UART_Receive_IT(&huart2,(uint8_t *)RxTemp, REC_LENGTH);	//é‡æ–°ä½¿èƒ½ä¸­æ–­
+  
+  
+  printf("main task*: lvgl benchmark\r\n");
+	lv_demo_benchmark();   // ÔËĞĞ¹Ù·½Àı³Ì lv_demo_benchmark £¬½øĞĞ»ù×¼ĞÔÄÜ²âÊÔ
 
-  // FatFs_FileTest();		//æ–‡ä»¶åˆ›å»ºå’Œå†™å…¥æµ‹è¯•
+  printf("main task*: uart2 start receive\r\n");
+  // ¿ªÊ¼gpsÊı¾İÊÕ·¢
+  HAL_UART_Receive_IT(&huart2,(uint8_t *)RxTemp, REC_LENGTH);	//ÖØĞÂÊ¹ÄÜÖĞ¶Ï
+
+  printf("main task*: all init done\r\n");
+  // FatFs_FileTest();		//ÎÄ¼ş´´½¨ºÍĞ´Èë²âÊÔ
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    osDelay(1000);
+    printf("main task*: osDelay(1000)\r\n");
+    // HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -192,7 +222,7 @@ void StartTask02(void *argument)
   for(;;)
   {
     // HAL_Delay(1000);
-      HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+    HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 
     osDelay(500);
     // osDelay(500);
@@ -231,9 +261,33 @@ void StartTask03(void *argument)
       GPSH_msgStructure = read_msg(RxBuffer);
       printmsg(GPSH_msgStructure);
     }
-    // osDelay(500);
+    osDelay(1);
   }
   /* USER CODE END StartTask03 */
+}
+
+/* USER CODE BEGIN Header_lvgl_task_handler */
+/**
+* @brief Function implementing the lvgl_task thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_lvgl_task_handler */
+void lvgl_task_handler(void *argument)
+{
+  /* USER CODE BEGIN lvgl_task_handler */
+  osDelay(2000);
+  /* Infinite loop */
+  for(;;)
+  {
+    printf("lvgl task*: lv_task_handler\r\n");
+    lv_task_handler();
+    printf("lvgl task*: Touch_Scan\r\n");
+    Touch_Scan();
+    printf("lvgl task*: vTaskDelay 1000\r\n");
+    vTaskDelay(pdMS_TO_TICKS(1000));
+  }
+  /* USER CODE END lvgl_task_handler */
 }
 
 /* Private application code --------------------------------------------------*/
