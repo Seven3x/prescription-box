@@ -119,6 +119,22 @@ void lvgl_task_handler(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
+/* Hook prototypes */
+void vApplicationTickHook(void);
+
+/* USER CODE BEGIN 3 */
+void vApplicationTickHook( void )
+{
+  // 告诉lvgl已经过去了1毫秒
+	lv_tick_inc(1);
+   /* This function will be called by each tick interrupt if
+   configUSE_TICK_HOOK is set to 1 in FreeRTOSConfig.h. User code can be
+   added here, but the tick hook is called from an interrupt context, so
+   code must not attempt to block, and only the interrupt safe FreeRTOS API
+   functions can be used (those that end in FromISR()). */
+}
+/* USER CODE END 3 */
+
 /**
   * @brief  FreeRTOS initialization
   * @param  None
@@ -189,8 +205,13 @@ void StartDefaultTask(void *argument)
   printf("main task*: run my gui\r\n");
 	// lv_demo_benchmark();   // 运行官方例程 lv_demo_benchmark ，进行基准性能测试
   my_gui();
-  printf("main task*: uart2 start receive\r\n");
+
+  // 开始usart1数据接受
+  printf("main task*: uart1 start receive\r\n");
+  HAL_UART_Receive_IT(&huart1,(uint8_t *)Rx1Temp, REC_LENGTH);	//重新使能中断
+
   // 开始gps数据收发
+  printf("main task*: uart2 start receive\r\n");
   HAL_UART_Receive_IT(&huart2,(uint8_t *)RxTemp, REC_LENGTH);	//重新使能中断
 
   printf("main task*: all init done\r\n");
@@ -204,7 +225,7 @@ void StartDefaultTask(void *argument)
     // printf("main task*: Touch_Scan\r\n");
     Touch_Scan();
     // printf("main task*: vTaskDelay 1000\r\n");
-    vTaskDelay(pdMS_TO_TICKS(100));
+    vTaskDelay(pdMS_TO_TICKS(20));
     // printf("main task*: osDelay(1000)\r\n");
     // HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
   }

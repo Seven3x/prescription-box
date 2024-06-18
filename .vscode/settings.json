@@ -12,7 +12,12 @@
         "gps.h": "c",
         "lv_port_disp_template.h": "c",
         "sdram.h": "c",
-        "lv_demo_widgets.h": "c"
+        "lv_demo_widgets.h": "c",
+        "proc.h": "c",
+        "stdio.h": "c",
+        "string.h": "c",
+        "read.h": "c"
     },
-    "files.encoding": "gb2312"
+    "files.encoding": "gb2312",
+    "cmake.sourceDirectory": "C:/Doc/Projects/prescription-box/simulate"
 }

@@ -43,7 +43,7 @@ extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN Private defines */
-
+extern uint8_t Rx1Temp[REC_LENGTH];
 /* USER CODE END Private defines */
 
 void MX_USART1_UART_Init(void);

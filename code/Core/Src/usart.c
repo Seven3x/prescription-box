@@ -32,6 +32,10 @@ uint8_t RxBuffer[MAX_REC_LENGTH] = {0};		//串口数据存储BUFF		长度2048
 uint16_t RxCounter = 0;						    //串口长度计数
 uint8_t RxFlag = 0;							      //串口接收完成标志符
 uint8_t RxTemp[REC_LENGTH] = {0};			//串口数据接收暂存BUFF	长度1
+
+
+uint8_t Rx1Temp[REC_LENGTH] = {0};			//串口1数据接收暂存BUFF	长度1
+
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;
@@ -161,6 +165,9 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+    /* USART1 interrupt Init */
+    HAL_NVIC_SetPriority(USART1_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(USART1_IRQn);
   /* USER CODE BEGIN USART1_MspInit 1 */
 
   /* USER CODE END USART1_MspInit 1 */
@@ -221,6 +228,8 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
     */
     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_10|GPIO_PIN_9);
 
+    /* USART1 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(USART1_IRQn);
   /* USER CODE BEGIN USART1_MspDeInit 1 */
 
   /* USER CODE END USART1_MspDeInit 1 */
@@ -285,6 +294,14 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)//串口3接收完成回调函数
 {
   static uint8_t complete_flag = 1;
   static uint8_t RxFlag = 0;
+
+  
+
+  if(huart->Instance == USART1) {
+    HAL_UART_Receive_IT(&huart1,(uint8_t *)Rx1Temp, REC_LENGTH);	//重新使能中断
+  }
+
+
 
 	if(huart->Instance == USART2)
 	{
