@@ -2,10 +2,10 @@
 #define __READ_H
 typedef struct {
     long long lat;
-    long double latd;
+    double latd;
     char lat_dir;
     long long lon;
-    long double lond;
+    double lond;
     char lon_dir;
 }  GPS_msgTypeDef;
 

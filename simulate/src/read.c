@@ -1,4 +1,5 @@
 #include "read.h"
+#include "proc.h"
 #include "stdio.h"
 #include <stdio.h>
 #include <string.h>
@@ -9,6 +10,7 @@ int read_msg(char * msg_str, GPS_msgTypeDef* GPS_msgStructure) {
     char c[] = ",";
     char msgcopy[200] = "";
     char * token = NULL;
+    char * ptr;
     // uint8_t counter = 0, i = 0;
     GPS_msgTypeDef result_msgStructure = {0,0,0,0,0,0};
 
@@ -21,15 +23,19 @@ int read_msg(char * msg_str, GPS_msgTypeDef* GPS_msgStructure) {
     token = strtok(NULL, c);  // 纬度
     if (*token > '9' || *token < '0') return -1;
     // printf("lat:%s\n", token);
-    GPS_msgStructure->lat = read_latlon(token);
-    GPS_msgStructure->latd = (long double)(GPS_msgStructure->lat)  / 100000000;
+    GPS_msgStructure->lat = latdms2dd(read_latlon(token));
+    // GPS_msgStructure->lat = (read_latlon(token));
+    // GPS_msgStructure->latd = strtold(token, &ptr);
+    GPS_msgStructure->latd = (GPS_msgStructure->lat) / 1E8;
     token = strtok(NULL, c);  // 纬度方向
     // printf("latd:%s\n", token);
     GPS_msgStructure->lat_dir = *token;
     token = strtok(NULL, c);  // 经度
     // printf("lon:%s\n", token);
-    GPS_msgStructure->lon = read_latlon(token);
-    GPS_msgStructure->lond = (long double)(GPS_msgStructure->lon) / 10000000;
+    GPS_msgStructure->lon = londms2dd(read_latlon(token));
+    // GPS_msgStructure->lon = (read_latlon(token));
+    // GPS_msgStructure->lond = strtold(token, &ptr);
+    GPS_msgStructure->lond =  (GPS_msgStructure->lon) / 1E8;
     token = strtok(NULL, c);  // 经度方向
     // printf("lond:%s\n", token);
     GPS_msgStructure->lon_dir = *token;
@@ -58,8 +64,10 @@ long long read_latlon(char * msg_str) {
 void printmsg(GPS_msgTypeDef msg) {
     printf("lat:%lld ", msg.lat);
     printf("lat_dir:%c ", msg.lat_dir);
+    printf("latd:%.9lf ", msg.latd);
     printf("lon:%lld ", msg.lon);
-    printf("lon_dir:%c\r\n", msg.lon_dir);
+    printf("lon_dir:%c ", msg.lon_dir);
+    printf("lon:%.9lf \r\n", msg.lond);
 }
 
 int read_file(const char *filename) {
@@ -76,8 +84,8 @@ int read_file(const char *filename) {
         // printf("%s", line);
         // 处理每一行数据
         if (read_msg(line, &GPS_msgStructure) == 0) {
-            puts(line);
-            // printmsg(GPS_msgStructure);
+            // puts(line);
+            printmsg(GPS_msgStructure);
         }
         // ...
     }
