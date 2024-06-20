@@ -9,11 +9,11 @@
 #include "stdio.h"
 
 typedef struct {
-    uint64_t lat;
-    long double latd;
+    // uint64_t lat;
+    double latd;
     char lat_dir;
-    uint64_t lon;
-    long double lond;
+    // uint64_t lon;
+    double lond;
     char lon_dir;
 }  GPS_msgTypeDef;
 

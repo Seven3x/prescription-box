@@ -1,5 +1,6 @@
 #include "gps.h"
 #include "string.h"
+#include "stdlib.h"
 // static char *_strtok = NULL;
 
 uint64_t read_latlon(char * msg_str);
@@ -21,15 +22,17 @@ GPS_msgTypeDef read_msg(char * msg_str) {
     token = strtok(NULL, c);  // 纬度
     if (*token > '9' || *token < '0') return result_msgStructure;
     // printf("lat:%s\n", token);
-    result_msgStructure.lat = read_latlon(token);
-    result_msgStructure.latd = (long double)result_msgStructure.lat / 100000000;
+    // result_msgStructure.lat = read_latlon(token);
+    result_msgStructure.latd = strtod(read_latlon(token));
     token = strtok(NULL, c);  // 纬度方向
     // printf("latd:%s\n", token);
     result_msgStructure.lat_dir = *token;
     token = strtok(NULL, c);  // 经度
     // printf("lon:%s\n", token);
-    result_msgStructure.lon = read_latlon(token);
-    result_msgStructure.lond = (long double)result_msgStructure.lon / 10000000;
+    // result_msgStructure.lon = read_latlon(token);
+    // result_msgStructure.lond = (long double)result_msgStructure.lon / 10000000;
+    result_msgStructure.lond = strtod(read_latlon(token));
+    
     token = strtok(NULL, c);  // 经度方向
     // printf("lond:%s\n", token);
     result_msgStructure.lon_dir = *token;
