@@ -50,6 +50,8 @@ typedef StaticQueue_t osStaticMessageQDef_t;
 /* USER CODE BEGIN PTD */
 char test_buf[1024] = {"0000\r\n"};
 UINT br,bw;			//∂¡–¥±‰¡ø
+double average[360] = {0};
+
 
 /* USER CODE END PTD */
 
@@ -285,7 +287,7 @@ void StartTask03(void *argument)
   {
     if (osOK == osMessageQueueGet(gpshuart_flagqHandle, &pgpsh_flag, 0U, 0)) {
       // printf("msg:%s\r\n", RxBuffer);
-      GPSH_msgStructure = read_msg(RxBuffer);
+      read_msg(RxBuffer, &GPSH_msgStructure);
       printmsg(GPSH_msgStructure);
     }
     osDelay(1);

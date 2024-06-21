@@ -17,7 +17,8 @@ typedef struct {
     char lon_dir;
 }  GPS_msgTypeDef;
 
-GPS_msgTypeDef read_msg(char * msg_str);
+int read_msg(char * msg_str, GPS_msgTypeDef* GPS_msgStructure);
+// GPS_msgTypeDef read_msg(char * msg_str);
 void printmsg(GPS_msgTypeDef msg);
 
 #endif // !__SDCARD_H

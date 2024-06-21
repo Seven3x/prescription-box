@@ -1,44 +1,56 @@
 #include "gps.h"
 #include "string.h"
 #include "stdlib.h"
+#include "proc.h"
 // static char *_strtok = NULL;
 
 uint64_t read_latlon(char * msg_str);
 // uint8_t * strcopy(char * dest, char * src);
 
-GPS_msgTypeDef read_msg(char * msg_str) {
+int read_msg(char * msg_str, GPS_msgTypeDef* GPS_msgStructure) {
     char c[] = ",";
     char msgcopy[200] = "";
     char * token = NULL;
     // uint8_t counter = 0, i = 0;
-    GPS_msgTypeDef result_msgStructure = {0,0,0,0,0,0};
+    GPS_msgTypeDef result_msgStructure = {0,0,0,0};
 
     strcpy(msgcopy, msg_str);
     
     token = strtok(msgcopy, c);  // 返回指令
-    if (strcmp(token, "$command") == 0) return result_msgStructure;
+    if (strcmp(token, "$GNGGA") == 0) {
+        token = strtok(NULL, c);  // 时间
+        token = strtok(NULL, c);  // 纬度
+        if (*token > '9' || *token < '0') return -1;
+        // printf("lat:%s\n", token);
+        // GPS_msgStructure->lat = latdms2dd(read_latlon(token));
+        // GPS_msgStructure->lat = (read_latlon(token));
+        GPS_msgStructure->latd = strtod(token, NULL);
+        // GPS_msgStructure->latd = (GPS_msgStructure->lat) / 1E8;
+        token = strtok(NULL, c);  // 纬度方向
+        // printf("latd:%s\n", token);
+        GPS_msgStructure->lat_dir = *token;
+        token = strtok(NULL, c);  // 经度
+        // printf("lon:%s\n", token);
+        // GPS_msgStructure->lon = londms2dd(read_latlon(token));
+        // GPS_msgStructure->lon = (read_latlon(token));
+        GPS_msgStructure->lond = strtod(token, NULL);
+        // GPS_msgStructure->lond =  (GPS_msgStructure->lon) / 1E8;
+        token = strtok(NULL, c);  // 经度方向
+        // printf("lond:%s\n", token);
+        GPS_msgStructure->lon_dir = *token;
+        // token = strtok(NULL, c);  // 定位状态
 
-    token = strtok(NULL, c);  // 时间
-    token = strtok(NULL, c);  // 纬度
-    if (*token > '9' || *token < '0') return result_msgStructure;
-    // printf("lat:%s\n", token);
-    // result_msgStructure.lat = read_latlon(token);
-    result_msgStructure.latd = strtod(read_latlon(token));
-    token = strtok(NULL, c);  // 纬度方向
-    // printf("latd:%s\n", token);
-    result_msgStructure.lat_dir = *token;
-    token = strtok(NULL, c);  // 经度
-    // printf("lon:%s\n", token);
-    // result_msgStructure.lon = read_latlon(token);
-    // result_msgStructure.lond = (long double)result_msgStructure.lon / 10000000;
-    result_msgStructure.lond = strtod(read_latlon(token));
-    
-    token = strtok(NULL, c);  // 经度方向
-    // printf("lond:%s\n", token);
-    result_msgStructure.lon_dir = *token;
-    // token = strtok(NULL, c);  // 定位状态
+        return 0;
 
-    return result_msgStructure;
+    } else if (strcmp(token, "$UNIHEADING") == 0) {
+        token = strtok(NULL, c); //解状态
+        token = strtok(NULL, c); //未知类型
+        token = strtok(NULL, c); //基线长
+        token = strtok(NULL, c); //航向
+        
+    }
+
+    return -1;
 }
 
 uint64_t read_latlon(char * msg_str) {
@@ -59,9 +71,9 @@ uint64_t read_latlon(char * msg_str) {
 
 
 void printmsg(GPS_msgTypeDef msg) {
-    printf("lat:%llf\r\n", msg.latd);
+    printf("lat:%lf\r\n", msg.latd);
     printf("lat_dir:%c\r\n", msg.lat_dir);
-    printf("lon:%llf\r\n", msg.lond);
+    printf("lon:%lf\r\n", msg.lond);
     printf("lon_dir:%c\r\n", msg.lon_dir);
 }
 

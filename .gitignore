@@ -53,3 +53,5 @@ dkms.conf
 *.uvguix.*
 *.crf
 build
+code/MDK-ARM/STM32H750XBH6/ff_gen_drv.crf
+*.crf
