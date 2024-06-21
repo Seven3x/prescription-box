@@ -52,10 +52,17 @@ typedef StaticQueue_t osStaticMessageQDef_t;
 char test_buf[1024] = {"0000\r\n"};
 UINT br,bw;			//读写变量
 double average[360] = {0};
-GPS_msgTypeDef precise_point = {0};
+GPS_msgTypeDef precise_point = {
+  32.136002525,
+  0,
+  118.696729652,
+  0
+};
 extern char SDPath[4];	
 extern FATFS 	SD_FatFs; 		// 文件系统对象
 extern FRESULT 	MyFile_Res;    // 操作结果 
+//计算过average的flag
+uint8_t average_flag = 0;
 
 /* USER CODE END PTD */
 
@@ -376,7 +383,7 @@ void gps_task_handler(void *argument)
       // 如果是1，说明是数据
       if(pgpsh_flag == 1) {
         val =read_msg(RxBuffer, &GPSH_msgStructure);
-
+        // printmsg(GPSH_msgStructure);
         if(val == 0) {
           for (i = 0; i < 360; i ++) {
             average[i] += to_distance_angle_structure(precise_point, (double)i, GPSH_msgStructure);
@@ -391,11 +398,16 @@ void gps_task_handler(void *argument)
 
       } else if (pgpsh_flag == 2) {
         // 如果是2，说明是指令，计算所有average
+        printf("gps task*: calculate average\r\n");
         for(i = 0; i < 360; i ++) {
           average[i] /= counter;
         }
-      }
+        average_flag = 1;
+        for(i = 0; i < 360; i ++) {
+          printf("gps task*: average[%d] = %lf\r\n", i, average[i]);
+        }
       // printmsg(GPSH_msgStructure);
+      }
     }
     osDelay(20);
     // printf("gps task*: osDelay\r\n");
@@ -414,13 +426,14 @@ void msgwrite_task_handler(void *argument)
 {
   /* USER CODE BEGIN msgwrite_task_handler */
   static GPS_msgTypeDef msg;
-
+  uint8_t lenth = 0;
   uint8_t i = 0;
   static flag = 0;
 	uint16_t BufferSize = 0;	
 	FIL	MyFile;			// 文件对象
 	UINT 	MyFile_Num;		//	数据长度
-	BYTE 	MyFile_WriteBuffer[40] = "";	//要写入的数据
+	BYTE 	MyFile_WriteBuffer[81] = "";	//要写入的数据
+  GPS_msgTypeDef nlonlatpoint = {0,0,0,0};
 	// BYTE 	MyFile_ReadBuffer[1024];	//要读出的数据
 
   // FatFs_Check();			//判断FatFs是否挂载成功，若没有创建FatFs则格式化SD卡
@@ -439,7 +452,7 @@ void msgwrite_task_handler(void *argument)
   if(MyFile_Res == FR_OK)
 	{
 		printf("writer*: file open success\r\n");
-		f_close(&MyFile);	  //关闭文件	
+		// f_close(&MyFile);	  //关闭文件	
 
 	}
 	else
@@ -453,31 +466,33 @@ void msgwrite_task_handler(void *argument)
   for(;;)
   {
     // printf("msgwrite task*: osDelay\r\n");
-    if(osOK == osMessageQueueGet(gpsmsgqHandle, &msg, 0U, 0) || flag == 0){
+    if(osOK == osMessageQueueGet(gpsmsgqHandle, &msg, 0U, 0) && flag == 0){
+      
+      if(average_flag) {//计算过average 相当于可以修正了
+        nlonlatpoint = structure_nlonlat(msg, average, dir);
+      }
 
-      MyFile_Res = f_open(&MyFile,"0:Msg.txt",FA_CREATE_ALWAYS | FA_WRITE);
+      // MyFile_Res = f_open(&MyFile,"0:Msg.txt",FA_CREATE_ALWAYS | FA_WRITE);
 
       if(MyFile_Res == FR_OK)
       {
         printf("writer*: file open success\r\n");
-        f_lseek(&MyFile,f_size(&MyFile));	  //移动文件指针到文件末尾
-         sprintf(MyFile_WriteBuffer, "%.9lf,%.9lf\n", msg.latd, msg.lond);
+        // f_lseek(&MyFile,f_size(&MyFile));	  //移动文件指针到文件末尾
+        lenth = sprintf(MyFile_WriteBuffer, "%.9lf,%.9lf,%.2f,%.9lf,%.9lf\n", msg.latd, msg.lond, dir, nlonlatpoint.latd, nlonlatpoint.lond);
         printf("writer*: write: %s\r\n", MyFile_WriteBuffer);
         // printf("%s\r\n",MyFile_WriteBuffer)
-        MyFile_Res = f_write(&MyFile,MyFile_WriteBuffer, 40,&MyFile_Num);	//向文件写入数据
+        MyFile_Res = f_write(&MyFile,MyFile_WriteBuffer, lenth,&MyFile_Num);	//向文件写入数据
+        printf("writer*: write length: %d\r\n", MyFile_Num);
         if (MyFile_Res == FR_OK)	
         {
           printf("writer*: write success\r\n");
           // printf("%s\r\n",MyFile_WriteBuffer);
-          f_close(&MyFile);	  //关闭w`文件	
-
         }
         else
         {
           printf("writer*: write failed, %d\r\n",MyFile_Res );
           f_close(&MyFile);	  //关闭w`文件	
-          // return ERROR;			
-          flag = 1;
+          vTaskDelete(NULL);
         }
       }
       else
@@ -490,6 +505,14 @@ void msgwrite_task_handler(void *argument)
      
 
     }
+
+  if (delete_flag == 1) {
+        f_close(&MyFile);	  //关闭文件	
+
+    vTaskDelete(NULL);
+  }
+    // osDelay(20);
+
     osDelay(20);
     // osDelay(1);
   }

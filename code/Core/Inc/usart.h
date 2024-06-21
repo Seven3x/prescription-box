@@ -36,6 +36,8 @@ extern uint8_t RxBuffer[MAX_REC_LENGTH];		//串口数据存储BUFF		长度2048
 extern uint16_t RxCounter;						//串口长度计数
 extern uint8_t RxFlag;							//串口接收完成标志符
 extern uint8_t RxTemp[REC_LENGTH];			//串口数据接收暂存BUFF	长度1
+extern uint8_t delete_flag;
+
 /* USER CODE END Includes */
 
 extern UART_HandleTypeDef huart1;

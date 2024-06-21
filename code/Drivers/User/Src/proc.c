@@ -54,7 +54,7 @@ double dms2dd(double dms) {
 double to_distance_angle_structure(GPS_msgTypeDef point1, double angle, GPS_msgTypeDef point2) {
     double pointa[2] = {point1.latd, point1.lond};
     double pointb[2] = {point2.latd, point2.lond};
-    // printf("tdas: %ld, %ld, %ld, %ld\n", pointa[0], pointa[1], pointb[0], pointb[1]);
+    // printf("tdas: %.5lf, %.5lf, %.5lf, %.5lf\n", pointa[0], pointa[1], pointb[0], pointb[1]);
     
     
     return to_distance_angle(pointa, angle, pointb);
@@ -141,7 +141,12 @@ double latlon_to_distance(double distances[2], double point[2]) {
 
 }
 
-
+/**
+ * @brief Îó²î²¹³¥
+ * 
+ * @param point ¼ì²âµ½µÄµã
+ * @param angle ½Ç¶È gamma
+ */
 GPS_msgTypeDef structure_nlonlat(GPS_msgTypeDef point, double* average, double angle) {
     int iangle[2] = {(int)angle + 0.5, (int)angle - 0.5};
     double pointa[2], pointb[2];

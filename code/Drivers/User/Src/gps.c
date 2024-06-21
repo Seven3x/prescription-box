@@ -26,7 +26,7 @@ int read_msg(char * msg_str, GPS_msgTypeDef* GPS_msgStructure) {
         // printf("lat:%s\n", token);
         // GPS_msgStructure->lat = latdms2dd(read_latlon(token));
         // GPS_msgStructure->lat = (read_latlon(token));
-        GPS_msgStructure->latd = strtod(token, NULL);
+        GPS_msgStructure->latd = dms2dd(strtod(token, NULL));
         // GPS_msgStructure->latd = (GPS_msgStructure->lat) / 1E8;
         token = strtok(NULL, c);  // 纬度方向
         // printf("latd:%s\n", token);
@@ -35,7 +35,7 @@ int read_msg(char * msg_str, GPS_msgTypeDef* GPS_msgStructure) {
         // printf("lon:%s\n", token);
         // GPS_msgStructure->lon = londms2dd(read_latlon(token));
         // GPS_msgStructure->lon = (read_latlon(token));
-        GPS_msgStructure->lond = strtod(token, NULL);
+        GPS_msgStructure->lond = dms2dd(strtod(token, NULL));
         // GPS_msgStructure->lond =  (GPS_msgStructure->lon) / 1E8;
         token = strtok(NULL, c);  // 经度方向
         // printf("lond:%s\n", token);

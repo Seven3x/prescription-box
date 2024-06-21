@@ -27,6 +27,8 @@
 #include "cmsis_os2.h"
 
 
+uint8_t delete_flag =0 ;
+
 extern osMessageQueueId_t gpshuart_flagqHandle;
 uint8_t RxBuffer[MAX_REC_LENGTH] = {0};		//串口数据存储BUFF		长度2048
 uint16_t RxCounter = 0;						    //串口长度计数
@@ -296,13 +298,21 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)//串口3接收完成回调函数
 {
   static uint8_t complete_flag = 1;
   static uint8_t RxFlag = 0;
+  static uint8_t Rx1Flag = 0;
 
   
 
   if(huart->Instance == USART1) {
-    HAL_UART_Receive_IT(&huart1,(uint8_t *)Rx1Temp, REC_LENGTH);	//重新使能中断      
-    flag = 2;
-    osMessageQueuePut(gpshuart_flagqHandle, &flag, 2U, 0U); //
+    // flag = 2;
+    // osMessageQueuePut(gpshuart_flagqHandle, &flag, 2U, 0U); //
+    if (Rx1Temp[0] == '2') delete_flag = 1;
+    if (Rx1Temp[0] == '3') {
+      Rx1Flag = 2;
+      osMessageQueuePut(gpshuart_flagqHandle, &Rx1Flag, 2U, 0U); //将接收到的数据发送到队列
+    }     
+    HAL_UART_Receive_IT(&huart1,(uint8_t *)Rx1Temp, REC_LENGTH);	//重新使能中断 
+    
+    
   }
 
 

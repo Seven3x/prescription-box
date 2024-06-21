@@ -32,21 +32,21 @@ compiling freertos.c...
   #endif // !__PROC_H
 ..\LVGL\src/extra/others/ime/lv_ime_pinyin.h(144): warning:  #1-D: last line of file ends without a newline
   #endif /*LV_USE_IME_PINYIN*/
-../Core/Src/freertos.c(378): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
+../Core/Src/freertos.c(385): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *"
           val =read_msg(RxBuffer, &GPSH_msgStructure);
-../Core/Src/freertos.c(338): warning:  #177-D: variable "msg3"  was declared but never referenced
+../Core/Src/freertos.c(345): warning:  #177-D: variable "msg3"  was declared but never referenced
     uint8_t msg3[] = "unlog\r\n";
-../Core/Src/freertos.c(419): warning:  #260-D: explicit type is missing ("int" assumed)
+../Core/Src/freertos.c(431): warning:  #260-D: explicit type is missing ("int" assumed)
     static flag = 0;
-../Core/Src/freertos.c(464): warning:  #167-D: argument of type "BYTE *" is incompatible with parameter of type "char *__restrict__"
-           sprintf(MyFile_WriteBuffer, "%.9lf,%.9lf\n", msg.latd, msg.lond);
-../Core/Src/freertos.c(418): warning:  #177-D: variable "i"  was declared but never referenced
+../Core/Src/freertos.c(481): warning:  #167-D: argument of type "BYTE *" is incompatible with parameter of type "char *__restrict__"
+          lenth = sprintf(MyFile_WriteBuffer, "%.9lf,%.9lf,%.2f,%.9lf,%.9lf\n", msg.latd, msg.lond, dir, nlonlatpoint.latd, nlonlatpoint.lond);
+../Core/Src/freertos.c(430): warning:  #177-D: variable "i"  was declared but never referenced
     uint8_t i = 0;
-../Core/Src/freertos.c(420): warning:  #177-D: variable "BufferSize"  was declared but never referenced
+../Core/Src/freertos.c(432): warning:  #177-D: variable "BufferSize"  was declared but never referenced
   	uint16_t BufferSize = 0;	
 ../Core/Src/freertos.c: 8 warnings, 0 errors
 linking...
-Program Size: Code=222156 RO-data=291724 RW-data=912 ZI-data=83560  
+Program Size: Code=223748 RO-data=291804 RW-data=944 ZI-data=83528  
 FromELF: creating hex file...
 "STM32H750XBH6\STM32H750XBH6.axf" - 0 Error(s), 8 Warning(s).
 
@@ -62,7 +62,7 @@ Package Vendor: Keil
   D:\Keilv5\ARM\PACK\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:14
+Build Time Elapsed:  00:00:15
 </pre>
 </body>
 </html>
