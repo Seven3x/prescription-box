@@ -3,7 +3,7 @@
 #include "stdlib.h"
 #include "proc.h"
 // static char *_strtok = NULL;
-
+double dir = 0;
 uint64_t read_latlon(char * msg_str);
 // uint8_t * strcopy(char * dest, char * src);
 
@@ -15,8 +15,10 @@ int read_msg(char * msg_str, GPS_msgTypeDef* GPS_msgStructure) {
     GPS_msgTypeDef result_msgStructure = {0,0,0,0};
 
     strcpy(msgcopy, msg_str);
-    
+    // printf("msg: %s\r\n", msgcopy);
     token = strtok(msgcopy, c);  // 返回指令
+    // printf("token: %s\r\n", token);
+    
     if (strcmp(token, "$GNGGA") == 0) {
         token = strtok(NULL, c);  // 时间
         token = strtok(NULL, c);  // 纬度
@@ -42,11 +44,17 @@ int read_msg(char * msg_str, GPS_msgTypeDef* GPS_msgStructure) {
 
         return 0;
 
-    } else if (strcmp(token, "$UNIHEADING") == 0) {
+    } else if (strcmp(token, "#HEADINGA") == 0) {
+        // printf("enter headinga \r\n");
         token = strtok(NULL, c); //解状态
         token = strtok(NULL, c); //未知类型
         token = strtok(NULL, c); //基线长
-        token = strtok(NULL, c); //航向
+        // token = strtok(NULL, c); //航向
+
+        dir = strtod(token, NULL);
+        // printf("dir:%lf\n", dir);`	
+        return 1;
+        // printf("dir:%c\n", dir)
         
     }
 

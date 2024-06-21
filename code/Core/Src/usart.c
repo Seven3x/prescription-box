@@ -32,9 +32,11 @@ uint8_t RxBuffer[MAX_REC_LENGTH] = {0};		//串口数据存储BUFF		长度2048
 uint16_t RxCounter = 0;						    //串口长度计数
 uint8_t RxFlag = 0;							      //串口接收完成标志符
 uint8_t RxTemp[REC_LENGTH] = {0};			//串口数据接收暂存BUFF	长度1
+uint8_t flag = 0;
 
 
 uint8_t Rx1Temp[REC_LENGTH] = {0};			//串口1数据接收暂存BUFF	长度1
+uint8_t Rx1Buffer[MAX_REC_LENGTH] = {0};		//串口数据存储BUFF		长度2048
 
 /* USER CODE END 0 */
 
@@ -298,7 +300,9 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)//串口3接收完成回调函数
   
 
   if(huart->Instance == USART1) {
-    HAL_UART_Receive_IT(&huart1,(uint8_t *)Rx1Temp, REC_LENGTH);	//重新使能中断
+    HAL_UART_Receive_IT(&huart1,(uint8_t *)Rx1Temp, REC_LENGTH);	//重新使能中断      
+    flag = 2;
+    osMessageQueuePut(gpshuart_flagqHandle, &flag, 2U, 0U); //
   }
 
 
@@ -306,7 +310,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)//串口3接收完成回调函数
 	if(huart->Instance == USART2)
 	{
     // HAL_UART_Transmit(&huart1, (uint8_t *)RxTemp, REC_LENGTH, 100);
-    if (RxTemp[0] == '$') { //如果接收到数据头
+    if (RxTemp[0] == '$' || RxTemp[0] == '#') { //如果接收到数据头
       // printf("head received \r\n");
       if (complete_flag == 0) { //如果是首次数据头
         RxCounter = 0; //计数器清零
@@ -330,7 +334,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)//串口3接收完成回调函数
       complete_flag = 0; //重新开始接收
       RxBuffer[RxCounter] = '\0'; //添加字符串结束符
       RxCounter = 0; //计数器清零
-      osMessageQueuePut(gpshuart_flagqHandle, &RxFlag, 0U, 0U); //将接收到的数据发送到队列
+      RxFlag = 1;
+      osMessageQueuePut(gpshuart_flagqHandle, &RxFlag, 2U, 0U); //将接收到的数据发送到队列
 
     }
 

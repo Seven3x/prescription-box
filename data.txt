@@ -1,0 +1,1116 @@
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+
+***************************************
+W25Q64 OK,flash ID:EF4017
+璺宠浆鍒癢25Q64杩愯鐢ㄦ埛绋嬪簭>>>
+
+main*: init fmc
+main*: init ltdc
+HAL_LTDC_Init
+识别旧面板
+是旧面板，启用 LCD_PanelModify
+ltdc configlayer
+ltdc configlayer done
+main*: init done
+main*: lvgl touch init
+main*: lvgl init
+main*: lvgl disp init
+main*: lvgl port indev init
+main*: all inited
+gps task*: enter gps task
+gps task*: uart1 start receive
+gps task*: uart2 start receive
+try gpgga 0.5
+
+main task*: fs check
+
+SD文件系统挂载成功
+main task*: fs getvolme
+-------------------获取设备容量信息-----------------
+SD容量：15185MB
+SD剩余：0MB
+main task*: run my gui
+mygui*: 设置风格初始化
+mygui*: 创建scr
+mygui*: 创建title
+mygui*: 创建panel1
+mygui*: 设置四个按钮
+mygui*: 设置四个window
+mygui*: 设置win1
+mygui*: 设置win2
+mygui*: 设置win3
+mygui*: 设置win4
+mygui*: all work done
+main task*: all init done
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+
+***************************************
+W25Q64 OK,flash ID:EF4017
+璺宠浆鍒癢25Q64杩愯鐢ㄦ埛绋嬪簭>>>
+
+main*: init fmc
+main*: init ltdc
+HAL_LTDC_Init
+识别旧面板
+是旧面板，启用 LCD_PanelModify
+ltdc configlayer
+ltdc configlayer done
+main*: init done
+main*: lvgl touch init
+main*: lvgl init
+main*: lvgl disp init
+main*: lvgl port indev init
+main*: all inited
+gps task*: enter gps task
+gps task*: uart1 start receive
+gps task*: uart2 start receive
+main task*: fs check
+
+SD文件系统挂载成功
+main task*: fs getvolme
+-------------------获取设备容量信息-----------------
+SD容量：15185MB
+SD剩余：15185MB
+main task*: run my gui
+mygui*: 设置风格初始化
+mygui*: 创建scr
+mygui*: 创建title
+mygui*: 创建panel1
+mygui*: 设置四个按钮
+mygui*: 设置四个window
+mygui*: 设置win1
+mygui*: 设置win2
+mygui*: 设置win3
+mygui*: 设置win4
+mygui*: all work done
+main task*: all init done
+led task*: TogglePin
+try gpgga 0.5
+
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+
+***************************************
+W25Q64 OK,flash ID:EF4017
+璺宠浆鍒癢25Q64杩愯鐢ㄦ埛绋嬪簭>>>
+
+main*: init fmc
+main*: init ltdc
+HAL_LTDC_Init
+识别旧面板
+是旧面板，启用 LCD_PanelModify
+ltdc configlayer
+ltdc configlayer done
+main*: init done
+main*: lvgl touch init
+main*: lvgl init
+main*: lvgl disp init
+main*: lvgl port indev init
+main*: all inited
+gps task*: enter gps task
+gps task*: uart1 start receive
+gps task*: uart2 start receive
+main task*: fs check
+
+SD文件系统挂载成功
+main task*: fs getvolme
+-------------------获取设备容量信息-----------------
+SD容量：15185MB
+SD剩余：15185MB
+main task*: run my gui
+mygui*: 设置风格初始化
+mygui*: 创建scr
+mygui*: 创建title
+mygui*: 创建panel1
+mygui*: 设置四个按钮
+mygui*: 设置四个window
+mygui*: 设置win1
+mygui*: 设置win2
+mygui*: 设置win3
+mygui*: 设置win4
+mygui*: all work done
+main task*: all init done
+led task*: TogglePin
+try gpgga 0.5
+
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+
+***************************************
+W25Q64 OK,flash ID:EF4017
+璺宠浆鍒癢25Q64杩愯鐢ㄦ埛绋嬪簭>>>
+
+main*: init fmc
+main*: init ltdc
+HAL_LTDC_Init
+识别旧面板
+是旧面板，启用 LCD_PanelModify
+ltdc configlayer
+ltdc configlayer done
+main*: init done
+main*: lvgl touch init
+main*: lvgl init
+main*: lvgl disp init
+main*: lvgl port indev init
+main*: all inited
+gps task*: enter gps task
+gps task*: uart1 start receive
+gps task*: uart2 start receive
+main task*: fs check
+
+SD文件系统挂载成功
+main task*: fs getvolme
+-------------------获取设备容量信息-----------------
+SD容量：15185MB
+SD剩余：15185MB
+main task*: run my gui
+mygui*: 设置风格初始化
+mygui*: 创建scr
+mygui*: 创建title
+mygui*: 创建panel1
+mygui*: 设置四个按钮
+mygui*: 设置四个window
+mygui*: 设置win1
+mygui*: 设置win2
+mygui*: 设置win3
+mygui*: 设置win4
+mygui*: all work done
+main task*: all init done
+led task*: TogglePin
+try gpgga 0.5
+
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+
+***************************************
+W25Q64 OK,flash ID:EF4017
+璺宠浆鍒癢25Q64杩愯鐢ㄦ埛绋嬪簭>>>
+
+main*: init fmc
+main*: init ltdc
+HAL_LTDC_Init
+识别旧面板
+是旧面板，启用 LCD_PanelModify
+ltdc configlayer
+ltdc configlayer done
+main*: init done
+main*: lvgl touch init
+main*: lvgl init
+main*: lvgl disp init
+main*: lvgl port indev init
+main*: all inited
+gps task*: enter gps task
+gps task*: uart1 start receive
+gps task*: uart2 start receive
+main task*: fs check
+
+SD文件系统挂载成功
+main task*: fs getvolme
+-------------------获取设备容量信息-----------------
+SD容量：15185MB
+SD剩余：15185MB
+main task*: run my gui
+mygui*: 设置风格初始化
+mygui*: 创建scr
+mygui*: 创建title
+mygui*: 创建panel1
+mygui*: 设置四个按钮
+mygui*: 设置四个window
+mygui*: 设置win1
+mygui*: 设置win2
+mygui*: 设置win3
+mygui*: 设置win4
+mygui*: all work done
+main task*: all init done
+led task*: TogglePin
+try gpgga 0.5
+
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+
+***************************************
+W25Q64 OK,flash ID:EF4017
+璺宠浆鍒癢25Q64杩愯鐢ㄦ埛绋嬪簭>>>
+
+main*: init fmc
+main*: init ltdc
+HAL_LTDC_Init
+识别旧面板
+是旧面板，启用 LCD_PanelModify
+ltdc configlayer
+ltdc configlayer done
+main*: init done
+main*: lvgl touch init
+main*: lvgl init
+main*: lvgl disp init
+main*: lvgl port indev init
+main*: all inited
+gps task*: enter gps task
+gps task*: uart1 start receive
+gps task*: uart2 start receive
+main task*: fs check
+
+SD文件系统挂载成功
+main task*: fs getvolme
+-------------------获取设备容量信息-----------------
+SD容量：15185MB
+SD剩余：0MB
+main task*: run my gui
+mygui*: 设置风格初始化
+mygui*: 创建scr
+mygui*: 创建title
+mygui*: 创建panel1
+mygui*: 设置四个按钮
+mygui*: 设置四个window
+mygui*: 设置win1
+mygui*: 设置win2
+mygui*: 设置win3
+mygui*: 设置win4
+mygui*: all work done
+main task*: all init done
+led task*: TogglePin
+try gpgga 0.5
+
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+
+***************************************
+W25Q64 OK,flash ID:EF4017
+璺宠浆鍒癢25Q64杩愯鐢ㄦ埛绋嬪簭>>>
+
+main*: init fmc
+main*: init ltdc
+HAL_LTDC_Init
+识别旧面板
+是旧面板，启用 LCD_PanelModify
+ltdc configlayer
+ltdc configlayer done
+main*: init done
+main*: lvgl touch init
+main*: lvgl init
+main*: lvgl disp init
+main*: lvgl port indev init
+main*: all inited
+gps task*: enter gps task
+gps task*: uart1 start receive
+gps task*: uart2 start receive
+main task*: fs check
+
+SD文件系统挂载成功
+main task*: fs getvolme
+-------------------获取设备容量信息-----------------
+SD容量：15185MB
+SD剩余：15185MB
+main task*: run my gui
+mygui*: 设置风格初始化
+mygui*: 创建scr
+mygui*: 创建title
+mygui*: 创建panel1
+mygui*: 设置四个按钮
+mygui*: 设置四个window
+mygui*: 设置win1
+mygui*: 设置win2
+mygui*: 设置win3
+mygui*: 设置win4
+mygui*: all work done
+main task*: all init done
+led task*: TogglePin
+try gpgga 0.5
+
+led task*: TogglePin
+$command,gpgga 0.5,response: OK*23
+$command,gpgga 0.5,response: COM1*57
+$command,gpgga 0.5,response: COM1*57
+$GNGGA,081246.00,3208.16241238,N,11841.80382421,E,1,09,1.2,11.4161,M,1.7773,M,,*7D
+led task*: TogglePin
+$GNGGA,081246.50,3208.16201744,N,11841.80531551,E,1,15,1.1,14.2336,M,1.7774,M,,*70
+led task*: TogglePin
+$command,gpgga 0.5,response: COM1*57
+$command,gpgga 0.5,response: COM1*57
+$command,gpgga 0.5,response: COM1*57
+$GNGGA,081247.00,3208.16216910,N,11841.80547707,E,1,16,1.1,14.5695,M,1.7774,M,,*75
+gps task*: counter= 1
+led task*: TogglePin
+$GNGGA,081247.50,3208.16235407,N,11841.80610572,E,1,17,1.0,14.2264,M,1.7775,M,,*77
+gps task*: counter= 2
+led task*: TogglePin
+$GNGGA,081248.00,3208.16226016,N,11841.80615968,E,1,18,1.0,14.5079,M,1.7775,M,,*7F
+gps task*: counter= 3
+led task*: TogglePin
+$GNGGA,081248.50,3208.16226131,N,11841.80578208,E,1,17,1.0,14.6540,M,1.7774,M,,*79
+gps task*: counter= 4
+led task*: TogglePin
+$GNGGA,081249.00,3208.16197626,N,11841.80559325,E,1,17,1.0,14.6605,M,1.7774,M,,*7A
+gps task*: counter= 5
+led task*: TogglePin
+$GNGGA,081249.50,3208.16188475,N,11841.80565988,E,1,17,1.0,14.6003,M,1.7774,M,,*77
+gps task*: counter= 6
+led task*: TogglePin
+$GNGGA,081250.00,3208.16184211,N,11841.80561254,E,1,17,1.0,14.5650,M,1.7774,M,,*7F
+gps task*: counter= 7
+led task*: TogglePin
+$GNGGA,081250.50,3208.16180745,N,11841.80555125,E,1,17,1.0,14.5399,M,1.7774,M,,*78
+gps task*: counter= 8
+led task*: TogglePin
+$GNGGA,081251.00,3208.16180123,N,11841.80548734,E,1,18,1.0,14.5258,M,1.7774,M,,*73
+gps task*: counter= 9
+led task*: TogglePin
+$GNGGA,081251.50,3208.16179387,N,11841.80544422,E,1,19,1.0,14.5117,M,1.7774,M,,*7D
+gps task*: counter= 10
+led task*: TogglePin
+$GNGGA,081252.00,3208.16179032,N,11841.80541214,E,1,18,1.0,14.4860,M,1.7774,M,,*79
+gps task*: counter= 11
+led task*: TogglePin
+$GNGGA,081252.50,3208.16179054,N,11841.80539156,E,1,18,1.0,14.4601,M,1.7774,M,,*7F
+gps task*: counter= 12
+led task*: TogglePin
+$GNGGA,081253.00,3208.16179144,N,11841.80536050,E,1,18,1.0,14.4365,M,1.7774,M,,*74
+gps task*: counter= 13
+led task*: TogglePin
+$GNGGA,081253.50,3208.16178727,N,11841.80534089,E,1,18,1.0,14.4265,M,1.7774,M,,*74
+gps task*: counter= 14
+led task*: TogglePin
+$GNGGA,081254.00,3208.16177155,N,11841.80532371,E,1,18,1.0,14.4127,M,1.7774,M,,*7D
+gps task*: counter= 15
+led task*: TogglePin
+$GNGGA,081254.50,3208.16176562,N,11841.80530491,E,1,18,1.0,14.4058,M,1.7774,M,,*7B
+gps task*: counter= 16
+led task*: TogglePin
+$GNGGA,081255.00,3208.16176440,N,11841.80529213,E,1,18,1.0,14.4049,M,1.7774,M,,*7A
+gps task*: counter= 17
+led task*: TogglePin
+$GNGGA,081255.50,3208.16176388,N,11841.80528495,E,1,18,1.0,14.4070,M,1.7774,M,,*7F
+gps task*: counter= 18
+led task*: TogglePin
+$GNGGA,081256.00,3208.16176372,N,11841.80527678,E,1,18,1.0,14.4066,M,1.7774,M,,*75
+gps task*: counter= 19
+led task*: TogglePin
+$GNGGA,081256.50,3208.16176328,N,11841.80527177,E,1,18,1.0,14.4042,M,1.7774,M,,*71
+gps task*: counter= 20
+led task*: TogglePin
+$GNGGA,081257.00,3208.16176211,N,11841.80526726,E,1,18,1.0,14.3989,M,1.7774,M,,*74
+gps task*: counter= 21
+led task*: TogglePin
+$GNGGA,081257.50,3208.16176140,N,11841.80526402,E,1,18,1.0,14.3958,M,1.7774,M,,*7F
+gps task*: counter= 22
+led task*: TogglePin
+$GNGGA,081258.00,3208.16176109,N,11841.80526107,E,1,18,1.0,14.3928,M,1.7774,M,,*7F
+gps task*: counter= 23
+led task*: TogglePin
+$GNGGA,081258.50,3208.16176067,N,11841.80525760,E,1,18,1.0,14.3902,M,1.7774,M,,*7F
+gps task*: counter= 24
+led task*: TogglePin
+$GNGGA,081259.00,3208.16176081,N,11841.80525294,E,1,18,1.0,14.3881,M,1.7774,M,,*77
+gps task*: counter= 25
+led task*: TogglePin
+$GNGGA,081259.50,3208.16176114,N,11841.80524559,E,1,18,1.0,14.3836,M,1.7774,M,,*74
+gps task*: counter= 26
+led task*: TogglePin
+$GNGGA,081300.00,3208.16175973,N,11841.80524421,E,1,19,1.0,14.3817,M,1.7774,M,,*7A
+gps task*: counter= 27
+led task*: TogglePin
+$GNGGA,081300.50,3208.16175609,N,11841.80524436,E,1,19,1.0,14.3814,M,1.7774,M,,*78
+gps task*: counter= 28
+led task*: TogglePin
+$GNGGA,081301.00,3208.16175033,N,11841.80524685,E,1,19,1.0,14.3823,M,1.7774,M,,*7D
+gps task*: counter= 29
+led task*: TogglePin
+$GNGGA,081301.50,3208.16174293,N,11841.80525237,E,1,19,1.0,14.3860,M,1.7774,M,,*7A
+gps task*: counter= 30
+led task*: TogglePin
+$GNGGA,081302.00,3208.16173403,N,11841.80525870,E,1,19,1.0,14.3929,M,1.7774,M,,*71
+gps task*: counter= 31
+led task*: TogglePin
+$GNGGA,081302.50,3208.16172623,N,11841.80526172,E,1,19,1.0,14.4009,M,1.7774,M,,*71
+gps task*: counter= 32
+led task*: TogglePin
+$GNGGA,081303.00,3208.16171998,N,11841.80525720,E,1,19,1.0,14.4094,M,1.7774,M,,*7F
+gps task*: counter= 33
+led task*: TogglePin
+$GNGGA,081303.50,3208.16170961,N,11841.80525529,E,1,19,1.0,14.4240,M,1.7774,M,,*7D
+gps task*: counter= 34
+led task*: TogglePin
+$GNGGA,081304.00,3208.16170026,N,11841.80525304,E,1,19,1.0,14.4399,M,1.7774,M,,*79
+gps task*: counter= 35
+led task*: TogglePin
+$GNGGA,081304.50,3208.16169017,N,11841.80525072,E,1,19,1.0,14.4594,M,1.7774,M,,*7F
+gps task*: counter= 36
+led task*: TogglePin
+$GNGGA,081305.00,3208.16167896,N,11841.80524898,E,1,19,1.0,14.4831,M,1.7774,M,,*7B
+gps task*: counter= 37
+led task*: TogglePin
+$GNGGA,081305.50,3208.16166713,N,11841.80524822,E,1,19,1.0,14.5092,M,1.7774,M,,*7C
+gps task*: counter= 38
+led task*: TogglePin
+$GNGGA,081306.00,3208.16165729,N,11841.80524780,E,1,19,1.0,14.5338,M,1.7774,M,,*74
+gps task*: counter= 39
+led task*: TogglePin
+$GNGGA,081306.50,3208.16166318,N,11841.80526287,E,1,20,0.9,14.5607,M,1.7774,M,,*7F
+gps task*: counter= 40
+led task*: TogglePin
+$GNGGA,081307.00,3208.16165468,N,11841.80526280,E,1,19,1.0,14.5829,M,1.7774,M,,*7F
+gps task*: counter= 41
+led task*: TogglePin
+$GNGGA,081307.50,3208.16164717,N,11841.80526301,E,1,19,1.0,14.6035,M,1.7774,M,,*7E
+#UNIHEADINGA,96,GPS,FINE,2319,461605500,0,0,18,9;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*008b58f9
+led task*: TogglePin
+$GNGGA,081308.00,3208.16164067,N,11841.80526339,E,1,19,1.0,14.6224,M,1.7774,M,,*7D
+#UNIHEADINGA,96,GPS,FINE,2319,461606000,0,0,18,10;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*3c7f6251
+led task*: TogglePin
+$GNGGA,081308.50,3208.16163500,N,11841.80526398,E,1,19,1.0,14.6402,M,1.7774,M,,*72
+#UNIHEADINGA,96,GPS,FINE,2319,461606500,0,0,18,9;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*9e55b7ca
+led task*: TogglePin
+$GNGGA,081309.00,3208.16163008,N,11841.80526466,E,1,19,1.0,14.6564,M,1.7774,M,,*7C
+#UNIHEADINGA,96,GPS,FINE,2319,461607000,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*5d3b2b87
+led task*: TogglePin
+$GNGGA,081309.50,3208.16162585,N,11841.80526552,E,1,19,1.0,14.6715,M,1.7774,M,,*7A
+#UNIHEADINGA,96,GPS,FINE,2319,461607500,0,0,18,9;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*ebe012db
+led task*: TogglePin
+$GNGGA,081310.00,3208.16162201,N,11841.80526652,E,1,19,1.0,14.6861,M,1.7774,M,,*73
+#UNIHEADINGA,96,GPS,FINE,2319,461608000,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*72dc6159
+led task*: TogglePin
+$GNGGA,081310.50,3208.16161864,N,11841.80526743,E,1,19,1.0,14.6999,M,1.7774,M,,*7B
+#UNIHEADINGA,96,GPS,FINE,2319,461608500,0,0,18,9;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*63d64be7
+led task*: TogglePin
+$GNGGA,081311.00,3208.16161572,N,11841.80526819,E,1,19,1.0,14.7126,M,1.7774,M,,*78
+#UNIHEADINGA,96,GPS,FINE,2319,461609000,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*1819f40e
+led task*: TogglePin
+$GNGGA,081311.50,3208.16161029,N,11841.80527194,E,1,19,1.0,14.7323,M,1.7774,M,,*7C
+#UNIHEADINGA,96,GPS,FINE,2319,461609500,0,0,18,9;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*1663eef6
+led task*: TogglePin
+$GNGGA,081312.00,3208.16160572,N,11841.80527531,E,1,19,1.0,14.7504,M,1.7774,M,,*78
+#UNIHEADINGA,96,GPS,FINE,2319,461610000,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*6777c6a1
+led task*: TogglePin
+$GNGGA,081312.50,3208.16160181,N,11841.80527851,E,1,19,1.0,14.7674,M,1.7774,M,,*7A
+#UNIHEADINGA,96,GPS,FINE,2319,461610500,0,0,18,9;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*125cfaba
+led task*: TogglePin
+$GNGGA,081313.00,3208.16159854,N,11841.80528141,E,1,19,1.0,14.7828,M,1.7774,M,,*75
+#UNIHEADINGA,96,GPS,FINE,2319,461611000,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*0db253f6
+led task*: TogglePin
+led task*: TogglePin
+$GNGGA,081318.00,3208.16158106,N,11841.80529012,E,1,19,1.0,14.9131,M,1.7774,M,,*78
+#UNIHEADINGA,96,GPS,FINE,2319,461616000,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*c29bbf12
+led task*: TogglePin
+$GNGGA,081318.50,3208.16158144,N,11841.80528934,E,1,19,1.0,14.9207,M,1.7774,M,,*71
+#UNIHEADINGA,96,GPS,FINE,2319,461616500,0,0,18,9;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*f490229d
+led task*: TogglePin
+$GNGGA,081319.00,3208.16158461,N,11841.80529217,E,1,20,0.9,14.9363,M,1.7774,M,,*7D
+#UNIHEADINGA,96,GPS,FINE,2319,461617000,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*a85e2a45
+led task*: TogglePin
+$GNGGA,081319.50,3208.16158538,N,11841.80529091,E,1,19,1.0,14.9421,M,1.7774,M,,*7A
+#UNIHEADINGA,96,GPS,FINE,2319,461617500,0,0,18,9;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*8125878c
+led task*: TogglePin
+$GNGGA,081320.00,3208.16158631,N,11841.80528953,E,1,19,1.0,14.9472,M,1.7774,M,,*7F
+#UNIHEADINGA,96,GPS,FINE,2319,461618000,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*87b9609b
+led task*: TogglePin
+
+***************************************
+W25Q64 OK,flash ID:EF4017
+璺宠浆鍒癢25Q64杩愯鐢ㄦ埛绋嬪簭>>>
+
+main*: init fmc
+main*: init ltdc
+HAL_LTDC_Init
+识别旧面板
+是旧面板，启用 LCD_PanelModify
+ltdc configlayer
+ltdc configlayer done
+main*: init done
+main*: lvgl touch init
+main*: lvgl init
+main*: lvgl disp init
+main*: lvgl port indev init
+main*: all inited
+gps task*: enter gps task
+gps task*: uart1 start receive
+gps task*: uart2 start receive
+main task*: fs check
+
+SD文件系统挂载成功
+main task*: fs getvolme
+-------------------获取设备容量信息-----------------
+SD容量：15185MB
+SD剩余：15185MB
+main task*: run my gui
+mygui*: 设置风格初始化
+mygui*: 创建scr
+mygui*: 创建title
+mygui*: 创建panel1
+mygui*: 设置四个按钮
+mygui*: 设置四个window
+mygui*: 设置win1
+mygui*: 设置win2
+mygui*: 设置win3
+mygui*: 设置win4
+mygui*: all work done
+main task*: all init done
+$GNGGA,081321.00,3208.16158895,N,11841.80528640,E,1,19,1.0,14.9557,M,1.7774,M,,*75
+#UNIHEADINGA,96,GPS,FINE,2319,461619000,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*f1fe904f
+led task*: TogglePin
+$GNGGA,081321.50,3208.16159064,N,11841.80528486,E,1,19,1.0,14.9591,M,1.7774,M,,*75
+#UNIHEADINGA,96,GPS,FINE,2319,461619500,0,0,18,9;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*7ca67ba1
+try gpgga 0.5
+
+led task*: TogglePin
+$command,gpgga 0.5,response: COM1*57
+$command,gpgga 0.5,response: COM1*57
+$command,gpgga 0.5,response: COM1*57
+$GNGGA,081322.00,3208.16159258,N,11841.80528667,E,1,20,0.9,14.9665,M,1.7774,M,,*79
+#UNIHEADINGA,96,GPS,FINE,2319,461620000,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*a3a9c2a6
+led task*: TogglePin
+$GNGGA,081322.50,3208.16159474,N,11841.80528989,E,1,20,0.9,14.9753,M,1.7774,M,,*7F
+#UNIHEADINGA,96,GPS,FINE,2319,461620500,0,0,18,9;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*ad124543
+led task*: TogglePin
+$command,gpgga 0.5,response: COM1*57
+$command,gpgga 0.5,response: COM1*57
+$command,gpgga 0.5,response: COM1*57
+$GNGGA,081323.00,3208.16159689,N,11841.80528801,E,1,19,1.0,14.9768,M,1.7774,M,,*70
+#UNIHEADINGA,96,GPS,FINE,2319,461621000,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*c96c57f1
+led task*: TogglePin
+$GNGGA,081323.50,3208.16159935,N,11841.80528843,E,1,20,0.9,14.9812,M,1.7774,M,,*7B
+#UNIHEADINGA,96,GPS,FINE,2319,461621500,0,0,18,9;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*d8a7e052
+led task*: TogglePin
+$GNGGA,081324.00,3208.16160215,N,11841.80529296,E,1,20,0.9,14.9907,M,1.7774,M,,*7C
+#UNIHEADINGA,96,GPS,FINE,2319,461622000,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*7622e808
+led task*: TogglePin
+$GNGGA,081324.50,3208.16160486,N,11841.80529368,E,1,20,0.9,14.9948,M,1.7774,M,,*7E
+#UNIHEADINGA,96,GPS,FINE,2319,461622500,0,0,18,9;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*46790f61
+led task*: TogglePin
+$GNGGA,081325.00,3208.16160759,N,11841.80529418,E,1,20,0.9,14.9981,M,1.7774,M,,*7E
+#UNIHEADINGA,96,GPS,FINE,2319,461623000,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*1ce77d5f
+led task*: TogglePin
+$GNGGA,081325.50,3208.16161047,N,11841.80529454,E,1,20,0.9,15.0010,M,1.7774,M,,*73
+#UNIHEADINGA,96,GPS,FINE,2319,461623500,0,0,18,9;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*33ccaa70
+
+***************************************
+W25Q64 OK,flash ID:EF4017
+璺宠浆鍒癢25Q64杩愯鐢ㄦ埛绋嬪簭>>>
+
+main*: init fmc
+main*: init ltdc
+HAL_LTDC_Init
+识别旧面板
+是旧面板，启用 LCD_PanelModify
+ltdc configlayer
+ltdc configlayer done
+main*: init done
+main*: lvgl touch init
+main*: lvgl init
+main*: lvgl disp init
+main*: lvgl port indev init
+main*: all inited
+gps task*: enter gps task
+gps task*: uart1 start receive
+gps task*: uart2 start receive
+$GNGGA,081326.00,3208.16161347,N,11841.80529474,E,1,20,0.9,15.0034,M,1.7774,M,,*72
+#UNIHEADINGA,96,GPS,FINE,2319,461624000,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*d3ce91bb
+main task*: fs check
+
+SD文件系统挂载成功
+main task*: fs getvolme
+-------------------获取设备容量信息-----------------
+SD容量：15185MB
+SD剩余：15185MB
+main task*: run my gui
+mygui*: 设置风格初始化
+mygui*: 创建scr
+mygui*: 创建title
+mygui*: 创建panel1
+mygui*: 设置四个按钮
+mygui*: 设置四个window
+mygui*: 设置win1
+mygui*: 设置win2
+mygui*: 设置win3
+mygui*: 设置win4
+mygui*: all work done
+main task*: all init done
+led task*: TogglePin
+$GNGGA,081326.50,3208.16161669,N,11841.80529831,E,1,20,0.9,15.0103,M,1.7774,M,,*76
+#UNIHEADINGA,96,GPS,FINE,2319,461624500,0,0,18,9;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*a0b5d746
+try gpgga 0.5
+
+led task*: TogglePin
+$command,gpgga 0.5,response: COM1*57
+$GNGGA,081327.00,3208.16162000,N,11841.80530170,E,1,20,0.9,15.0165,M,1.7774,M,,*7C
+#UNIHEADINGA,96,GPS,FINE,2319,461625000,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*b90b04ec
+$command,gpgga 0.5,response: COM1*57
+$command,gpgga 0.5,response: COM1*57
+led task*: TogglePin
+$GNGGA,081327.50,3208.16162337,N,11841.80530475,E,1,20,0.9,15.0222,M,1.7774,M,,*7E
+#UNIHEADINGA,96,GPS,FINE,2319,461625500,0,0,18,9;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*d5007257
+led task*: TogglePin
+$GNGGA,081328.00,3208.16162685,N,11841.80530741,E,1,20,0.9,15.0270,M,1.7774,M,,*7B
+#UNIHEADINGA,96,GPS,FINE,2319,461626000,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*0645bb15
+$command,gpgga 0.5,response: COM1*57
+$command,gpgga 0.5,response: COM1*57
+$command,gpgga 0.5,response: COM1*57
+led task*: TogglePin
+$GNGGA,081328.50,3208.16163037,N,11841.80531014,E,1,20,0.9,15.0317,M,1.7774,M,,*76
+#UNIHEADINGA,96,GPS,FINE,2319,461626500,0,0,18,9;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*4bde9d64
+led task*: TogglePin
+$GNGGA,081329.00,3208.16163394,N,11841.80531257,E,1,20,0.9,15.0354,M,1.7774,M,,*7A
+#UNIHEADINGA,96,GPS,FINE,2319,461627000,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*6c802e42
+led task*: TogglePin
+$GNGGA,081329.50,3208.16163845,N,11841.80531358,E,1,21,0.9,15.0396,M,1.7774,M,,*79
+#UNIHEADINGA,96,GPS,FINE,2319,461627500,0,0,18,10;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*1f13c5d7
+led task*: TogglePin
+$GNGGA,081330.00,3208.16164427,N,11841.80531677,E,1,21,0.9,15.0497,M,1.7774,M,,*75
+#UNIHEADINGA,96,GPS,FINE,2319,461628000,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*4367649c
+led task*: TogglePin
+$GNGGA,081330.50,3208.16164756,N,11841.80531564,E,1,20,0.9,15.0470,M,1.7774,M,,*7C
+#UNIHEADINGA,96,GPS,FINE,2319,461628500,0,0,18,10;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*30f48f09
+led task*: TogglePin
+$GNGGA,081331.00,3208.16165086,N,11841.80531452,E,1,20,0.9,15.0440,M,1.7774,M,,*74
+#UNIHEADINGA,96,GPS,FINE,2319,461629000,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*29a2f1cb
+
+***************************************
+W25Q64 OK,flash ID:EF4017
+璺宠浆鍒癢25Q64杩愯鐢ㄦ埛绋嬪簭>>>
+
+main*: init fmc
+main*: init ltdc
+HAL_LTDC_Init
+识别旧面板
+是旧面板，启用 LCD_PanelModify
+ltdc configlayer
+ltdc configlayer done
+main*: init done
+main*: lvgl touch init
+main*: lvgl init
+main*: lvgl disp init
+main*: lvgl port indev init
+main*: all inited
+gps task*: enter gps task
+gps task*: uart1 start receive
+gps task*: uart2 start receive
+main task*: fs check
+
+SD文件系统挂载成功
+main task*: fs getvolme
+-------------------获取设备容量信息-----------------
+SD容量：15185MB
+SD剩余：15185MB
+main task*: run my gui
+mygui*: 设置风格初始化
+mygui*: 创建scr
+mygui*: 创建title
+mygui*: 创建panel1
+mygui*: 设置四个按钮
+mygui*: 设置四个window
+mygui*: 设置win1
+mygui*: 设置win2
+mygui*: 设置win3
+mygui*: 设置win4
+mygui*: all work done
+main task*: all init done
+led task*: TogglePin
+try gpgga 0.5
+
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+
+***************************************
+W25Q64 OK,flash ID:EF4017
+璺宠浆鍒癢25Q64杩愯鐢ㄦ埛绋嬪簭>>>
+
+main*: init fmc
+main*: init ltdc
+HAL_LTDC_Init
+识别旧面板
+是旧面板，启用 LCD_PanelModify
+ltdc configlayer
+ltdc configlayer done
+main*: init done
+main*: lvgl touch init
+main*: lvgl init
+main*: lvgl disp init
+main*: lvgl port indev init
+main*: all inited
+gps task*: enter gps task
+gps task*: uart1 start receive
+gps task*: uart2 start receive
+main task*: fs check
+
+SD文件系统挂载成功
+main task*: fs getvolme
+-------------------获取设备容量信息-----------------
+SD容量：15185MB
+SD剩余：0MB
+main task*: run my gui
+mygui*: 设置风格初始化
+mygui*: 创建scr
+mygui*: 创建title
+mygui*: 创建panel1
+mygui*: 设置四个按钮
+$GNGGA,081335.00,3208.16167672,N,11841.80530348,E,1,20,0.9,15.0096,M,1.7774,M,,*7D
+#UNIHEADINGA,96,GPS,FINE,2319,461633000,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*e9827c9d
+mygui*: 设置四个window
+mygui*: 设置win1
+mygui*: 设置win2
+mygui*: 设置win3
+mygui*: 设置win4
+mygui*: all work done
+main task*: all init done
+led task*: TogglePin
+$GNGGA,081335.50,3208.16167982,N,11841.80530198,E,1,20,0.9,15.0042,M,1.7774,M,,*7E
+#UNIHEADINGA,96,GPS,FINE,2319,461633500,0,0,18,9;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*59093f27
+try gpgga 0.5
+
+$command,gpgga 0.5,response: COM1*57
+led task*: TogglePin
+$command,gpgga 0.5,response: COM1*57
+$command,gpgga 0.5,response: COM1*57
+$GNGGA,081336.00,3208.16168282,N,11841.80530041,E,1,20,0.9,14.9983,M,1.7774,M,,*75
+#UNIHEADINGA,96,GPS,FINE,2319,461634000,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*26ab9079
+led task*: TogglePin
+$GNGGA,081336.50,3208.16168575,N,11841.80529883,E,1,20,0.9,14.9922,M,1.7774,M,,*7A
+#UNIHEADINGA,96,GPS,FINE,2319,461634500,0,0,18,9;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*ca704211
+led task*: TogglePin
+$command,gpgga 0.5,response: COM1*57
+$command,gpgga 0.5,response: COM1*57
+$command,gpgga 0.5,response: COM1*57
+$GNGGA,081337.00,3208.16168858,N,11841.80529729,E,1,20,0.9,14.9860,M,1.7774,M,,*74
+#UNIHEADINGA,96,GPS,FINE,2319,461635000,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*50ec60ad
+led task*: TogglePin
+$GNGGA,081337.50,3208.16169129,N,11841.80529583,E,1,20,0.9,14.9795,M,1.7774,M,,*78
+#UNIHEADINGA,96,GPS,FINE,2319,461635500,0,0,18,9;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*bfc5e700
+led task*: TogglePin
+$GNGGA,081338.00,3208.16169397,N,11841.80529441,E,1,20,0.9,14.9730,M,1.7774,M,,*75
+#UNIHEADINGA,96,GPS,FINE,2319,461636000,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*f320bad7
+led task*: TogglePin
+$GNGGA,081338.50,3208.16169664,N,11841.80529300,E,1,20,0.9,14.9663,M,1.7774,M,,*7C
+#UNIHEADINGA,96,GPS,FINE,2319,461636500,0,0,18,9;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*211b0833
+led task*: TogglePin
+$GNGGA,081339.00,3208.16169926,N,11841.80529174,E,1,20,0.9,14.9595,M,1.7774,M,,*7A
+#UNIHEADINGA,96,GPS,FINE,2319,461637000,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*99e52f80
+$GNGGA,081516.00,3208.16175255,N,11841.80590188,E,1,28,0.6,15.2821,M,1.7774,M,,*7D
+#UNIHEADINGA,95,GPS,FINE,2319,461734000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*c2b5de32
+led task*: TogglePin
+$GNGGA,081516.50,3208.16175314,N,11841.80590256,E,1,28,0.7,15.2804,M,1.7774,M,,*7A
+#UNIHEADINGA,95,GPS,FINE,2319,461734500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*8822fea1
+led task*: TogglePin
+$GNGGA,081517.00,3208.16175419,N,11841.80590540,E,1,28,0.7,15.2813,M,1.7774,M,,*72
+#UNIHEADINGA,95,GPS,FINE,2319,461735000,0,0,18,14;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*a3f197e4
+led task*: TogglePin
+$GNGGA,081517.50,3208.16175298,N,11841.80590743,E,1,28,0.7,15.2746,M,1.7774,M,,*76
+#UNIHEADINGA,95,GPS,FINE,2319,461735500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*e2e76bf6
+led task*: TogglePin
+$GNGGA,081518.00,3208.16175182,N,11841.80590962,E,1,28,0.7,15.2683,M,1.7774,M,,*71
+#UNIHEADINGA,95,GPS,FINE,2319,461736000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*173ef49c
+led task*: TogglePin
+$GNGGA,081518.50,3208.16175155,N,11841.80591164,E,1,28,0.7,15.2629,M,1.7774,M,,*71
+#UNIHEADINGA,95,GPS,FINE,2319,461736500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*5da9d40f
+led task*: TogglePin
+$GNGGA,081519.00,3208.16175141,N,11841.80591362,E,1,28,0.7,15.2596,M,1.7774,M,,*73
+#UNIHEADINGA,95,GPS,FINE,2319,461737000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*7dfb61cb
+led task*: TogglePin
+$GNGGA,081519.50,3208.16175138,N,11841.80591563,E,1,28,0.7,15.2577,M,1.7774,M,,*70
+#UNIHEADINGA,95,GPS,FINE,2319,461737500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*376c4158
+led task*: TogglePin
+$GNGGA,081520.00,3208.16175179,N,11841.80591755,E,1,28,0.7,15.2564,M,1.7774,M,,*7F
+#UNIHEADINGA,95,GPS,FINE,2319,461738000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*521c2b15
+led task*: TogglePin
+$GNGGA,081520.50,3208.16175236,N,11841.80591954,E,1,28,0.7,15.2562,M,1.7774,M,,*7B
+#UNIHEADINGA,95,GPS,FINE,2319,461738500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*188b0b86
+led task*: TogglePin
+$GNGGA,081521.00,3208.16175303,N,11841.80592151,E,1,28,0.7,15.2564,M,1.7774,M,,*70
+#UNIHEADINGA,95,GPS,FINE,2319,461739000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*38d9be42
+led task*: TogglePin
+$GNGGA,081521.50,3208.16175358,N,11841.80592324,E,1,28,0.7,15.2580,M,1.7774,M,,*71
+#UNIHEADINGA,95,GPS,FINE,2319,461739500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*724e9ed1
+led task*: TogglePin
+$GNGGA,081522.00,3208.16175390,N,11841.80592301,E,1,28,0.7,15.2561,M,1.7774,M,,*7B
+#UNIHEADINGA,95,GPS,FINE,2319,461740000,0,0,18,14;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*1efb5e23
+led task*: TogglePin
+$GNGGA,081522.50,3208.16175271,N,11841.80592348,E,1,28,0.7,15.2512,M,1.7774,M,,*79
+#UNIHEADINGA,95,GPS,FINE,2319,461740500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*5feda231
+led task*: TogglePin
+$GNGGA,081523.00,3208.16175178,N,11841.80592357,E,1,28,0.7,15.2462,M,1.7774,M,,*7F
+#UNIHEADINGA,95,GPS,FINE,2319,461741000,0,0,18,16;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*633d7276
+led task*: TogglePin
+$GNGGA,081523.50,3208.16175104,N,11841.80592351,E,1,28,0.7,15.2427,M,1.7774,M,,*76
+#UNIHEADINGA,95,GPS,FINE,2319,461741500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*35283766
+led task*: TogglePin
+$GNGGA,081524.00,3208.16175045,N,11841.80592387,E,1,28,0.7,15.2403,M,1.7774,M,,*7D
+#UNIHEADINGA,95,GPS,FINE,2319,461742000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*c0f1a80c
+led task*: TogglePin
+$GNGGA,081524.50,3208.16174995,N,11841.80592450,E,1,28,0.7,15.2440,M,1.7774,M,,*77
+#UNIHEADINGA,95,GPS,FINE,2319,461742500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*8a66889f
+led task*: TogglePin
+$GNGGA,081525.00,3208.16174933,N,11841.80592519,E,1,28,0.7,15.2472,M,1.7774,M,,*72
+#UNIHEADINGA,95,GPS,FINE,2319,461743000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*aa343d5b
+led task*: TogglePin
+$GNGGA,081525.50,3208.16174840,N,11841.80592537,E,1,28,0.7,15.2498,M,1.7774,M,,*7A
+#UNIHEADINGA,95,GPS,FINE,2319,461743500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*e0a31dc8
+led task*: TogglePin
+$GNGGA,081526.00,3208.16174760,N,11841.80592610,E,1,28,0.7,15.2530,M,1.7774,M,,*74
+#UNIHEADINGA,95,GPS,FINE,2319,461744000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*651dd1bf
+led task*: TogglePin
+$GNGGA,081526.50,3208.16174675,N,11841.80592609,E,1,28,0.7,15.2544,M,1.7774,M,,*7F
+#UNIHEADINGA,95,GPS,FINE,2319,461744500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*2f8af12c
+led task*: TogglePin
+$GNGGA,081527.00,3208.16174593,N,11841.80592584,E,1,28,0.7,15.2561,M,1.7774,M,,*71
+#UNIHEADINGA,95,GPS,FINE,2319,461745000,0,0,18,16;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*135a216b
+led task*: TogglePin
+$GNGGA,081527.50,3208.16174506,N,11841.80592513,E,1,28,0.7,15.2579,M,1.7774,M,,*7F
+#UNIHEADINGA,95,GPS,FINE,2319,461745500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*454f647b
+led task*: TogglePin
+$GNGGA,081528.00,3208.16174403,N,11841.80592439,E,1,28,0.7,15.2599,M,1.7774,M,,*76
+#UNIHEADINGA,95,GPS,FINE,2319,461746000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*b096fb11
+led task*: TogglePin
+$GNGGA,081528.50,3208.16174309,N,11841.80592389,E,1,28,0.7,15.2620,M,1.7774,M,,*73
+#UNIHEADINGA,95,GPS,FINE,2319,461746500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*fa01db82
+led task*: TogglePin
+$GNGGA,081529.00,3208.16174216,N,11841.80592358,E,1,28,0.7,15.2646,M,1.7774,M,,*74
+#UNIHEADINGA,95,GPS,FINE,2319,461747000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*da536e46
+led task*: TogglePin
+$GNGGA,081529.50,3208.16174219,N,11841.80592189,E,1,28,0.7,15.2679,M,1.7774,M,,*7C
+#UNIHEADINGA,95,GPS,FINE,2319,461747500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*90c44ed5
+led task*: TogglePin
+
+***************************************
+W25Q64 OK,flash ID:EF4017
+璺宠浆鍒癢25Q64杩愯鐢ㄦ埛绋嬪簭>>>
+
+main*: init fmc
+main*: init ltdc
+HAL_LTDC_Init
+识别旧面板
+是旧面板，启用 LCD_PanelModify
+ltdc configlayer
+ltdc configlayer done
+main*: init done
+main*: lvgl touch init
+main*: lvgl init
+main*: lvgl disp init
+main*: lvgl port indev init
+main*: all inited
+gps task*: enter gps task
+gps task*: uart1 start receive
+gps task*: uart2 start receive
+main task*: fs check
+SD卡还未创建文件系统，即将格式化
+格式化失败，请检查或更换SD卡！
+main task*: fs getvolme
+-------------------获取设备容量信息-----------------
+SD容量：0MB
+SD剩余：0MB
+main task*: run my gui
+mygui*: 设置风格初始化
+mygui*: 创建scr
+mygui*: 创建title
+mygui*: 创建panel1
+mygui*: 设置四个按钮
+mygui*: 设置四个window
+mygui*: 设置win1
+mygui*: 设置win2
+mygui*: 设置win3
+mygui*: 设置win4
+mygui*: all work done
+main task*: all init done
+led task*: TogglePin
+try gpgga 0.5
+
+led task*: TogglePin
+led task*: TogglePin
+led task*: TogglePin
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461769000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+msg: $command,gpgga 0.5,response: COM1*
+msg: $command,gpgga 0.5,response: COM1*
+msg: $command,gpgga 0.5,response: COM1*
+msg: $command,gpgga 0.5,response: COM1*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461769500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461769500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461769500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461769500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461769500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461769500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,900,3208.16166178,N,11841.80587323,E,1,28,0.7,15.4576,M,1.7774,M,,*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461770000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,95,GPS,FINE166023,N,11841.80587215,E,1,28,0.7,15.4594,M,1.7774,M,,*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461770500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: $GNGGA,081553.00,3208.16165697,N,11841.80587088,E,1,28,0.7,15.4609,M,1.7774,M,,*
+gps task*: counter= 1
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461771000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461771500,0,0,18,12;INSUFFICIENT_OB1,M,1.7774,M,,*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461771500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,95,GPS,FINE,2319,46177841.80587009,E,1,28,0.7,15.4626,M,1.7774,M,,*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461772000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461772500,0,0,182,E,1,28,0.7,15.4624,M,1.7774,M,,*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461772500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEA081555.00,3208.16164864,N,11841.80587186,E,1,28,0.7,15.4629,M,1.7774,M,,*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461773000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,95,G3208.16164605,N,11841.80587270,E,1,28,0.7,15.4627,M,1.7774,M,,*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461773500,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461774000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461774000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461774500,0,0,18,12;INSUFFI7,15.4588,M,1.7774,M,,*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461774500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,95,GPS,FINE,23614,N,11841.80587532,E,1,28,0.7,15.4573,M,1.7774,M,,*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461775000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,95,GPS,FINE,2319,46177550.80587641,E,1,28,0.7,15.4588,M,1.7774,M,,*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461775500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHE,081558.00,3208.16163285,N,11841.80587656,E,1,28,0.7,15.4580,M,1.7774,M,,*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461776000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,95,,3208.16162963,N,11841.80587866,E,1,28,0.7,15.4575,M,1.7774,M,,*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461776500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461777000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461777000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461777500,0,0,189,E,1,28,0.7,15.4517,M,1.7774,M,,*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461777500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,95,GPS08.16161890,N,11841.80588159,E,1,28,0.7,15.4495,M,1.7774,M,,*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461778000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,95,GPS,FIN6161584,N,11841.80588214,E,1,28,0.7,15.4478,M,1.7774,M,,*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461778500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461779000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461779000,0,0,18,15;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461779500,0,0,18,12;INSUFFICIEN.4312,M,1.7774,M,,*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461779500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,95,GPS,FINE,2319,46178841.80587805,E,1,28,0.7,15.4228,M,1.7774,M,,*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461780000,0,0,18,14;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,95,GPS,FINE,23185,N,11841.80587704,E,1,28,0.7,15.4151,M,1.7774,M,,*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461780500,0,0,18,11;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,.00,3208.16159522,N,11841.80587609,E,1,28,0.7,15.4093,M,1.7774,M,,*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461781000,0,0,18,14;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,950,3208.16159051,N,11841.80587505,E,1,28,0.7,15.4035,M,1.7774,M,,*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461781500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461782000,0,0,18,14;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461782000,0,0,18,14;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461782500,0,07275,E,1,28,0.7,15.3925,M,1.7774,M,,*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461782500,0,0,18,12;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin
+msg: #UNIHEADINGA,95,GPS,FIN6157761,N,11841.80587130,E,1,28,0.7,15.3866,M,1.7774,M,,*
+msg: #UNIHEADINGA,95,GPS,FINE,2319,461783000,0,0,18,14;INSUFFICIENT_OBS,NONE,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,"",0,0,0,0,0,00,0,0*
+led task*: TogglePin

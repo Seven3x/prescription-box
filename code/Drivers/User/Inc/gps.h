@@ -17,6 +17,8 @@ typedef struct {
     char lon_dir;
 }  GPS_msgTypeDef;
 
+extern double dir;
+
 int read_msg(char * msg_str, GPS_msgTypeDef* GPS_msgStructure);
 // GPS_msgTypeDef read_msg(char * msg_str);
 void printmsg(GPS_msgTypeDef msg);

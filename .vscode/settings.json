@@ -17,7 +17,8 @@
         "stdio.h": "c",
         "string.h": "c",
         "read.h": "c",
-        "cmath": "c"
+        "cmath": "c",
+        "sdmmc_sd.h": "c"
     },
     "files.encoding": "gb2312",
     "cmake.sourceDirectory": "C:/Doc/Projects/prescription-box/simulate"
