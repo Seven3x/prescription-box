@@ -317,12 +317,13 @@ void StartTask02(void *argument)
 void StartTask03(void *argument)
 {
   /* USER CODE BEGIN StartTask03 */
-
+    HAL_UART_Receive_IT(&huart4,(uint8_t *)Rx4Temp, REC_LENGTH);	//重新使能中断
+  
   /* Infinite loop */
   for(;;)
   {
   //  printf("print task*: print\r\n");
-   osDelay(1000);
+   osDelay(10);
     // osDelay(1);
   }
   /* USER CODE END StartTask03 */

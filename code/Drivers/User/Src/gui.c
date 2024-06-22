@@ -1,5 +1,9 @@
 #include "gui.h"
 
+#include "FreeRTOS.h"
+#include "freertos_os2.h"
+#include "cmsis_os2.h"
+
 
 //*****************************移植的lvgl，一旦调用自己生成的字体文件就会卡死，换而言之，无法显示中文***************** */
 
@@ -175,6 +179,19 @@ static void save_btn_event_handler(lv_event_t* event) {
     lv_obj_add_flag(win3, LV_OBJ_FLAG_HIDDEN);
     lv_obj_add_flag(win4, LV_OBJ_FLAG_HIDDEN);
 }
+
+extern uint8_t delete_flag;
+//
+extern osMessageQueueId_t gpshuart_flagqHandle;
+static void btn_savemsg_event_cb(lv_event_t* event) {
+    delete_flag = 1;
+}
+
+static void btn_calculate_event_cb(lv_event_t* event) {
+    static flag = 2;
+    osMessageQueuePut(gpshuart_flagqHandle, &flag, 2U, 0U); //将接收到的数据发送到队列
+}
+
 
 LV_FONT_DECLARE(lv_font_siyuan_small);
 LV_FONT_DECLARE(lv_font_siyuan_micro);
@@ -524,6 +541,10 @@ static void win2_init() {
 static void win3_init() {
     // 窗口3
     win3 = lv_win_create(lv_scr_act(), 40);
+
+
+
+
     lv_win_add_title(win3, "Btn3");
     lv_obj_add_flag(win3, LV_OBJ_FLAG_HIDDEN); // 隐藏
     lv_obj_t* close_btn3 = lv_win_add_btn(win3, LV_SYMBOL_CLOSE, 50);
@@ -533,13 +554,42 @@ static void win3_init() {
     lv_obj_t* win3_cont = lv_win_get_content(win3);
     lv_obj_set_flex_flow(win3_cont, LV_FLEX_FLOW_COLUMN_WRAP);
 
+    lv_obj_set_style_pad_all(win3_cont, 10, LV_PART_MAIN); // 内部元素距离上下左右的距离
+    lv_obj_set_flex_flow(win3_cont, LV_FLEX_FLOW_ROW_WRAP);
+    lv_obj_set_flex_align(win3_cont, LV_FLEX_ALIGN_SPACE_AROUND, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
+    lv_obj_set_style_pad_row(win3_cont, 20, LV_PART_MAIN);
+    lv_obj_set_style_pad_column(win3_cont, 20, LV_PART_MAIN);
+    lv_obj_clear_flag(win3_cont, LV_OBJ_FLAG_SCROLLABLE); // 禁止滚动条
+
+
+
+
+    lv_obj_t* bsavemsg = lv_btn_create(win3_cont);
+    lv_obj_set_size(bsavemsg, 100, 90);
+    lv_obj_t* bsavemsg_label = lv_label_create(bsavemsg);
+    lv_label_set_text(bsavemsg_label, "save");
+    lv_obj_add_event_cb(bsavemsg, btn_savemsg_event_cb, LV_EVENT_CLICKED, bsavemsg);
+    // 按钮图标位于中心
+    lv_obj_set_align(bsavemsg_label, LV_ALIGN_CENTER);
+
+    lv_obj_t* calculate = lv_btn_create(win3_cont);
+    lv_obj_set_size(calculate, 100, 90);
+    lv_obj_t* calculate_label = lv_label_create(calculate);
+    lv_label_set_text(calculate_label, "calcu");
+    lv_obj_add_event_cb(calculate, btn_calculate_event_cb, LV_EVENT_CLICKED, calculate);
+    // 按钮图标位于中心
+    lv_obj_set_align(calculate_label, LV_ALIGN_CENTER);
+
+    // lv_obj_add_event_cb(bsavemsg, btn_plus3_event_cb, LV_EVENT_VALUE_CHANGED, bsavemsg);
+
+
     // label显示信息
-    lv_obj_t* status1 = lv_label_create(win3_cont);
-    lv_label_set_text(status1, "This is a hidden window. Click the button to show it.");
-    lv_obj_t * status2 = lv_label_create(win3_cont);
-    lv_label_set_text(status2, "This is a hidden window. Click the button to show it.");
-    lv_obj_t * status3 = lv_label_create(win3_cont);
-    lv_label_set_text(status3, "This is a hidden window. Click the button to show it.");
+    // lv_obj_t* status1 = lv_label_create(win3_cont);
+    // lv_label_set_text(status1, "This is a hidden window. Click the button to show it.");
+    // lv_obj_t * status2 = lv_label_create(win3_cont);
+    // lv_label_set_text(status2, "This is a hidden window. Click the button to show it.");
+    // lv_obj_t * status3 = lv_label_create(win3_cont);
+    // lv_label_set_text(status3, "This is a hidden window. Click the button to show it.");
 }
 
 // 初始化隐藏的win4窗口

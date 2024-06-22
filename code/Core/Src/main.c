@@ -124,6 +124,7 @@ int main(void)
   MX_SPI5_Init();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
+  MX_UART4_Init();
   /* USER CODE BEGIN 2 */
   printf("main*: init fmc\r\n");
   // MX_FMC_Init();
