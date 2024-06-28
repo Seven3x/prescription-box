@@ -25,6 +25,19 @@
 #include "FreeRTOS.h"
 #include "freertos_os2.h"
 #include "cmsis_os2.h"
+#include "imu.h"
+IMUData_Packet_t IMUData_Packet;
+AHRSData_Packet_t AHRSData_Packet;
+uint8_t ttl_receive;
+uint8_t Fd_data[64];
+uint8_t Fd_rsimu[64];
+uint8_t Fd_rsahrs[56];
+uint8_t Fd_rsgeo[48];
+int rs_imutype = 0;
+int rsgeo_flag;
+int rs_ahrstype = 0;
+int rs_geotype = 0;
+int Time_count;
 
 
 uint8_t delete_flag =0 ;
@@ -401,6 +414,13 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)//串口3接收完成回调函数
   static uint8_t RxFlag = 0;
   static uint8_t Rx1Flag = 0;
 
+  // imu相关变量
+  static uint8_t Count=0;
+	static uint8_t rs_count=0;
+  static uint8_t last_rsnum=0;
+	uint8_t Usart_Receive;
+	static uint8_t rsimu_flag=0;
+	static uint8_t rsacc_flag=0;
   
 
   if(huart->Instance == USART1) {
@@ -453,7 +473,56 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)//串口3接收完成回调函数
 	}
 
   if(huart->Instance == UART4) {
-    HAL_UART_Transmit(&huart1, (uint8_t *)Rx4Temp, REC_LENGTH, 100);
+    Fd_data[Count] = Usart_Receive;			  // 串口数据填入数组
+		if (((last_rsnum == FRAME_END) && (Usart_Receive == FRAME_HEAD)) || Count > 0)
+		{
+			rs_count = 1;
+			Count++;
+      // 校准后的IMU数据
+			if ((Fd_data[1] == TYPE_IMU) && (Fd_data[2] == IMU_LEN))
+				rsimu_flag = 1;
+      // AHRS数据
+			if ((Fd_data[1] == TYPE_AHRS) && (Fd_data[2] == AHRS_LEN))
+				rsacc_flag = 1;
+      // 经纬度数据
+      if ((Fd_data[1] == TYPE_GEODETIC_POS) && (Fd_data[2] == GEODETIC_POS_LEN))
+				rsgeo_flag = 1;
+		}
+		else
+			Count = 0;
+		last_rsnum = Usart_Receive;
+
+
+		if (rsimu_flag == 1 && Count == IMU_RS) // 将本帧数据保存至Fd_rsimu数组中
+		{
+			Count = 0;
+			rsimu_flag = 0;
+			rs_imutype = 1;
+			if (Fd_data[IMU_RS - 1] == FRAME_END) // 帧尾校验
+				memcpy(Fd_rsimu, Fd_data, sizeof(Fd_data));
+		}
+		if (rsacc_flag == 1 && Count == AHRS_RS) //
+		{
+			Count = 0;
+			rsacc_flag = 0;
+			rs_ahrstype = 1;
+			if (Fd_data[AHRS_RS - 1] == FRAME_END)
+				memcpy(Fd_rsahrs, Fd_data, sizeof(Fd_data));
+			for (int i = 0; i < sizeof(Fd_data); i++)
+				Fd_data[i] = 0;
+		}
+    if (rsgeo_flag == 1 && Count == GEODETIC_POS_RS) //
+		{
+      Count = 0;
+      rsgeo_flag = 0;
+      rs_geotype = 1;
+      if (Fd_data[GEODETIC_POS_RS - 1] == FRAME_END)
+        memcpy(Fd_rsgeo, Fd_data, sizeof(Fd_data));
+      for (int i = 0; i < sizeof(Fd_data); i++)
+        Fd_data[i] = 0;
+      TTL_Hex2Dec();
+    }
+    // HAL_UART_Transmit(&huart1, (uint8_t *)Rx4Temp, REC_LENGTH, 100);
     HAL_UART_Receive_IT(&huart4,(uint8_t *)Rx4Temp, REC_LENGTH);	//重新使能中断
   }
 

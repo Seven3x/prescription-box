@@ -1,1 +1,3 @@
 值得一提的是，移植freertos必须打开USE_TICK_HOOK
+
+MSG_GEODETIC_POS 0x5c
