@@ -24,5 +24,8 @@
         "stm32h7xx_hal.h": "c"
     },
     "files.encoding": "gb2312",
-    "cmake.sourceDirectory": "C:/Doc/Projects/prescription-box/simulate"
+    "cmake.sourceDirectory": "C:/Docs/prescription-box/simulate",
+    "cSpell.ignoreWords": [
+        "rsimu"
+    ]
 }

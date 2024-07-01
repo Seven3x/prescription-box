@@ -1,10 +1,12 @@
 #include "imu.h"
 #include "stdio.h"
+#include "cmsis_os2.h"
 
+extern osMessageQueueId_t imu_msgHandle;
 
 void print_imu_data(GEOData_Packet_t* data){
     // print the data
-    printf("lat: %lf, lon: %lf\r\n", data->altitude, data->latitude);
+    printf("lat: %lf, lon: %lf\r\n", data->latitude, data->longitude);
      
 }
 
@@ -27,6 +29,44 @@ float DATA_Trans(uint8_t Data_1, uint8_t Data_2, uint8_t Data_3, uint8_t Data_4)
 	mantissa = 1 + ((float)(transition_32 & 0x7fffff) / 0x7fffff);
 	tmp = sign * mantissa * pow(2, exponent);
 	return tmp;
+}
+
+double DATA64_Transb(uint8_t Data_1, uint8_t Data_2, uint8_t Data_3, uint8_t Data_4, uint8_t Data_5, uint8_t Data_6, uint8_t Data_7, uint8_t Data_8) {
+    uint8_t bytes[8] = {Data_1, Data_2, Data_3, Data_4, Data_5, Data_6, Data_7, Data_8};
+    double result;
+
+    // 将字节数组复制到 double 变量
+    memcpy(&result, bytes, sizeof(result));
+
+    return result;
+}
+
+double DATA64_Trans(uint8_t Data_1, uint8_t Data_2, uint8_t Data_3, uint8_t Data_4, uint8_t Data_5, uint8_t Data_6, uint8_t Data_7, uint8_t Data_8){
+	uint64_t transition_64;
+	float tmp = 0;
+	int sign = 0;
+	int exponent = 0;
+	float mantissa = 0;
+	transition_64 = 0;
+	transition_64 |= (uint64_t)Data_8 << 56;
+	transition_64 |= (uint64_t)Data_7 << 48;
+	transition_64 |= (uint64_t)Data_6 << 40;
+	transition_64 |= (uint64_t)Data_5 << 32;
+	transition_64 |= (uint64_t)Data_4 << 24;
+	transition_64 |= (uint64_t)Data_3 << 16;
+	transition_64 |= (uint64_t)Data_2 << 8;
+	transition_64 |= (uint64_t)Data_1;
+	sign = (transition_64 & 0x8000000000000000) ? -1 : 1;
+	// 先右移操作，再按位与计算，出来结果是30到23位对应的e
+    exponent = ((transition_64 >> 52) & 0x7FF) - 1023;
+	// exponent = ((transition_64 >> 23) & 0xff) - 127;
+	// 将22~0转化为10进制，得到对应的x系数
+	mantissa = 1 + ((double)(transition_64 & 0xFFFFFFFFFFFFF) / (double)0x10000000000000);
+	tmp = sign * mantissa * pow(2, exponent);
+	return tmp;
+
+	
+	// return tmp;
 }
 
 
@@ -80,11 +120,16 @@ uint8_t TTL_Hex2Dec(void)
 	}
     if (rs_geotype == 1){
         if(Fd_rsgeo[1] == TYPE_GEODETIC_POS && Fd_rsgeo[2] == GEODETIC_POS_LEN){
-                
-            GEOData_Packet.latitude = DATA_Trans(Fd_rsgeo[7], Fd_rsgeo[8], Fd_rsgeo[9], Fd_rsgeo[10]); // 纬度
-            GEOData_Packet.longitude = DATA_Trans(Fd_rsgeo[11], Fd_rsgeo[12], Fd_rsgeo[13], Fd_rsgeo[14]); // 经度
-            
+            int i = 0;  
+            GEOData_Packet.latitude = DATA64_Transb(Fd_rsgeo[7], Fd_rsgeo[8], Fd_rsgeo[9], Fd_rsgeo[10], Fd_rsgeo[11], Fd_rsgeo[12], Fd_rsgeo[13], Fd_rsgeo[14]); // 纬度
+            GEOData_Packet.longitude = DATA64_Transb(Fd_rsgeo[15], Fd_rsgeo[16], Fd_rsgeo[17], Fd_rsgeo[18], Fd_rsgeo[19], Fd_rsgeo[20], Fd_rsgeo[21], Fd_rsgeo[22]); // 经度
+			for (i = 0; i < GEODETIC_POS_RS; i ++) {
+				printf(" %x", Fd_rsgeo[i]);
+			}
+			printf("\r\n");
+            osMessageQueuePut(imu_msgHandle, &GEOData_Packet, 2U, 0U); //将接收到的数据发送到队列
         }
+		rs_geotype = 0;
     }
 	return 0;
 }

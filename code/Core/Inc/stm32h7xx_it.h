@@ -57,6 +57,7 @@ void USART1_IRQHandler(void);
 void USART2_IRQHandler(void);
 void SDMMC1_IRQHandler(void);
 void UART4_IRQHandler(void);
+void UART5_IRQHandler(void);
 void LTDC_IRQHandler(void);
 void DMA2D_IRQHandler(void);
 /* USER CODE BEGIN EFP */

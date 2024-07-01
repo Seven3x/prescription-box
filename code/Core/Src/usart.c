@@ -26,8 +26,10 @@
 #include "freertos_os2.h"
 #include "cmsis_os2.h"
 #include "imu.h"
+#include "string.h"
 IMUData_Packet_t IMUData_Packet;
 AHRSData_Packet_t AHRSData_Packet;
+extern osMessageQueueId_t imu_msgHandle;
 uint8_t ttl_receive;
 uint8_t Fd_data[64];
 uint8_t Fd_rsimu[64];
@@ -48,7 +50,7 @@ uint16_t RxCounter = 0;						    //串口长度计数
 uint8_t RxFlag = 0;							      //串口接收完成标志符
 uint8_t RxTemp[REC_LENGTH] = {0};			//串口数据接收暂存BUFF	长度1
 uint8_t flag = 0;
-uint8_t Rx4Temp[REC_LENGTH] = {0};			//串口4数据接收暂存BUFF	长度1
+uint8_t Rx5Temp[REC_LENGTH] = {0};			//串口4数据接收暂存BUFF	长度1
 
 uint8_t Rx1Temp[REC_LENGTH] = {0};			//串口1数据接收暂存BUFF	长度1
 uint8_t Rx1Buffer[MAX_REC_LENGTH] = {0};		//串口数据存储BUFF		长度2048
@@ -56,6 +58,7 @@ uint8_t Rx1Buffer[MAX_REC_LENGTH] = {0};		//串口数据存储BUFF		长度2048
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart4;
+UART_HandleTypeDef huart5;
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 
@@ -71,7 +74,7 @@ void MX_UART4_Init(void)
 
   /* USER CODE END UART4_Init 1 */
   huart4.Instance = UART4;
-  huart4.Init.BaudRate = 921600;
+  huart4.Init.BaudRate = 115200;
   huart4.Init.WordLength = UART_WORDLENGTH_8B;
   huart4.Init.StopBits = UART_STOPBITS_1;
   huart4.Init.Parity = UART_PARITY_NONE;
@@ -100,6 +103,49 @@ void MX_UART4_Init(void)
   /* USER CODE BEGIN UART4_Init 2 */
 
   /* USER CODE END UART4_Init 2 */
+
+}
+/* UART5 init function */
+void MX_UART5_Init(void)
+{
+
+  /* USER CODE BEGIN UART5_Init 0 */
+
+  /* USER CODE END UART5_Init 0 */
+
+  /* USER CODE BEGIN UART5_Init 1 */
+
+  /* USER CODE END UART5_Init 1 */
+  huart5.Instance = UART5;
+  huart5.Init.BaudRate = 115200;
+  huart5.Init.WordLength = UART_WORDLENGTH_8B;
+  huart5.Init.StopBits = UART_STOPBITS_1;
+  huart5.Init.Parity = UART_PARITY_NONE;
+  huart5.Init.Mode = UART_MODE_TX_RX;
+  huart5.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart5.Init.OverSampling = UART_OVERSAMPLING_16;
+  huart5.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  huart5.Init.ClockPrescaler = UART_PRESCALER_DIV1;
+  huart5.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+  if (HAL_UART_Init(&huart5) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_SetTxFifoThreshold(&huart5, UART_TXFIFO_THRESHOLD_1_8) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_SetRxFifoThreshold(&huart5, UART_RXFIFO_THRESHOLD_1_8) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_DisableFifoMode(&huart5) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN UART5_Init 2 */
+
+  /* USER CODE END UART5_Init 2 */
 
 }
 /* USART1 init function */
@@ -233,6 +279,43 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
 
   /* USER CODE END UART4_MspInit 1 */
   }
+  else if(uartHandle->Instance==UART5)
+  {
+  /* USER CODE BEGIN UART5_MspInit 0 */
+
+  /* USER CODE END UART5_MspInit 0 */
+
+  /** Initializes the peripherals clock
+  */
+    PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_UART5;
+    PeriphClkInitStruct.Usart234578ClockSelection = RCC_USART234578CLKSOURCE_D2PCLK1;
+    if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
+    {
+      Error_Handler();
+    }
+
+    /* UART5 clock enable */
+    __HAL_RCC_UART5_CLK_ENABLE();
+
+    __HAL_RCC_GPIOB_CLK_ENABLE();
+    /**UART5 GPIO Configuration
+    PB5     ------> UART5_RX
+    PB6     ------> UART5_TX
+    */
+    GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_6;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    GPIO_InitStruct.Alternate = GPIO_AF14_UART5;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+    /* UART5 interrupt Init */
+    HAL_NVIC_SetPriority(UART5_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(UART5_IRQn);
+  /* USER CODE BEGIN UART5_MspInit 1 */
+
+  /* USER CODE END UART5_MspInit 1 */
+  }
   else if(uartHandle->Instance==USART1)
   {
   /* USER CODE BEGIN USART1_MspInit 0 */
@@ -332,6 +415,26 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 
   /* USER CODE END UART4_MspDeInit 1 */
   }
+  else if(uartHandle->Instance==UART5)
+  {
+  /* USER CODE BEGIN UART5_MspDeInit 0 */
+
+  /* USER CODE END UART5_MspDeInit 0 */
+    /* Peripheral clock disable */
+    __HAL_RCC_UART5_CLK_DISABLE();
+
+    /**UART5 GPIO Configuration
+    PB5     ------> UART5_RX
+    PB6     ------> UART5_TX
+    */
+    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_5|GPIO_PIN_6);
+
+    /* UART5 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(UART5_IRQn);
+  /* USER CODE BEGIN UART5_MspDeInit 1 */
+
+  /* USER CODE END UART5_MspDeInit 1 */
+  }
   else if(uartHandle->Instance==USART1)
   {
   /* USER CODE BEGIN USART1_MspDeInit 0 */
@@ -421,6 +524,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)//串口3接收完成回调函数
 	uint8_t Usart_Receive;
 	static uint8_t rsimu_flag=0;
 	static uint8_t rsacc_flag=0;
+  static GEOData_Packet_t msg;
   
 
   if(huart->Instance == USART1) {
@@ -436,6 +540,53 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)//串口3接收完成回调函数
     
   }
 
+  if(huart->Instance == UART5) {
+    // printf("uart5: get\r\n");
+    Fd_data[Count] = Rx5Temp[0];			  // 串口数据填入数组
+    // printf(" %x", Rx5Temp[0]);
+
+    Usart_Receive = Rx5Temp[0];
+		if (((last_rsnum == FRAME_END) && (Usart_Receive == FRAME_HEAD)) || Count > 0)
+		{
+      // printf("uart5: get frame\r\n");
+      
+
+			rs_count = 1;
+			Count++;
+      // 经纬度数据
+      if ((Fd_data[1] == TYPE_GEODETIC_POS)&& (Fd_data[2] == GEODETIC_POS_LEN)){//0x20
+				rsgeo_flag = 1;
+        // printf("\r\n geo \r\n"); 
+      }
+		}
+		else
+			Count = 0;
+		last_rsnum = Usart_Receive;
+
+
+		
+    if (rsgeo_flag == 1 && Count == GEODETIC_POS_RS) //
+		{
+      printf("%x, %x \r\n", Fd_data[1], Fd_data[2]);
+      Count = 0;
+      rsgeo_flag = 0;
+      rs_geotype = 1;
+      if (Fd_data[GEODETIC_POS_RS - 1] == FRAME_END) {
+        printf("correct\r\n");
+        memcpy(Fd_rsgeo, Fd_data, sizeof(Fd_data));
+        TTL_Hex2Dec();
+        // osMessageQueuePut(imu_msgHandle, &msg, 2U, 0U); //将接收到的数据发送到队列
+        // print_imu_data(&msg);
+      } else {
+        printf(" %x \r\n", Fd_data[GEODETIC_POS_RS - 1]);
+      }
+      for (int i = 0; i < sizeof(Fd_data); i++)
+        Fd_data[i] = 0;
+    }
+    // HAL_UART_Transmit(&huart1, (uint8_t *)Rx5Temp, REC_LENGTH, 100);
+    // SET_BIT(UART4->RQR, USART_RQR_RXFRQ);
+    HAL_UART_Receive_IT(&huart5,(uint8_t *) Rx5Temp, REC_LENGTH);	//重新使能中断
+  }
 
 
 	if(huart->Instance == USART2) {
@@ -472,59 +623,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)//串口3接收完成回调函数
     HAL_UART_Receive_IT(&huart2,(uint8_t *)RxTemp, REC_LENGTH);	//重新使能中断
 	}
 
-  if(huart->Instance == UART4) {
-    Fd_data[Count] = Usart_Receive;			  // 串口数据填入数组
-		if (((last_rsnum == FRAME_END) && (Usart_Receive == FRAME_HEAD)) || Count > 0)
-		{
-			rs_count = 1;
-			Count++;
-      // 校准后的IMU数据
-			if ((Fd_data[1] == TYPE_IMU) && (Fd_data[2] == IMU_LEN))
-				rsimu_flag = 1;
-      // AHRS数据
-			if ((Fd_data[1] == TYPE_AHRS) && (Fd_data[2] == AHRS_LEN))
-				rsacc_flag = 1;
-      // 经纬度数据
-      if ((Fd_data[1] == TYPE_GEODETIC_POS) && (Fd_data[2] == GEODETIC_POS_LEN))
-				rsgeo_flag = 1;
-		}
-		else
-			Count = 0;
-		last_rsnum = Usart_Receive;
-
-
-		if (rsimu_flag == 1 && Count == IMU_RS) // 将本帧数据保存至Fd_rsimu数组中
-		{
-			Count = 0;
-			rsimu_flag = 0;
-			rs_imutype = 1;
-			if (Fd_data[IMU_RS - 1] == FRAME_END) // 帧尾校验
-				memcpy(Fd_rsimu, Fd_data, sizeof(Fd_data));
-		}
-		if (rsacc_flag == 1 && Count == AHRS_RS) //
-		{
-			Count = 0;
-			rsacc_flag = 0;
-			rs_ahrstype = 1;
-			if (Fd_data[AHRS_RS - 1] == FRAME_END)
-				memcpy(Fd_rsahrs, Fd_data, sizeof(Fd_data));
-			for (int i = 0; i < sizeof(Fd_data); i++)
-				Fd_data[i] = 0;
-		}
-    if (rsgeo_flag == 1 && Count == GEODETIC_POS_RS) //
-		{
-      Count = 0;
-      rsgeo_flag = 0;
-      rs_geotype = 1;
-      if (Fd_data[GEODETIC_POS_RS - 1] == FRAME_END)
-        memcpy(Fd_rsgeo, Fd_data, sizeof(Fd_data));
-      for (int i = 0; i < sizeof(Fd_data); i++)
-        Fd_data[i] = 0;
-      TTL_Hex2Dec();
-    }
-    // HAL_UART_Transmit(&huart1, (uint8_t *)Rx4Temp, REC_LENGTH, 100);
-    HAL_UART_Receive_IT(&huart4,(uint8_t *)Rx4Temp, REC_LENGTH);	//重新使能中断
-  }
 
 }
 

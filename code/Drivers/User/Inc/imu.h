@@ -30,7 +30,7 @@
 #define IMU_RS 64
 #define AHRS_RS 56
 #define INSGPS_RS 80
-#define GEODETIC_POS_RS 32
+#define GEODETIC_POS_RS 40
 #define RS485_RX_DE		rsgeo_flagPAout(11)	//485模式控制.0,接收;1,发送.
 #define RS485_RX_RE		PAout(12)	//485模式控制.0,接收;1,发送.
 

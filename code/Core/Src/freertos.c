@@ -44,6 +44,7 @@
 #include "lv_port_indev_template.h"
 #include "lv_demo_widgets.h"
 #include "gui.h"
+#include "imu.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -91,7 +92,7 @@ const osThreadAttr_t defaultTask_attributes = {
 osThreadId_t ledtoggleHandle;
 const osThreadAttr_t ledtoggle_attributes = {
   .name = "ledtoggle",
-  .stack_size = 512 * 4,
+  .stack_size = 256 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
 /* Definitions for printmsgu2 */
@@ -113,6 +114,13 @@ osThreadId_t msgwrite_taskHandle;
 const osThreadAttr_t msgwrite_task_attributes = {
   .name = "msgwrite_task",
   .stack_size = 1536 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+/* Definitions for imu_task */
+osThreadId_t imu_taskHandle;
+const osThreadAttr_t imu_task_attributes = {
+  .name = "imu_task",
+  .stack_size = 512 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for gpshuart_flagq */
@@ -148,6 +156,17 @@ const osMessageQueueAttr_t gpswriteq_attributes = {
   .mq_mem = &gpswriteqBuffer,
   .mq_size = sizeof(gpswriteqBuffer)
 };
+/* Definitions for imu_msg */
+osMessageQueueId_t imu_msgHandle;
+uint8_t imu_msgBuffer[ 4 * sizeof( GEOData_Packet_t ) ];
+osStaticMessageQDef_t imu_msgControlBlock;
+const osMessageQueueAttr_t imu_msg_attributes = {
+  .name = "imu_msg",
+  .cb_mem = &imu_msgControlBlock,
+  .cb_size = sizeof(imu_msgControlBlock),
+  .mq_mem = &imu_msgBuffer,
+  .mq_size = sizeof(imu_msgBuffer)
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -159,6 +178,7 @@ void StartTask02(void *argument);
 void StartTask03(void *argument);
 void gps_task_handler(void *argument);
 void msgwrite_task_handler(void *argument);
+void imu_task_handler(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -210,6 +230,9 @@ void MX_FREERTOS_Init(void) {
   /* creation of gpswriteq */
   gpswriteqHandle = osMessageQueueNew (4, sizeof(uint16_t), &gpswriteq_attributes);
 
+  /* creation of imu_msg */
+  imu_msgHandle = osMessageQueueNew (4, sizeof(GEOData_Packet_t), &imu_msg_attributes);
+
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
@@ -229,6 +252,9 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of msgwrite_task */
   msgwrite_taskHandle = osThreadNew(msgwrite_task_handler, NULL, &msgwrite_task_attributes);
+
+  /* creation of imu_task */
+  imu_taskHandle = osThreadNew(imu_task_handler, NULL, &imu_task_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -301,7 +327,7 @@ void StartTask02(void *argument)
     osDelay(500);
     HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 
-    printf("led task*: TogglePin\r\n");
+    // printf("led task*: TogglePin\r\n");
     // osDelay(500);
   }
   /* USER CODE END StartTask02 */
@@ -317,7 +343,6 @@ void StartTask02(void *argument)
 void StartTask03(void *argument)
 {
   /* USER CODE BEGIN StartTask03 */
-    HAL_UART_Receive_IT(&huart4,(uint8_t *)Rx4Temp, REC_LENGTH);	//重新使能中断
   
   /* Infinite loop */
   for(;;)
@@ -429,7 +454,7 @@ void msgwrite_task_handler(void *argument)
   static GPS_msgTypeDef msg;
   uint8_t lenth = 0;
   uint8_t i = 0;
-  static flag = 0;
+  static int flag = 0;
 	uint16_t BufferSize = 0;	
 	FIL	MyFile;			// 文件对象
 	UINT 	MyFile_Num;		//	数据长度
@@ -448,6 +473,7 @@ void msgwrite_task_handler(void *argument)
   FatFs_Check();			//判断FatFs是否挂载成功，若没有创建FatFs则格式化SD卡
   printf("writer task*: fs getvolme\r\n");
   FatFs_GetVolume();	
+  
   MyFile_Res = f_open(&MyFile,"0:Msg.txt",FA_CREATE_ALWAYS | FA_WRITE);
 
   if(MyFile_Res == FR_OK)
@@ -518,6 +544,31 @@ void msgwrite_task_handler(void *argument)
     // osDelay(1);
   }
   /* USER CODE END msgwrite_task_handler */
+}
+
+/* USER CODE BEGIN Header_imu_task_handler */
+/**
+* @brief Function implementing the imu_task thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_imu_task_handler */
+void imu_task_handler(void *argument)
+{
+  /* USER CODE BEGIN imu_task_handler */
+  static GEOData_Packet_t msg;
+  // osDelay(1000);   
+  HAL_UART_Receive_IT(&huart5,(uint8_t *)Rx5Temp, REC_LENGTH);	//重新使能中断
+  /* Infinite loop */
+  for(;;)
+  {
+    // 如果队列有消息
+    if(osOK == osMessageQueueGet(imu_msgHandle, &msg, 0U, 0)){
+      print_imu_data(&msg);
+    }
+    osDelay(10);
+  }
+  /* USER CODE END imu_task_handler */
 }
 
 /* Private application code --------------------------------------------------*/

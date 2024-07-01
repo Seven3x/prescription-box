@@ -37,11 +37,13 @@ extern uint16_t RxCounter;						//串口长度计数
 extern uint8_t RxFlag;							//串口接收完成标志符
 extern uint8_t RxTemp[REC_LENGTH];			//串口数据接收暂存BUFF	长度1
 extern uint8_t delete_flag;
-extern uint8_t Rx4Temp[REC_LENGTH];			//串口4数据接收暂存BUFF	长度1
+extern uint8_t Rx5Temp[REC_LENGTH];			//串口4数据接收暂存BUFF	长度1
 
 /* USER CODE END Includes */
 
 extern UART_HandleTypeDef huart4;
+
+extern UART_HandleTypeDef huart5;
 
 extern UART_HandleTypeDef huart1;
 
@@ -52,6 +54,7 @@ extern uint8_t Rx1Temp[REC_LENGTH];
 /* USER CODE END Private defines */
 
 void MX_UART4_Init(void);
+void MX_UART5_Init(void);
 void MX_USART1_UART_Init(void);
 void MX_USART2_UART_Init(void);
 
