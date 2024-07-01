@@ -86,6 +86,7 @@ extern int rs_ahrstype;
 extern int rsgeo_flag;
 extern int Time_count;
 extern int rs_geotype;
+extern uint8_t imu_save_flag;
 
 uint8_t TTL_Hex2Dec(void);
 void print_imu_data(GEOData_Packet_t* data);

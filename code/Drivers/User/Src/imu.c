@@ -123,10 +123,10 @@ uint8_t TTL_Hex2Dec(void)
             int i = 0;  
             GEOData_Packet.latitude = DATA64_Transb(Fd_rsgeo[7], Fd_rsgeo[8], Fd_rsgeo[9], Fd_rsgeo[10], Fd_rsgeo[11], Fd_rsgeo[12], Fd_rsgeo[13], Fd_rsgeo[14]); // 纬度
             GEOData_Packet.longitude = DATA64_Transb(Fd_rsgeo[15], Fd_rsgeo[16], Fd_rsgeo[17], Fd_rsgeo[18], Fd_rsgeo[19], Fd_rsgeo[20], Fd_rsgeo[21], Fd_rsgeo[22]); // 经度
-			for (i = 0; i < GEODETIC_POS_RS; i ++) {
-				printf(" %x", Fd_rsgeo[i]);
-			}
-			printf("\r\n");
+			// for (i = 0; i < GEODETIC_POS_RS; i ++) {
+			// 	printf(" %x", Fd_rsgeo[i]);
+			// }
+			// printf("\r\n");
             osMessageQueuePut(imu_msgHandle, &GEOData_Packet, 2U, 0U); //将接收到的数据发送到队列
         }
 		rs_geotype = 0;

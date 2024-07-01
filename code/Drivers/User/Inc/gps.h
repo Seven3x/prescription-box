@@ -16,6 +16,7 @@ typedef struct {
     double lond;
     char lon_dir;
 }  GPS_msgTypeDef;
+extern uint8_t gps_save_flag;
 
 extern double dir;
 

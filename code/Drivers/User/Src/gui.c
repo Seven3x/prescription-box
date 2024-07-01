@@ -3,6 +3,8 @@
 #include "FreeRTOS.h"
 #include "freertos_os2.h"
 #include "cmsis_os2.h"
+#include "gps.h"
+#include "imu.h"
 
 
 //*****************************移植的lvgl，一旦调用自己生成的字体文件就会卡死，换而言之，无法显示中文***************** */
@@ -185,11 +187,25 @@ extern uint8_t delete_flag;
 extern osMessageQueueId_t gpshuart_flagqHandle;
 static void btn_savemsg_event_cb(lv_event_t* event) {
     delete_flag = 1;
+    gps_save_flag = 0;
+
 }
+static void btn_startsavemsg_event_cb(lv_event_t* event) {
+    gps_save_flag = 1;
+}
+
 
 static void btn_calculate_event_cb(lv_event_t* event) {
     static flag = 2;
     osMessageQueuePut(gpshuart_flagqHandle, &flag, 2U, 0U); //将接收到的数据发送到队列
+}
+
+static void btn_bstartsaveimu_event_cb(lv_event_t* event) {
+    imu_save_flag = 1;
+}
+static void btn_bsaveimu_event_cb(lv_event_t* event) {
+    imu_save_flag = 0;
+    delete_flag = 1;
 }
 
 
@@ -563,6 +579,14 @@ static void win3_init() {
 
 
 
+    lv_obj_t* bstartsavemsg = lv_btn_create(win3_cont);
+    lv_obj_set_size(bstartsavemsg, 100, 90);
+    lv_obj_t* bstartsavemsg_label = lv_label_create(bstartsavemsg);
+    lv_label_set_text(bstartsavemsg_label, "start save");
+    lv_obj_add_event_cb(bstartsavemsg, btn_startsavemsg_event_cb, LV_EVENT_CLICKED, bstartsavemsg);
+    // 按钮图标位于中心
+    lv_obj_set_align(bstartsavemsg_label, LV_ALIGN_CENTER);
+
 
     lv_obj_t* bsavemsg = lv_btn_create(win3_cont);
     lv_obj_set_size(bsavemsg, 100, 90);
@@ -579,6 +603,22 @@ static void win3_init() {
     lv_obj_add_event_cb(calculate, btn_calculate_event_cb, LV_EVENT_CLICKED, calculate);
     // 按钮图标位于中心
     lv_obj_set_align(calculate_label, LV_ALIGN_CENTER);
+
+    lv_obj_t* bstartsaveimu = lv_btn_create(win3_cont);
+    lv_obj_set_size(bstartsaveimu, 100, 90);
+    lv_obj_t* bstartsaveimu_label = lv_label_create(bstartsaveimu);
+    lv_label_set_text(bstartsaveimu_label, "start save imu");
+    lv_obj_add_event_cb(bstartsaveimu, btn_bstartsaveimu_event_cb, LV_EVENT_CLICKED, bstartsaveimu);
+    // 按钮图标位于中心
+    lv_obj_set_align(bstartsaveimu_label, LV_ALIGN_CENTER);
+
+    lv_obj_t* bsaveimu = lv_btn_create(win3_cont);
+    lv_obj_set_size(bsaveimu, 100, 90);
+    lv_obj_t* bsaveimu_label = lv_label_create(bsaveimu);
+    lv_label_set_text(bsaveimu_label, "start save imu");
+    lv_obj_add_event_cb(bsaveimu, btn_bsaveimu_event_cb, LV_EVENT_CLICKED, bsaveimu);
+    // 按钮图标位于中心
+    lv_obj_set_align(bsaveimu_label, LV_ALIGN_CENTER);
 
     // lv_obj_add_event_cb(bsavemsg, btn_plus3_event_cb, LV_EVENT_VALUE_CHANGED, bsavemsg);
 

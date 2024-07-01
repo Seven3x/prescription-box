@@ -12,5 +12,6 @@ double latlon_to_distance(double distances[2], double point[2]);
 GPS_msgTypeDef structure_nlonlat(GPS_msgTypeDef point, double* average, double angle);
 double calcu_gamma(double dl, double dd, double angle);
 double calcu_h(double dl, double dd);
+double rad2deg(double radians);
 void nlonlat(double point[2], double distance, double angle, double target_point[2]);
 #endif // !__PROC_H

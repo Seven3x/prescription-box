@@ -323,7 +323,7 @@ __weak HAL_StatusTypeDef MX_SDMMC1_SD_Init(SD_HandleTypeDef *hsd)
 //  SDMMC_CK （输出时钟）=  sdmmc_ker_ck （SDMMC 内核时钟） / [2 * CLKDIV]
 // 在本例程中，sdmmc_ker_ck = 240M
 // 为了兼容性和稳定性，这里设置为 SDMMC_CK =  sdmmc_ker_ck / (2*6) = 20M
-  hsd->Init.ClockDiv            = 8;   
+  hsd->Init.ClockDiv            = 12;   
 
 	
   /* HAL SD initialization   */

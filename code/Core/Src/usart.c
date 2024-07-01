@@ -567,18 +567,18 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)//串口3接收完成回调函数
 		
     if (rsgeo_flag == 1 && Count == GEODETIC_POS_RS) //
 		{
-      printf("%x, %x \r\n", Fd_data[1], Fd_data[2]);
+      // printf("%x, %x \r\n", Fd_data[1], Fd_data[2]);
       Count = 0;
       rsgeo_flag = 0;
       rs_geotype = 1;
       if (Fd_data[GEODETIC_POS_RS - 1] == FRAME_END) {
-        printf("correct\r\n");
+        // printf("correct\r\n");
         memcpy(Fd_rsgeo, Fd_data, sizeof(Fd_data));
         TTL_Hex2Dec();
         // osMessageQueuePut(imu_msgHandle, &msg, 2U, 0U); //将接收到的数据发送到队列
         // print_imu_data(&msg);
       } else {
-        printf(" %x \r\n", Fd_data[GEODETIC_POS_RS - 1]);
+        // printf(" %x \r\n", Fd_data[GEODETIC_POS_RS - 1]);
       }
       for (int i = 0; i < sizeof(Fd_data); i++)
         Fd_data[i] = 0;
