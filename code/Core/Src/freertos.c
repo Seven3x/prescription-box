@@ -35,7 +35,7 @@
 #include "sdcard.h"
 #include "proc.h"
 #include "stdlib.h"
-#include "sdram.h"  
+#include "sdram.h"
 #include "lcd_rgb.h"
 #include "lcd_pwm.h"
 #include "touch_800x480.h"
@@ -51,18 +51,17 @@
 typedef StaticQueue_t osStaticMessageQDef_t;
 /* USER CODE BEGIN PTD */
 char test_buf[1024] = {"0000\r\n"};
-UINT br,bw;			//读写变量
+UINT br, bw; // 读写变量
 double average[360] = {0};
 GPS_msgTypeDef precise_point = {
-  32.136002525,
-  0,
-  118.696729652,
-  0
-};
-extern char SDPath[4];	
-extern FATFS 	SD_FatFs; 		// 文件系统对象
-extern FRESULT 	MyFile_Res;    // 操作结果 
-//计算过average的flag
+    32.136002525,
+    0,
+    118.696729652,
+    0};
+extern char SDPath[4];
+extern FATFS SD_FatFs;     // 文件系统对象
+extern FRESULT MyFile_Res; // 操作结果
+// 计算过average的flag
 uint8_t average_flag = 0;
 uint8_t imu_save_flag = 0;
 uint8_t gps_save_flag = 0;
@@ -283,19 +282,17 @@ void StartDefaultTask(void *argument)
   // FatFs_Check();			//判断FatFs是否挂载成功，若没有创建FatFs则格式化SD卡
   // printf("main task*: fs getvolme\r\n");
   // FatFs_GetVolume();	// 计算设备容量
-  
+
   printf("main task*: run my gui\r\n");
   my_gui();
-	// lv_demo_benchmark();   // 运行官方例程 lv_demo_benchmark ，进行基准性能测试
+  // lv_demo_benchmark();   // 运行官方例程 lv_demo_benchmark ，进行基准性能测试
 
-
-
-  HAL_UART_Receive_IT(&huart5,(uint8_t *)Rx5Temp, REC_LENGTH);	//重新使能中断
+  HAL_UART_Receive_IT(&huart5, (uint8_t *)Rx5Temp, REC_LENGTH); // 重新使能中断
   printf("main task*: all init done\r\n");
   // osDelay(500);
   // FatFs_FileTest();		//文件创建和写入测试
   /* Infinite loop */
-  for(;;)
+  for (;;)
   {
     // osDelay(1);
     // printf("main task*: lv_task_handler\r\n");
@@ -324,7 +321,7 @@ void StartTask02(void *argument)
   // LED 任务
   /* Infinite loop */
 
-  for(;;)
+  for (;;)
   {
     // HAL_Delay(1000);
     osDelay(500);
@@ -347,7 +344,7 @@ void StartTask03(void *argument)
 {
   /* USER CODE BEGIN StartTask03 */
   /* Infinite loop */
-  for(;;)
+  for (;;)
   {
     //  printf("print task*: print\r\n");
     osDelay(10);
@@ -376,15 +373,14 @@ void gps_task_handler(void *argument)
   int val;
   printf("gps task*: enter gps task\r\n");
 
-
-    // 开始usart1数据接受
+  // 开始usart1数据接受
   // osDelay(200);
   printf("gps task*: uart1 start receive\r\n");
-  HAL_UART_Receive_IT(&huart1,(uint8_t *)Rx1Temp, REC_LENGTH);	//重新使能中断
+  HAL_UART_Receive_IT(&huart1, (uint8_t *)Rx1Temp, REC_LENGTH); // 重新使能中断
   // osDelay(200);
   // 开始gps数据收发
   printf("gps task*: uart2 start receive\r\n");
-  HAL_UART_Receive_IT(&huart2,(uint8_t *)RxTemp, REC_LENGTH);	//重新使能中断
+  HAL_UART_Receive_IT(&huart2, (uint8_t *)RxTemp, REC_LENGTH); // 重新使能中断
   osDelay(1000);
   printf("try %s\n\r", msg1);
 
@@ -401,47 +397,58 @@ void gps_task_handler(void *argument)
   // HAL_UART_Transmit(&huart2,msg2, sizeof(msg2), 0xFFFF);
   // osDelay(10);
   HAL_UART_AbortReceive(&huart2);
-  HAL_UART_Receive_IT(&huart2,(uint8_t *)RxTemp, REC_LENGTH);	//重新使能中断
+  HAL_UART_Receive_IT(&huart2, (uint8_t *)RxTemp, REC_LENGTH); // 重新使能中断
 
   /* Infinite loop */
-  for(;;)
+  for (;;)
   {
     // osDelay(20);
-    if (osOK == osMessageQueueGet(gpshuart_flagqHandle, &pgpsh_flag, 0U, 0)) {
+    if (osOK == osMessageQueueGet(gpshuart_flagqHandle, &pgpsh_flag, 0U, 0))
+    {
       // printf("msg:%s\r\n", RxBuffer);
 
       // 如果是1，说明是数据
-      if(pgpsh_flag == 1) {
-        val =read_msg(RxBuffer, &GPSH_msgStructure);
+      if (pgpsh_flag == 1)
+      {
+        val = read_msg(RxBuffer, &GPSH_msgStructure);
         // printmsg(GPSH_msgStructure);
-        if(val == 0) {
-          if (average_flag != 1) {
-            for (i = 0; i < 360; i ++) {
+        if (val == 0)
+        {
+          if (average_flag != 1)
+          {
+            for (i = 0; i < 360; i++)
+            {
               average[i] += to_distance_angle_structure(precise_point, (double)i, GPSH_msgStructure);
             }
           }
           counter += 1;
-          gps_receive = '1'; //屏幕显示gps收到消息
+          gps_receive = '1'; // 屏幕显示gps收到消息
           // printf("gps*: ctr= %d\r\n", counter);
           osMessageQueuePut(gpsmsgqHandle, &GPSH_msgStructure, 1U, 0U); //
-        } else if (val == 1) {
+        }
+        else if (val == 1)
+        {
           // printf("gps*: d:%lf\r\n ", dir);
-          
-        } else if (val == 2){
+        }
+        else if (val == 2)
+        {
           // printf("gps*: s:%lf\r\n ", GPSH_msgStructure.speed);
         }
-
-      } else if (pgpsh_flag == 2) {
+      }
+      else if (pgpsh_flag == 2)
+      {
         // 如果是2，说明是指令，计算所有average
         printf("gps*: calculate average\r\n");
-        for(i = 0; i < 360; i ++) {
+        for (i = 0; i < 360; i++)
+        {
           average[i] /= counter;
         }
         average_flag = 1;
-        for(i = 0; i < 360; i ++) {
+        for (i = 0; i < 360; i++)
+        {
           printf("gps*: average[%d] = %lf\r\n", i, average[i]);
         }
-      // printmsg(GPSH_msgStructure);
+        // printmsg(GPSH_msgStructure);
       }
     }
     osDelay(20);
@@ -464,106 +471,113 @@ void msgwrite_task_handler(void *argument)
   uint8_t lenth = 0;
   uint8_t i = 0;
   static int flag = 0;
-	uint16_t BufferSize = 0;	
-	FIL	MyFile;			// 文件对象
-	UINT 	MyFile_Num;		//	数据长度
-	BYTE 	MyFile_WriteBuffer[81] = "";	//要写入的数据
-  GPS_msgTypeDef nlonlatpoint = {0,0,0,0};
-	// BYTE 	MyFile_ReadBuffer[1024];	//要读出的数据
+  uint16_t BufferSize = 0;
+  FIL MyFile;                       // 文件对象
+  UINT MyFile_Num;                  //	数据长度
+  BYTE MyFile_WriteBuffer[81] = ""; // 要写入的数据
+  GPS_msgTypeDef nlonlatpoint = {0, 0, 0, 0};
+  // BYTE 	MyFile_ReadBuffer[1024];	//要读出的数据
 
   // FatFs_Check();			//判断FatFs是否挂载成功，若没有创建FatFs则格式化SD卡
-	// MyFile_Res = f_mount(&SD_FatFs,"0:",1);	//	挂载SD卡
-  
+  // MyFile_Res = f_mount(&SD_FatFs,"0:",1);	//	挂载SD卡
+
   // if (MyFile_Res == FR_OK)	//判断是否挂载成功
-	// {
-		// printf("msg writer*: SD文件系统挂载成功\r\n");
-	// }
+  // {
+  // printf("msg writer*: SD文件系统挂载成功\r\n");
+  // }
   printf("writer task*: fs check\r\n");
-  FatFs_Check();			//判断FatFs是否挂载成功，若没有创建FatFs则格式化SD卡
+  FatFs_Check(); // 判断FatFs是否挂载成功，若没有创建FatFs则格式化SD卡
   printf("writer task*: fs getvolme\r\n");
-  FatFs_GetVolume();	
+  FatFs_GetVolume();
 
   // 如果初始化文件系统后不立刻打开文件而是过一会再打开，文件系统会报错FR_DISK_ERR，因此先开一个文件，等到开始写入时再关闭
-  MyFile_Res = f_open(&MyFile,"0:msg.txt",FA_CREATE_ALWAYS | FA_WRITE);
-  if(MyFile_Res != FR_OK)
+  MyFile_Res = f_open(&MyFile, "0:msg.txt", FA_CREATE_ALWAYS | FA_WRITE);
+  if (MyFile_Res != FR_OK)
   {
-      printf("writer*: cannot open start file, %d\r\n", MyFile_Res);
-      f_close(&MyFile);	  //关闭文件	    
+    printf("writer*: cannot open start file, %d\r\n", MyFile_Res);
+    f_close(&MyFile); // 关闭文件
   }
-  for (;;) {
-    if (delete_flag == 1) {
-      f_close(&MyFile);	  //关闭文件	
+  for (;;)
+  {
+    if (delete_flag == 1)
+    {
+      f_close(&MyFile); // 关闭文件
       delete_flag = 0;
       printf("writer*: save file\r\n");
       // vTaskDelete(NULL);
     }
-    if (gps_save_flag  == 0 && imu_save_flag == 0) {  
-      f_close(&MyFile);	  //关闭文件	
+    if (gps_save_flag == 0 && imu_save_flag == 0)
+    {
+      f_close(&MyFile); // 关闭文件
       osMessageQueueGet(gpsmsgqHandle, &msg, 0U, 0);
-      osDelay( 20);
+      osDelay(20);
       continue;
     }
 
-    if (gps_save_flag == 1){
-      f_close(&MyFile);	  //关闭文件	
+    if (gps_save_flag == 1)
+    {
+      f_close(&MyFile); // 关闭文件
       // f_unlink("0:GPS.txt");	  //删除文件
       osDelay(20);
-      MyFile_Res = f_open(&MyFile,"0:GPS.txt",FA_CREATE_ALWAYS | FA_WRITE);
+      MyFile_Res = f_open(&MyFile, "0:GPS.txt", FA_CREATE_ALWAYS | FA_WRITE);
     }
-      
-    else if (imu_save_flag == 1){
+
+    else if (imu_save_flag == 1)
+    {
       // f_unlink("0:IMU.txt");	  //删除文件
       osDelay(20);
-      MyFile_Res = f_open(&MyFile,"0:IMU.txt",FA_CREATE_ALWAYS | FA_WRITE);
+      MyFile_Res = f_open(&MyFile, "0:IMU.txt", FA_CREATE_ALWAYS | FA_WRITE);
     }
     // printf("writer*: file open success\r\n");
 
-    if(MyFile_Res == FR_OK)
+    if (MyFile_Res == FR_OK)
     {
       printf("writer*: file open success\r\n");
-      // f_close(&MyFile);	  //关闭文件	
-
+      // f_close(&MyFile);	  //关闭文件
     }
     else
     {
       printf("writer*: cannot open file, %d\r\n", MyFile_Res);
-      f_close(&MyFile);	  //关闭文件	
+      f_close(&MyFile); // 关闭文件
       FatFs_Check();
-      // return ERROR;		
+      // return ERROR;
       // delete_flag = 1;
       gps_save_flag = 0;
       imu_save_flag = 0;
       delete_flag = 1;
-      write_status = FILE_OPEN_ERR; //屏幕显示错误
+      write_status = FILE_OPEN_ERR; // 屏幕显示错误
       // vTaskDelete(NULL);
       // vTaskDelete(NULL);
     }
     /* Infinite loop */
-    for(;!delete_flag;)
+    for (; !delete_flag;)
     {
       // printf("msgwrite task*: osDelay\r\n");
-      if(osOK == osMessageQueueGet(gpsmsgqHandle, &msg, 0U, 0) && flag == 0){
-        
-        if(average_flag) {//计算过average 相当于可以修正了
+      if (osOK == osMessageQueueGet(gpsmsgqHandle, &msg, 0U, 0) && flag == 0)
+      {
+
+        if (average_flag)
+        { // 计算过average 相当于可以修正了
           nlonlatpoint = structure_nlonlat(msg, average, dir);
         }
 
         // MyFile_Res = f_open(&MyFile,"0:Msg.txt",FA_CREATE_ALWAYS | FA_WRITE);
 
-        if(MyFile_Res == FR_OK)
+        if (MyFile_Res == FR_OK)
         {
           // f_lseek(&MyFile,f_size(&MyFile));	  //移动文件指针到文件末尾
           // printf("writer*: write: %s\r\n", MyFile_WriteBuffer);
-          if (imu_save_flag == 1){
+          if (imu_save_flag == 1)
+          {
 
             lenth = sprintf(MyFile_WriteBuffer, "%.9lf,%.9lf\n", msg.latd, msg.lond, dir);
           }
           else if (gps_save_flag == 1)
-            lenth = sprintf(MyFile_WriteBuffer, "%.9lf,%.9lf,%.9lf,%.9lf,%.3f\n", msg.latd, msg.lond, nlonlatpoint.latd, nlonlatpoint.lond,msg.speed);
+            lenth = sprintf(MyFile_WriteBuffer, "%.9lf,%.9lf,%.9lf,%.9lf,%.3f\n", msg.latd, msg.lond, nlonlatpoint.latd, nlonlatpoint.lond, msg.speed);
           // printf("%s\r\n",MyFile_WriteBuffer)
-          MyFile_Res = f_write(&MyFile,MyFile_WriteBuffer, lenth,&MyFile_Num);	//向文件写入数据
+          MyFile_Res = f_write(&MyFile, MyFile_WriteBuffer, lenth, &MyFile_Num); // 向文件写入数据
           // printf("writer*: write length: %d\r\n", MyFile_Num);
-          if (MyFile_Res == FR_OK)	
+          if (MyFile_Res == FR_OK)
           {
             write_status = FILE_WRITING;
             // printf("writer*: write success\r\n");
@@ -571,31 +585,28 @@ void msgwrite_task_handler(void *argument)
           }
           else
           {
-            printf("writer*: write failed, %d\r\n",MyFile_Res );
-            f_close(&MyFile);	  //关闭w`文件	
-              gps_save_flag = 0; // 清除标志位
-              imu_save_flag = 0;
-              delete_flag = 1;  //关闭文件并禁止进入循环
-              write_status = FILE_WRITE_ERR; //屏幕显示错误
+            printf("writer*: write failed, %d\r\n", MyFile_Res);
+            f_close(&MyFile);  // 关闭w`文件
+            gps_save_flag = 0; // 清除标志位
+            imu_save_flag = 0;
+            delete_flag = 1;               // 关闭文件并禁止进入循环
+            write_status = FILE_WRITE_ERR; // 屏幕显示错误
             // vTaskDelete(NULL);
           }
         }
         else
         {
           printf("writer*: cannot open file, %d\r\n", MyFile_Res);
-          f_close(&MyFile);	  //关闭文件	
-          // return ERROR;		
-            gps_save_flag = 0;
-            imu_save_flag = 0;
-            delete_flag = 1;
-            write_status = FILE_OPEN_ERR; //屏幕显示错误
+          f_close(&MyFile); // 关闭文件
+          // return ERROR;
+          gps_save_flag = 0;
+          imu_save_flag = 0;
+          delete_flag = 1;
+          write_status = FILE_OPEN_ERR; // 屏幕显示错误
           // vTaskDelete(NULL);
         }
-      
-
       }
 
-     
       // osDelay(20);
 
       osDelay(20);
@@ -617,18 +628,21 @@ void imu_task_handler(void *argument)
   /* USER CODE BEGIN imu_task_handler */
   static GEOData_Packet_t imumsg;
   static GPS_msgTypeDef gpsmsg;
-  // osDelay(500);   
+  // osDelay(500);
+  HAL_UART_AbortReceive(&huart5);
+  HAL_UART_Receive_IT(&huart5, (uint8_t *)Rx5Temp, REC_LENGTH); // 重新使能中断
   /* Infinite loop */
-  for(;;)
+  for (;;)
   {
     // 如果队列有消息
-    if(osOK == osMessageQueueGet(imu_msgHandle, &imumsg, 0U, 0)){
+    if (osOK == osMessageQueueGet(imu_msgHandle, &imumsg, 0U, 0))
+    {
       // print_imu_data(&imumsg);
-      if (imu_save_flag == 1) {
+      if (imu_save_flag == 1)
+      {
         gpsmsg.latd = rad2deg(imumsg.latitude);
         gpsmsg.lond = rad2deg(imumsg.longitude);
-          osMessageQueuePut(gpsmsgqHandle, &gpsmsg, 1U, 0U); //
-        
+        osMessageQueuePut(gpsmsgqHandle, &gpsmsg, 1U, 0U); //
       }
     }
     osDelay(10);
