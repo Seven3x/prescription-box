@@ -15,10 +15,12 @@ typedef struct {
     // uint64_t lon;
     double lond;
     char lon_dir;
+    float speed;
 }  GPS_msgTypeDef;
 extern uint8_t gps_save_flag;
 
 extern double dir;
+extern uint8_t gps_receive;
 
 int read_msg(char * msg_str, GPS_msgTypeDef* GPS_msgStructure);
 // GPS_msgTypeDef read_msg(char * msg_str);

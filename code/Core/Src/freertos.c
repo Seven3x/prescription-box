@@ -290,6 +290,7 @@ void StartDefaultTask(void *argument)
 
 
 
+  HAL_UART_Receive_IT(&huart5,(uint8_t *)Rx5Temp, REC_LENGTH);	//重新使能中断
   printf("main task*: all init done\r\n");
   // osDelay(500);
   // FatFs_FileTest();		//文件创建和写入测试
@@ -345,12 +346,11 @@ void StartTask02(void *argument)
 void StartTask03(void *argument)
 {
   /* USER CODE BEGIN StartTask03 */
-  
   /* Infinite loop */
   for(;;)
   {
-  //  printf("print task*: print\r\n");
-   osDelay(10);
+    //  printf("print task*: print\r\n");
+    osDelay(10);
     // osDelay(1);
   }
   /* USER CODE END StartTask03 */
@@ -388,18 +388,20 @@ void gps_task_handler(void *argument)
   osDelay(1000);
   printf("try %s\n\r", msg1);
 
-  HAL_UART_Transmit(&huart2,msg1, sizeof(msg1), 0xFFFF);
-  osDelay(10);
-  HAL_UART_Transmit(&huart2,msg1, sizeof(msg1), 0xFFFF);
-  osDelay(10);
-  HAL_UART_Transmit(&huart2,msg1, sizeof(msg1), 0xFFFF);
-  osDelay(1000);
-  HAL_UART_Transmit(&huart2,msg2, sizeof(msg2), 0xFFFF);
-  osDelay(10);
-  HAL_UART_Transmit(&huart2,msg2, sizeof(msg2), 0xFFFF);
-  osDelay(10);
-  HAL_UART_Transmit(&huart2,msg2, sizeof(msg2), 0xFFFF);
-  osDelay(10);
+  // HAL_UART_Transmit(&huart2,msg1, sizeof(msg1), 0xFFFF);
+  // osDelay(10);
+  // HAL_UART_Transmit(&huart2,msg1, sizeof(msg1), 0xFFFF);
+  // osDelay(10);
+  // HAL_UART_Transmit(&huart2,msg1, sizeof(msg1), 0xFFFF);
+  // osDelay(1000);
+  // HAL_UART_Transmit(&huart2,msg2, sizeof(msg2), 0xFFFF);
+  // osDelay(10);
+  // HAL_UART_Transmit(&huart2,msg2, sizeof(msg2), 0xFFFF);
+  // osDelay(10);
+  // HAL_UART_Transmit(&huart2,msg2, sizeof(msg2), 0xFFFF);
+  // osDelay(10);
+  HAL_UART_AbortReceive(&huart2);
+  HAL_UART_Receive_IT(&huart2,(uint8_t *)RxTemp, REC_LENGTH);	//重新使能中断
 
   /* Infinite loop */
   for(;;)
@@ -413,26 +415,31 @@ void gps_task_handler(void *argument)
         val =read_msg(RxBuffer, &GPSH_msgStructure);
         // printmsg(GPSH_msgStructure);
         if(val == 0) {
-          for (i = 0; i < 360; i ++) {
-            average[i] += to_distance_angle_structure(precise_point, (double)i, GPSH_msgStructure);
+          if (average_flag != 1) {
+            for (i = 0; i < 360; i ++) {
+              average[i] += to_distance_angle_structure(precise_point, (double)i, GPSH_msgStructure);
+            }
           }
           counter += 1;
-          printf("gps task*: counter= %d\r\n", counter);
+          gps_receive = '1'; //屏幕显示gps收到消息
+          // printf("gps*: ctr= %d\r\n", counter);
           osMessageQueuePut(gpsmsgqHandle, &GPSH_msgStructure, 1U, 0U); //
         } else if (val == 1) {
-          printf("gps task*: dir:%lf\r\n ", dir);
+          // printf("gps*: d:%lf\r\n ", dir);
           
+        } else if (val == 2){
+          // printf("gps*: s:%lf\r\n ", GPSH_msgStructure.speed);
         }
 
       } else if (pgpsh_flag == 2) {
         // 如果是2，说明是指令，计算所有average
-        printf("gps task*: calculate average\r\n");
+        printf("gps*: calculate average\r\n");
         for(i = 0; i < 360; i ++) {
           average[i] /= counter;
         }
         average_flag = 1;
         for(i = 0; i < 360; i ++) {
-          printf("gps task*: average[%d] = %lf\r\n", i, average[i]);
+          printf("gps*: average[%d] = %lf\r\n", i, average[i]);
         }
       // printmsg(GPSH_msgStructure);
       }
@@ -475,6 +482,14 @@ void msgwrite_task_handler(void *argument)
   FatFs_Check();			//判断FatFs是否挂载成功，若没有创建FatFs则格式化SD卡
   printf("writer task*: fs getvolme\r\n");
   FatFs_GetVolume();	
+
+  // 如果初始化文件系统后不立刻打开文件而是过一会再打开，文件系统会报错FR_DISK_ERR，因此先开一个文件，等到开始写入时再关闭
+  MyFile_Res = f_open(&MyFile,"0:msg.txt",FA_CREATE_ALWAYS | FA_WRITE);
+  if(MyFile_Res != FR_OK)
+  {
+      printf("writer*: cannot open start file, %d\r\n", MyFile_Res);
+      f_close(&MyFile);	  //关闭文件	    
+  }
   for (;;) {
     if (delete_flag == 1) {
       f_close(&MyFile);	  //关闭文件	
@@ -483,18 +498,21 @@ void msgwrite_task_handler(void *argument)
       // vTaskDelete(NULL);
     }
     if (gps_save_flag  == 0 && imu_save_flag == 0) {  
+      f_close(&MyFile);	  //关闭文件	
+      osMessageQueueGet(gpsmsgqHandle, &msg, 0U, 0);
       osDelay( 20);
       continue;
     }
 
     if (gps_save_flag == 1){
-      f_unlink("0:GPS.txt");	  //删除文件
+      f_close(&MyFile);	  //关闭文件	
+      // f_unlink("0:GPS.txt");	  //删除文件
       osDelay(20);
       MyFile_Res = f_open(&MyFile,"0:GPS.txt",FA_CREATE_ALWAYS | FA_WRITE);
     }
       
     else if (imu_save_flag == 1){
-      f_unlink("0:IMU.txt");	  //删除文件
+      // f_unlink("0:IMU.txt");	  //删除文件
       osDelay(20);
       MyFile_Res = f_open(&MyFile,"0:IMU.txt",FA_CREATE_ALWAYS | FA_WRITE);
     }
@@ -516,6 +534,7 @@ void msgwrite_task_handler(void *argument)
       gps_save_flag = 0;
       imu_save_flag = 0;
       delete_flag = 1;
+      write_status = FILE_OPEN_ERR; //屏幕显示错误
       // vTaskDelete(NULL);
       // vTaskDelete(NULL);
     }
@@ -534,23 +553,30 @@ void msgwrite_task_handler(void *argument)
         if(MyFile_Res == FR_OK)
         {
           // f_lseek(&MyFile,f_size(&MyFile));	  //移动文件指针到文件末尾
-          lenth = sprintf(MyFile_WriteBuffer, "%.9lf,%.9lf,%.2f,%.9lf,%.9lf\n", msg.latd, msg.lond, dir, nlonlatpoint.latd, nlonlatpoint.lond);
-          printf("writer*: write: %s\r\n", MyFile_WriteBuffer);
+          // printf("writer*: write: %s\r\n", MyFile_WriteBuffer);
+          if (imu_save_flag == 1){
+
+            lenth = sprintf(MyFile_WriteBuffer, "%.9lf,%.9lf\n", msg.latd, msg.lond, dir);
+          }
+          else if (gps_save_flag == 1)
+            lenth = sprintf(MyFile_WriteBuffer, "%.9lf,%.9lf,%.9lf,%.9lf,%.3f\n", msg.latd, msg.lond, nlonlatpoint.latd, nlonlatpoint.lond,msg.speed);
           // printf("%s\r\n",MyFile_WriteBuffer)
           MyFile_Res = f_write(&MyFile,MyFile_WriteBuffer, lenth,&MyFile_Num);	//向文件写入数据
-          printf("writer*: write length: %d\r\n", MyFile_Num);
+          // printf("writer*: write length: %d\r\n", MyFile_Num);
           if (MyFile_Res == FR_OK)	
           {
-            printf("writer*: write success\r\n");
+            write_status = FILE_WRITING;
+            // printf("writer*: write success\r\n");
             // printf("%s\r\n",MyFile_WriteBuffer);
           }
           else
           {
             printf("writer*: write failed, %d\r\n",MyFile_Res );
             f_close(&MyFile);	  //关闭w`文件	
-                  gps_save_flag = 0;
+              gps_save_flag = 0; // 清除标志位
               imu_save_flag = 0;
-              delete_flag = 1;
+              delete_flag = 1;  //关闭文件并禁止进入循环
+              write_status = FILE_WRITE_ERR; //屏幕显示错误
             // vTaskDelete(NULL);
           }
         }
@@ -559,9 +585,10 @@ void msgwrite_task_handler(void *argument)
           printf("writer*: cannot open file, %d\r\n", MyFile_Res);
           f_close(&MyFile);	  //关闭文件	
           // return ERROR;		
-                gps_save_flag = 0;
-      imu_save_flag = 0;
-      delete_flag = 1;
+            gps_save_flag = 0;
+            imu_save_flag = 0;
+            delete_flag = 1;
+            write_status = FILE_OPEN_ERR; //屏幕显示错误
           // vTaskDelete(NULL);
         }
       
@@ -590,8 +617,7 @@ void imu_task_handler(void *argument)
   /* USER CODE BEGIN imu_task_handler */
   static GEOData_Packet_t imumsg;
   static GPS_msgTypeDef gpsmsg;
-  // osDelay(1000);   
-  HAL_UART_Receive_IT(&huart5,(uint8_t *)Rx5Temp, REC_LENGTH);	//重新使能中断
+  // osDelay(500);   
   /* Infinite loop */
   for(;;)
   {

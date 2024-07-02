@@ -160,12 +160,12 @@ GPS_msgTypeDef structure_nlonlat(GPS_msgTypeDef point, double* average, double a
     for(int i = 0; i < 2; i++) {
         dl = average[iangle[i]];
         dd = average[(iangle[i] + 90) % 360];
-        printf("dl is %0.9f\n", dl);
-        printf("dd is %0.9f\n", dd);
+        // printf("dl is %0.9f\n", dl);
+        // printf("dd is %0.9f\n", dd);
         h = calcu_h(dl, dd);
-        printf("h is %0.9f\n", h);
+        // printf("h is %0.9f\n", h);
         gamma = calcu_gamma(dl, dd, angle);
-        printf("gamma is %0.9f\n", gamma);
+        // printf("gamma is %0.9f\n", gamma);
         nlonlat(pointa, h, gamma, pointb);
     }
     

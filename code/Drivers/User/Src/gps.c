@@ -5,6 +5,7 @@
 // static char *_strtok = NULL;
 double dir = 0;
 uint64_t read_latlon(char * msg_str);
+uint8_t gps_receive = '0';
 // uint8_t * strcopy(char * dest, char * src);
 
 int read_msg(char * msg_str, GPS_msgTypeDef* GPS_msgStructure) {
@@ -56,7 +57,19 @@ int read_msg(char * msg_str, GPS_msgTypeDef* GPS_msgStructure) {
         return 1;
         // printf("dir:%c\n", dir)
         
-    }
+    } else if (strcmp(token, "$GNRMC") == 0) {
+        token = strtok(NULL, c);    //时间
+        token = strtok(NULL, c);    //状态
+        token = strtok(NULL, c);    //纬度
+        if (*token > '9' || *token < '0') return -1;
+        token = strtok(NULL, c);    //纬度方向
+        token = strtok(NULL, c);    //经度
+        if (*token > '9' || *token < '0') return -1;
+        token = strtok(NULL, c);    //经度方向
+        token = strtok(NULL, c);    //速度
+        GPS_msgStructure->speed = strtod(token, NULL) * 0.5144;
+        return 2;
+    }   
 
     return -1;
 }

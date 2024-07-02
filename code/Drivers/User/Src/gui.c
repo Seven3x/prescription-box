@@ -5,6 +5,9 @@
 #include "cmsis_os2.h"
 #include "gps.h"
 #include "imu.h"
+#include "sdcard.h"
+
+#include <stdio.h>
 
 
 //*****************************移植的lvgl，一旦调用自己生成的字体文件就会卡死，换而言之，无法显示中文***************** */
@@ -41,7 +44,7 @@ static lv_style_t style_title;
 static lv_style_t style_icon;
 static lv_style_t style_bullet;
 
-
+extern uint8_t write_status;
 static const lv_font_t * font_large;
 static const lv_font_t * font_normal;
 
@@ -187,10 +190,13 @@ extern uint8_t delete_flag;
 extern osMessageQueueId_t gpshuart_flagqHandle;
 static void btn_savemsg_event_cb(lv_event_t* event) {
     delete_flag = 1;
-    gps_save_flag = 0;
+    gps_save_flag = 0;  
+    write_status = FILE_NORMAL;
+    
 
 }
 static void btn_startsavemsg_event_cb(lv_event_t* event) {
+
     gps_save_flag = 1;
 }
 
@@ -206,6 +212,7 @@ static void btn_bstartsaveimu_event_cb(lv_event_t* event) {
 static void btn_bsaveimu_event_cb(lv_event_t* event) {
     imu_save_flag = 0;
     delete_flag = 1;
+    write_status = FILE_NORMAL;
 }
 
 
@@ -553,6 +560,43 @@ static void win2_init() {
 }
 
 
+char win3_msg[40];
+
+void write_status_handler(lv_timer_t * timer) {
+    lv_label_t* label = (lv_label_t*)timer->user_data;
+    // static char msg2[] = "NORMAL";
+    // lv_label_set_text(label, "write status: NORMAL
+        
+    
+    // 获取写入状态
+    switch(write_status) {
+        case FILE_NORMAL:
+            sprintf(win3_msg, "write status: %s, gps rec: %c", "NORMAL", gps_receive);
+            // lv_label_set_text(label, "write status: NORMAL");
+            break;
+        case FILE_WRITE_ERR:
+            sprintf(win3_msg, "write status: %s, gps rec: %c", "WRITE_ERR", gps_receive);
+            // lv_label_set_text(label, "write status: WRITE_ERR");
+            break;
+        case FILE_OPEN_ERR:
+            sprintf(win3_msg, "write status: %s, gps rec: %c", "OPEN_ERR", gps_receive);
+            // lv_label_set_text(label, "write status: OPEN_ERR");
+            break;
+        case FILE_WRITING:
+            sprintf(win3_msg, "write status: %s, gps rec: %c", "WRITING", gps_receive);
+            // lv_label_set_text(label, "write status: WRITING");
+            break;
+        case FILE_UNKNOWN:
+            sprintf(win3_msg, "write status: %s, gps rec: %c", "UNKNOWN", gps_receive);
+            // lv_label_set_text(label, "write status: UNKNOWN");
+            break;
+        default:
+            sprintf(win3_msg, "write status: %s, gps rec: %c", "UNKNOWN", gps_receive);
+            // lv_label_set_text(label, "write status: UNKNOWN");
+            break;
+    }
+    lv_label_set_text(label, win3_msg);
+}
 // 初始化隐藏的win3窗口
 static void win3_init() {
     // 窗口3
@@ -570,11 +614,11 @@ static void win3_init() {
     lv_obj_t* win3_cont = lv_win_get_content(win3);
     lv_obj_set_flex_flow(win3_cont, LV_FLEX_FLOW_COLUMN_WRAP);
 
-    lv_obj_set_style_pad_all(win3_cont, 10, LV_PART_MAIN); // 内部元素距离上下左右的距离
+    lv_obj_set_style_pad_all(win3_cont, 50, LV_PART_MAIN); // 内部元素距离上下左右的距离
     lv_obj_set_flex_flow(win3_cont, LV_FLEX_FLOW_ROW_WRAP);
     lv_obj_set_flex_align(win3_cont, LV_FLEX_ALIGN_SPACE_AROUND, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
-    lv_obj_set_style_pad_row(win3_cont, 20, LV_PART_MAIN);
-    lv_obj_set_style_pad_column(win3_cont, 20, LV_PART_MAIN);
+    lv_obj_set_style_pad_row(win3_cont, 60, LV_PART_MAIN);
+    lv_obj_set_style_pad_column(win3_cont, 80, LV_PART_MAIN);
     lv_obj_clear_flag(win3_cont, LV_OBJ_FLAG_SCROLLABLE); // 禁止滚动条
 
 
@@ -605,7 +649,7 @@ static void win3_init() {
     lv_obj_set_align(calculate_label, LV_ALIGN_CENTER);
 
     lv_obj_t* bstartsaveimu = lv_btn_create(win3_cont);
-    lv_obj_set_size(bstartsaveimu, 100, 90);
+    lv_obj_set_size(bstartsaveimu, 200, 90);
     lv_obj_t* bstartsaveimu_label = lv_label_create(bstartsaveimu);
     lv_label_set_text(bstartsaveimu_label, "start save imu");
     lv_obj_add_event_cb(bstartsaveimu, btn_bstartsaveimu_event_cb, LV_EVENT_CLICKED, bstartsaveimu);
@@ -613,7 +657,7 @@ static void win3_init() {
     lv_obj_set_align(bstartsaveimu_label, LV_ALIGN_CENTER);
 
     lv_obj_t* bsaveimu = lv_btn_create(win3_cont);
-    lv_obj_set_size(bsaveimu, 100, 90);
+    lv_obj_set_size(bsaveimu, 200, 90);
     lv_obj_t* bsaveimu_label = lv_label_create(bsaveimu);
     lv_label_set_text(bsaveimu_label, "start save imu");
     lv_obj_add_event_cb(bsaveimu, btn_bsaveimu_event_cb, LV_EVENT_CLICKED, bsaveimu);
@@ -621,6 +665,11 @@ static void win3_init() {
     lv_obj_set_align(bsaveimu_label, LV_ALIGN_CENTER);
 
     // lv_obj_add_event_cb(bsavemsg, btn_plus3_event_cb, LV_EVENT_VALUE_CHANGED, bsavemsg);
+
+    lv_obj_t* writestatus_label = lv_label_create(win3_cont);
+    lv_label_set_text(writestatus_label, "write status: NORMAL");
+    lv_obj_set_size(writestatus_label, 400, 90);
+    lv_timer_t * write_status_task = lv_timer_create(write_status_handler, 500, writestatus_label);
 
 
     // label显示信息
@@ -653,6 +702,9 @@ static void win4_init() {
     lv_obj_t * status3 = lv_label_create(win4_cont);
     lv_label_set_text(status3, "This is a hidden window. Click the button to show it.");
 }
+
+
+
 
 
 void my_gui(void)
@@ -710,7 +762,9 @@ void my_gui(void)
                           font_normal);
 #endif
 
-    printf("mygui*: 设置风格初始化\r\n");
+
+
+    // printf("mygui*: 设置风格初始化\r\n");
 
     lv_style_init(&style_text_muted);
     lv_style_set_text_opa(&style_text_muted, LV_OPA_50);
@@ -738,7 +792,7 @@ void my_gui(void)
     lv_style_set_border_opa(&transparent, LV_OPA_0);
 
     //
-    printf("mygui*: 创建scr\r\n");
+    // printf("mygui*: 创建scr\r\n");
     scr = lv_obj_create(lv_scr_act());
     lv_obj_set_size(scr, lv_obj_get_width(lv_scr_act()), lv_obj_get_height(lv_scr_act()));
     lv_obj_align(scr, LV_ALIGN_CENTER, 0, 0); // Center the screen
@@ -746,14 +800,14 @@ void my_gui(void)
     lv_obj_clear_flag(scr, LV_OBJ_FLAG_SCROLLABLE); // 禁止滚动条
     lv_obj_set_flex_flow(scr, LV_FLEX_FLOW_COLUMN_WRAP);
 
-    printf("mygui*: 创建title\r\n");
+    // printf("mygui*: 创建title\r\n");
     title = lv_label_create(scr);
     lv_label_set_text(title, "chufanghe");
     lv_obj_set_size(title, 750, 60);
     // lv_obj_set_style_text_font(title, &lv_font_siyuan_small, 0);
     lv_obj_set_style_text_align(title, LV_ALIGN_TOP_MID, 0);
 
-    printf("mygui*: 创建panel1\r\n");
+    // printf("mygui*: 创建panel1\r\n");
     panel1 = lv_obj_create(scr); // 创建一个面板
     lv_obj_set_size(panel1, 750, 350); // 设置面板的大小
     lv_obj_add_style(panel1, &borderless, 0); // 设置面板的样式
@@ -766,7 +820,7 @@ void my_gui(void)
 
     // panel1 内有四个按钮
 
-    printf("mygui*: 设置四个按钮\r\n");
+    // printf("mygui*: 设置四个按钮\r\n");
     // 按钮1
     lv_obj_t * btn1 = lv_btn_create(panel1); // 创建一个按钮
     lv_obj_set_size(btn1, 250, 130); // 设置按钮的大小
@@ -811,7 +865,7 @@ void my_gui(void)
     lv_obj_set_align(label4, LV_ALIGN_CENTER);
     lv_obj_add_event_cb(btn4, btn4_event_handler, LV_EVENT_CLICKED, NULL); // 设置第四个按钮的handler
 
-    printf("mygui*: 设置四个window\r\n");
+    // printf("mygui*: 设置四个window\r\n");
     
 
 
@@ -821,13 +875,13 @@ void my_gui(void)
     
 
 
-    printf("mygui*: 设置win1\r\n");
+    // printf("mygui*: 设置win1\r\n");
     win1_init();
-    printf("mygui*: 设置win2\r\n");
+    // printf("mygui*: 设置win2\r\n");
     win2_init();
-    printf("mygui*: 设置win3\r\n");
+    // printf("mygui*: 设置win3\r\n");
     win3_init();
-    printf("mygui*: 设置win4\r\n");
+    // printf("mygui*: 设置win4\r\n");
     win4_init();
 
     printf("mygui*: all work done\r\n");

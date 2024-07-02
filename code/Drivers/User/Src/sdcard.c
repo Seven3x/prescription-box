@@ -3,6 +3,7 @@
 char SDPath[4];	
 FATFS 	SD_FatFs; 		// 文件系统对象
 FRESULT 	MyFile_Res;    // 操作结果 
+uint8_t write_status = FILE_NORMAL;
 /**************************************************************************************************/
 
 //	函数：FatFs_Check
