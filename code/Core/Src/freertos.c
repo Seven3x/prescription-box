@@ -629,23 +629,32 @@ void imu_task_handler(void *argument)
   static GEOData_Packet_t imumsg;
   static GPS_msgTypeDef gpsmsg;
   // osDelay(500);
-  HAL_UART_AbortReceive(&huart5);
-  HAL_UART_Receive_IT(&huart5, (uint8_t *)Rx5Temp, REC_LENGTH); // 重新使能中断
   /* Infinite loop */
-  for (;;)
-  {
-    // 如果队列有消息
-    if (osOK == osMessageQueueGet(imu_msgHandle, &imumsg, 0U, 0))
-    {
-      // print_imu_data(&imumsg);
-      if (imu_save_flag == 1)
-      {
-        gpsmsg.latd = rad2deg(imumsg.latitude);
-        gpsmsg.lond = rad2deg(imumsg.longitude);
-        osMessageQueuePut(gpsmsgqHandle, &gpsmsg, 1U, 0U); //
-      }
+  osDelay(20);
+  HAL_UART_AbortReceive(&huart5);
+  for(;;) {
+    if (!imu_save_flag) {
+      osDelay(20);
+      continue;
     }
-    osDelay(10);
+    HAL_UART_AbortReceive(&huart5);
+    HAL_UART_Receive_IT(&huart5, (uint8_t *)Rx5Temp, REC_LENGTH); // 重新使能中断
+    
+    for (;imu_save_flag;)
+    {
+      // 如果队列有消息
+      if (osOK == osMessageQueueGet(imu_msgHandle, &imumsg, 0U, 0))
+      {
+        // print_imu_data(&imumsg);
+        if (imu_save_flag == 1)
+        {
+          gpsmsg.latd = rad2deg(imumsg.latitude);
+          gpsmsg.lond = rad2deg(imumsg.longitude);
+          osMessageQueuePut(gpsmsgqHandle, &gpsmsg, 1U, 0U); //
+        }
+      }
+      osDelay(10);
+    }
   }
   /* USER CODE END imu_task_handler */
 }

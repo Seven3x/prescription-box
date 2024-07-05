@@ -3,7 +3,7 @@
 <title>Static Call Graph - [STM32H750XBH6\STM32H750XBH6.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image STM32H750XBH6\STM32H750XBH6.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Mon Jul 01 22:39:22 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Tue Jul 02 15:29:06 2024
 <BR><P>
 <H3>Maximum Stack Usage =          0 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1408,8 +1408,8 @@ Global Symbols
 <LI><a href="#[1a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_ReadBlocks
 <LI><a href="#[20d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_Init
 <LI><a href="#[19e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_ConfigSpeedBusOperation
-<LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCCEx_PeriphCLKConfig
 <LI><a href="#[243]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
+<LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCCEx_PeriphCLKConfig
 <LI><a href="#[1eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_OscConfig
 <LI><a href="#[1ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_ClockConfig
 <LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_PWREx_ConfigSupply
@@ -1960,7 +1960,8 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[22f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_GetError
 <LI><a href="#[1c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Abort
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gps_task_handler
+<BR>[Called By]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;imu_task_handler
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gps_task_handler
 </UL>
 
 <P><STRONG><a name="[233]"></a>HAL_UART_ErrorCallback</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32h7xx_hal_uart.o(i.HAL_UART_ErrorCallback))
@@ -2014,6 +2015,7 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_Start_Receive_IT
 </UL>
 <BR>[Called By]<UL><LI><a href="#[240]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_RxCpltCallback
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;imu_task_handler
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gps_task_handler
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartDefaultTask
 </UL>
@@ -2035,7 +2037,6 @@ Global Symbols
 <LI><a href="#[244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fputc
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gps_task_handler
 </UL>
 
 <P><STRONG><a name="[285]"></a>HAL_UART_TxCpltCallback</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32h7xx_hal_uart.o(i.HAL_UART_TxCpltCallback))
@@ -2746,7 +2747,6 @@ Global Symbols
 <P><STRONG><a name="[1a7]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, printfa.o(i.__0printf))
 <BR><BR>[Called By]<UL><LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_LTDC_MspInit
 <LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FMC_MspInit
-<LI><a href="#[6ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;structure_nlonlat
 <LI><a href="#[276]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_gui
 <LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FatFs_GetVolume
 <LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FatFs_Check
@@ -3708,13 +3708,12 @@ Global Symbols
 <LI><a href="#[3cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_x_ticks
 </UL>
 
-<P><STRONG><a name="[a8]"></a>gps_task_handler</STRONG> (Thumb, 452 bytes, Stack size 0 bytes, freertos.o(i.gps_task_handler))
+<P><STRONG><a name="[a8]"></a>gps_task_handler</STRONG> (Thumb, 338 bytes, Stack size 0 bytes, freertos.o(i.gps_task_handler))
 <BR><BR>[Calls]<UL><LI><a href="#[4c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;to_distance_angle_structure
 <LI><a href="#[4c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_msg
 <LI><a href="#[241]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageQueuePut
 <LI><a href="#[4c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageQueueGet
 <LI><a href="#[275]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
-<LI><a href="#[243]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
 <LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Receive_IT
 <LI><a href="#[22e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_AbortReceive
 <LI><a href="#[1a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
@@ -3722,11 +3721,13 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> freertos.o(i.MX_FREERTOS_Init)
 </UL>
-<P><STRONG><a name="[aa]"></a>imu_task_handler</STRONG> (Thumb, 74 bytes, Stack size 0 bytes, freertos.o(i.imu_task_handler))
+<P><STRONG><a name="[aa]"></a>imu_task_handler</STRONG> (Thumb, 120 bytes, Stack size 0 bytes, freertos.o(i.imu_task_handler))
 <BR><BR>[Calls]<UL><LI><a href="#[4cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rad2deg
 <LI><a href="#[241]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageQueuePut
 <LI><a href="#[4c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osMessageQueueGet
 <LI><a href="#[275]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
+<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Receive_IT
+<LI><a href="#[22e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_AbortReceive
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> freertos.o(i.MX_FREERTOS_Init)
 </UL>
@@ -7108,6 +7109,7 @@ Global Symbols
 
 <P><STRONG><a name="[2d6]"></a>lv_obj_get_scroll_left</STRONG> (Thumb, 188 bytes, Stack size 0 bytes, lv_obj_scroll.o(i.lv_obj_get_scroll_left))
 <BR><BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_width
+<LI><a href="#[617]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_pad_left
 <LI><a href="#[614]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_border_width
 <LI><a href="#[615]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_base_dir
 <LI><a href="#[372]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_self_width
@@ -7115,7 +7117,6 @@ Global Symbols
 <LI><a href="#[361]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_has_flag_any
 <LI><a href="#[364]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_child_cnt
 <LI><a href="#[616]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_pad_right
-<LI><a href="#[617]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_pad_left
 </UL>
 <BR>[Called By]<UL><LI><a href="#[600]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_readjust_scroll
 <LI><a href="#[499]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_refr_size
@@ -7141,6 +7142,7 @@ Global Symbols
 
 <P><STRONG><a name="[2d5]"></a>lv_obj_get_scroll_right</STRONG> (Thumb, 182 bytes, Stack size 0 bytes, lv_obj_scroll.o(i.lv_obj_get_scroll_right))
 <BR><BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_width
+<LI><a href="#[617]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_pad_left
 <LI><a href="#[614]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_border_width
 <LI><a href="#[615]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_base_dir
 <LI><a href="#[372]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_self_width
@@ -7148,7 +7150,6 @@ Global Symbols
 <LI><a href="#[361]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_has_flag_any
 <LI><a href="#[364]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_child_cnt
 <LI><a href="#[616]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_pad_right
-<LI><a href="#[617]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_pad_left
 </UL>
 <BR>[Called By]<UL><LI><a href="#[600]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_readjust_scroll
 <LI><a href="#[58d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_align_to
@@ -7238,6 +7239,7 @@ Global Symbols
 <P><STRONG><a name="[463]"></a>lv_obj_get_scrollbar_area</STRONG> (Thumb, 1734 bytes, Stack size 0 bytes, lv_obj_scroll.o(i.lv_obj_get_scrollbar_area))
 <BR><BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_width
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_height
+<LI><a href="#[617]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_pad_left
 <LI><a href="#[613]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_pad_bottom
 <LI><a href="#[615]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_base_dir
 <LI><a href="#[60d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_scrollbar_mode
@@ -7255,7 +7257,6 @@ Global Symbols
 <LI><a href="#[4f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_disp_get_dpi
 <LI><a href="#[612]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_pad_top
 <LI><a href="#[616]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_pad_right
-<LI><a href="#[617]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_pad_left
 </UL>
 <BR>[Called By]<UL><LI><a href="#[344]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_clear_flag
 <LI><a href="#[50c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_add_flag
@@ -7298,6 +7299,7 @@ Global Symbols
 <LI><a href="#[4bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_prop_core
 </UL>
 <BR>[Called By]<UL><LI><a href="#[538]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_img_set_src
+<LI><a href="#[617]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_pad_left
 <LI><a href="#[613]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_pad_bottom
 <LI><a href="#[614]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_border_width
 <LI><a href="#[615]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_base_dir
@@ -7384,7 +7386,6 @@ Global Symbols
 <LI><a href="#[37d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calculate_layer_type
 <LI><a href="#[612]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_pad_top
 <LI><a href="#[616]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_pad_right
-<LI><a href="#[617]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_pad_left
 <LI><a href="#[352]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_tabview_set_act
 <LI><a href="#[393]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_base_dir
 <LI><a href="#[3c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_opa
@@ -9849,11 +9850,10 @@ Global Symbols
 <LI><a href="#[289]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_asin
 </UL>
 
-<P><STRONG><a name="[6ce]"></a>structure_nlonlat</STRONG> (Thumb, 222 bytes, Stack size 0 bytes, proc.o(i.structure_nlonlat))
+<P><STRONG><a name="[6ce]"></a>structure_nlonlat</STRONG> (Thumb, 212 bytes, Stack size 0 bytes, proc.o(i.structure_nlonlat))
 <BR><BR>[Calls]<UL><LI><a href="#[6d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nlonlat
 <LI><a href="#[37c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calcu_h
 <LI><a href="#[37b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calcu_gamma
-<LI><a href="#[1a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 <LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;msgwrite_task_handler
@@ -12020,6 +12020,7 @@ Local Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_width
 <LI><a href="#[345]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_parent
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_height
+<LI><a href="#[617]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_pad_left
 <LI><a href="#[613]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_pad_bottom
 <LI><a href="#[614]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_border_width
 <LI><a href="#[2e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_scroll_by
@@ -12035,7 +12036,6 @@ Local Symbols
 <LI><a href="#[509]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_anim_del
 <LI><a href="#[612]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_pad_top
 <LI><a href="#[616]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_pad_right
-<LI><a href="#[617]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_get_style_pad_left
 </UL>
 <BR>[Called By]<UL><LI><a href="#[60b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lv_obj_scroll_to_view_recursive
 </UL>

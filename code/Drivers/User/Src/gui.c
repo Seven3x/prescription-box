@@ -626,7 +626,7 @@ static void win3_init() {
     lv_obj_t* bstartsavemsg = lv_btn_create(win3_cont);
     lv_obj_set_size(bstartsavemsg, 100, 90);
     lv_obj_t* bstartsavemsg_label = lv_label_create(bstartsavemsg);
-    lv_label_set_text(bstartsavemsg_label, "start save");
+    lv_label_set_text(bstartsavemsg_label, "GPS Start Save");
     lv_obj_add_event_cb(bstartsavemsg, btn_startsavemsg_event_cb, LV_EVENT_CLICKED, bstartsavemsg);
     // 按钮图标位于中心
     lv_obj_set_align(bstartsavemsg_label, LV_ALIGN_CENTER);
@@ -635,7 +635,7 @@ static void win3_init() {
     lv_obj_t* bsavemsg = lv_btn_create(win3_cont);
     lv_obj_set_size(bsavemsg, 100, 90);
     lv_obj_t* bsavemsg_label = lv_label_create(bsavemsg);
-    lv_label_set_text(bsavemsg_label, "save");
+    lv_label_set_text(bsavemsg_label, "GPS Save");
     lv_obj_add_event_cb(bsavemsg, btn_savemsg_event_cb, LV_EVENT_CLICKED, bsavemsg);
     // 按钮图标位于中心
     lv_obj_set_align(bsavemsg_label, LV_ALIGN_CENTER);
@@ -643,7 +643,7 @@ static void win3_init() {
     lv_obj_t* calculate = lv_btn_create(win3_cont);
     lv_obj_set_size(calculate, 100, 90);
     lv_obj_t* calculate_label = lv_label_create(calculate);
-    lv_label_set_text(calculate_label, "calcu");
+    lv_label_set_text(calculate_label, "Calcu");
     lv_obj_add_event_cb(calculate, btn_calculate_event_cb, LV_EVENT_CLICKED, calculate);
     // 按钮图标位于中心
     lv_obj_set_align(calculate_label, LV_ALIGN_CENTER);
@@ -651,7 +651,7 @@ static void win3_init() {
     lv_obj_t* bstartsaveimu = lv_btn_create(win3_cont);
     lv_obj_set_size(bstartsaveimu, 200, 90);
     lv_obj_t* bstartsaveimu_label = lv_label_create(bstartsaveimu);
-    lv_label_set_text(bstartsaveimu_label, "start save imu");
+    lv_label_set_text(bstartsaveimu_label, "IMU Start save");
     lv_obj_add_event_cb(bstartsaveimu, btn_bstartsaveimu_event_cb, LV_EVENT_CLICKED, bstartsaveimu);
     // 按钮图标位于中心
     lv_obj_set_align(bstartsaveimu_label, LV_ALIGN_CENTER);
@@ -659,7 +659,7 @@ static void win3_init() {
     lv_obj_t* bsaveimu = lv_btn_create(win3_cont);
     lv_obj_set_size(bsaveimu, 200, 90);
     lv_obj_t* bsaveimu_label = lv_label_create(bsaveimu);
-    lv_label_set_text(bsaveimu_label, "start save imu");
+    lv_label_set_text(bsaveimu_label, "IMU save");
     lv_obj_add_event_cb(bsaveimu, btn_bsaveimu_event_cb, LV_EVENT_CLICKED, bsaveimu);
     // 按钮图标位于中心
     lv_obj_set_align(bsaveimu_label, LV_ALIGN_CENTER);
